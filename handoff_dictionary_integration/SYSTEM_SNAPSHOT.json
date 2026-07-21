@@ -1,0 +1,38 @@
+{
+  "system_name": "Clinical GraphRAG (המוח המערכתי)",
+  "state": "Read-Only Snapshot",
+  "pipeline": {
+    "stages": [
+      "De-identification (Hard Gate)",
+      "Chunking & Time Anchors",
+      "Deterministic Entity Candidate Linking",
+      "LLM Binary Context Verification",
+      "Graph Injection (Neo4j)",
+      "Wait Queue / Manual Review"
+    ],
+    "chunking_rules": {
+      "lesson_transcript": "Paragraph-based with temporal anchors (Regex matching).",
+      "official_method_doc": "Heading-based hierarchy, fallback to character limit splitting."
+    }
+  },
+  "graph_schema": {
+    "nodes": ["Chunk", "Concept", "Exercise"],
+    "relationships": [
+      "HAS_CANDIDATE (Chunk -> Concept/Exercise)",
+      "LINKED_TO (Chunk -> Concept/Exercise) [Verified]",
+      "WORKS_ON (Exercise -> Concept)",
+      "DYNAMIC (Concept -> Concept, e.g., IS_SYMPTOM_OF)"
+    ]
+  },
+  "retrieval_strategy": {
+    "method": "Exact/Fuzzy Substring matching + Cypher Reasoning Path",
+    "vector_db_used": false,
+    "max_depth": 2
+  },
+  "directories": {
+    "inbox": "docs_inbox/",
+    "archive": "preflight_run/docs_archive/",
+    "error": "preflight_run/docs_error/",
+    "output": "out/"
+  }
+}

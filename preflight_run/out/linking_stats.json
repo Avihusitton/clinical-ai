@@ -1,0 +1,15 @@
+{
+  "total_chunks": 12,
+  "chunks_with_concept_candidates": 9,
+  "candidate_coverage_pct": 75.0,
+  "chunks_with_verified_links": 7,
+  "avg_candidates_per_chunk": 1.42,
+  "timeless_chunks": 1,
+  "low_confidence_chunks": 5,
+  "modality_breakdown": {
+    "individual": 2,
+    "couples": 5,
+    "family": 0,
+    "general": 5
+  }
+}

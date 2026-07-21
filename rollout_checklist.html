@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>לוח בקרה — הרצת המוח המערכתי</title>
+<style>
+  :root{
+    --ink:#15181c; --panel:#1c2127; --panel-2:#22282f;
+    --line:#333b44; --text:#dfe4e9; --muted:#8b95a1;
+    --amber:#c9822f; --amber-dim:#6b4d24; --green:#5a9a6f; --green-dim:#2c3f30;
+    --mono: "SF Mono","Consolas","Menlo",monospace;
+    --sans: "Segoe UI","Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--ink); color:var(--text);
+    font-family:var(--sans); padding:32px 16px 80px; min-height:100vh;
+  }
+  .wrap{max-width:760px; margin:0 auto;}
+  header{margin-bottom:28px;}
+  .eyebrow{
+    font-family:var(--mono); font-size:11px; letter-spacing:.12em;
+    color:var(--amber); text-transform:uppercase; margin-bottom:6px;
+  }
+  h1{font-size:26px; margin:0 0 6px; font-weight:600;}
+  .sub{color:var(--muted); font-size:14px; line-height:1.6; margin:0;}
+
+  .progress-rail{
+    position:sticky; top:0; z-index:5; background:var(--ink);
+    padding:14px 0 18px; margin-bottom:8px;
+  }
+  .progress-track{
+    height:6px; background:var(--panel-2); border-radius:3px; overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .progress-fill{
+    height:100%; background:linear-gradient(90deg,var(--amber-dim),var(--amber));
+    width:0%; transition:width .4s ease;
+  }
+  .progress-label{
+    font-family:var(--mono); font-size:11px; color:var(--muted); margin-top:6px;
+  }
+
+  .stage{
+    border:1px solid var(--line); border-radius:10px; background:var(--panel);
+    margin-bottom:14px; overflow:hidden; transition:border-color .3s, opacity .3s;
+  }
+  .stage.locked{opacity:.45;}
+  .stage.complete{border-color:var(--green-dim);}
+  .stage-head{
+    display:flex; align-items:center; gap:14px; padding:16px 18px;
+    cursor:pointer; user-select:none;
+  }
+  .stage-num{
+    font-family:var(--mono); font-size:13px; color:var(--amber);
+    border:1px solid var(--amber-dim); border-radius:6px;
+    width:30px; height:30px; display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .stage.complete .stage-num{color:var(--green); border-color:var(--green-dim); background:var(--green-dim);}
+  .stage-title{font-size:15px; font-weight:600; flex:1;}
+  .stage-meta{font-family:var(--mono); font-size:11px; color:var(--muted);}
+  .stage-body{padding:0 18px 18px 18px; display:none;}
+  .stage-body.open{display:block;}
+  .cmd{
+    font-family:var(--mono); font-size:12.5px; background:var(--ink);
+    border:1px solid var(--line); border-radius:6px; padding:10px 12px;
+    margin:10px 0; color:#a9d1a9; overflow-x:auto; white-space:pre;
+    direction:ltr; text-align:left;
+  }
+  .items{list-style:none; margin:12px 0 0; padding:0;}
+  .items li{
+    display:flex; align-items:flex-start; gap:10px; padding:8px 0;
+    border-top:1px solid var(--line); font-size:13.5px; line-height:1.5;
+  }
+  .items li:first-child{border-top:none;}
+  .items input{margin-top:3px; accent-color:var(--amber); width:15px; height:15px; flex-shrink:0;}
+  .items label{cursor:pointer;}
+  .items .checked-text{color:var(--muted); text-decoration:line-through;}
+  .gate-btn{
+    margin-top:14px; font-family:var(--mono); font-size:12px;
+    background:var(--panel-2); border:1px solid var(--amber-dim); color:var(--amber);
+    border-radius:6px; padding:9px 16px; cursor:pointer; transition:all .2s;
+  }
+  .gate-btn:hover{background:var(--amber-dim); color:#fff;}
+  .gate-btn:disabled{opacity:.35; cursor:not-allowed;}
+  .stage.complete .gate-btn{background:var(--green-dim); border-color:var(--green); color:#cdeccd;}
+  footer{margin-top:30px; text-align:center; color:var(--muted); font-family:var(--mono); font-size:11px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Rollout / Stage Gates</div>
+    <h1>לוח בקרה להרצת הצינור</h1>
+    <p class="sub">כל שלב ננעל עד שהקודם לו מסומן כעבר. זה בכוונה — זו בדיוק
+      הפילוסופיה של פייבל: "אסור להריץ שלב N+1 לפני שנקודת הבקרה של שלב N עברה".
+      הלוח הזה לא שומר מצב בין רענונים — הוא כלי מעקב לישיבת עבודה, לא מסד נתונים.</p>
+  </header>
+
+  <div class="progress-rail">
+    <div class="progress-track"><div class="progress-fill" id="fill"></div></div>
+    <div class="progress-label" id="progLabel">0 / 7 שלבים נעולים עברו</div>
+  </div>
+
+  <div id="stages"></div>
+
+  <footer>docs_inbox → docs_archive / docs_error · out/*.json הם הראיה שלכם</footer>
+</div>
+
+<script>
+const STAGES = [
+  {
+    title: "הכנה", meta: "30 דק׳",
+    cmds: ["pip install -r requirements.txt", "python setup.py"],
+    items: [
+      "Python 3.11+ ו-Neo4j מותקנים, כולל תוסף APOC",
+      "data/glossary.json + data/exercises.json מלאים בתוכן האמיתי (לא רק הדוגמאות)",
+      ".env מלא: מפתח OpenRouter + פרטי Neo4j"
+    ]
+  },
+  {
+    title: "בדיקת יובש — נתונים מזויפים", meta: "10 דק׳",
+    cmds: ["python ingestion_pipeline.py --dry-run --mock-llm --limit 1"],
+    items: ["הריצה הסתיימה בלי שגיאה", "לא נגעתי בקובץ אמיתי של מטופל עם --mock-llm"]
+  },
+  {
+    title: "קובץ אמיתי ראשון", meta: "יום",
+    cmds: ["python ingestion_pipeline.py --dry-run --limit 1"],
+    items: [
+      "out/anchors_report.json — מספרי השיעורים שזוהו נכונים",
+      "out/linking_stats.json — candidate_coverage_pct נבדק",
+      "הקובץ עבר ל-docs_archive עם תאריך בשם"
+    ]
+  },
+  {
+    title: "מדגם 5 קבצים", meta: "יום",
+    cmds: ["python ingestion_pipeline.py --dry-run --limit 5"],
+    items: [
+      "המדגם כולל: יומן מתגלגל / קובץ בלי תאריך / קובץ עם שגיאות כתיב",
+      "anchors_report.json נקרא ידנית ונראה תקין"
+    ]
+  },
+  {
+    title: "כל הקורפוס, בלי Neo4j", meta: "יומיים",
+    cmds: ["python ingestion_pipeline.py --dry-run"],
+    items: [
+      "docs_error נבדקה — אם לא ריקה, הסיבה ידועה",
+      "out/waiting_room.json נסקר",
+      "out/conflicts_report.json נסקר"
+    ]
+  },
+  {
+    title: "טעינה אמיתית ל-Neo4j", meta: "יום",
+    cmds: ["python ingestion_pipeline.py"],
+    items: ["הריצה הסתיימה בלי שגיאות טעינה", "נבדק ב-Neo4j Browser שיש צמתים וקשתות"]
+  },
+  {
+    title: "שאילתה ראשונה", meta: "",
+    cmds: ["python retrieval.py --question \"...\" --modality individual"],
+    items: ["התשובה כוללת שרשרת hop-אחר-hop", "התשובה כוללת הערת אי-התאמה כשרלוונטי"]
+  }
+];
+
+const stagesEl = document.getElementById('stages');
+const state = STAGES.map(s => ({ checks: s.items.map(() => false), passed: false }));
+
+function render(){
+  stagesEl.innerHTML = '';
+  STAGES.forEach((s, i) => {
+    const locked = i > 0 && !state[i-1].passed;
+    const complete = state[i].passed;
+    const div = document.createElement('div');
+    div.className = 'stage' + (locked ? ' locked' : '') + (complete ? ' complete' : '');
+
+    const allChecked = state[i].checks.every(c => c);
+
+    div.innerHTML = `
+      <div class="stage-head" data-idx="${i}">
+        <div class="stage-num">${complete ? '✓' : i+1}</div>
+        <div class="stage-title">${s.title}</div>
+        <div class="stage-meta">${s.meta}</div>
+      </div>
+      <div class="stage-body ${!locked && !complete ? 'open' : ''}" id="body-${i}">
+        ${s.cmds.map(c => `<div class="cmd">${c}</div>`).join('')}
+        <ul class="items">
+          ${s.items.map((it, j) => `
+            <li>
+              <input type="checkbox" id="chk-${i}-${j}" ${state[i].checks[j] ? 'checked' : ''} ${locked ? 'disabled' : ''}>
+              <label for="chk-${i}-${j}" class="${state[i].checks[j] ? 'checked-text' : ''}">${it}</label>
+            </li>`).join('')}
+        </ul>
+        <button class="gate-btn" data-idx="${i}" ${locked || !allChecked ? 'disabled' : ''}>
+          ${complete ? 'שלב זה עבר ✓' : 'סמנו שהשלב עבר ← פותח את הבא'}
+        </button>
+      </div>
+    `;
+    stagesEl.appendChild(div);
+  });
+
+  document.querySelectorAll('.stage-head').forEach(h => {
+    h.addEventListener('click', () => {
+      const idx = +h.dataset.idx;
+      const body = document.getElementById('body-'+idx);
+      if (!body.classList.contains('open') && body.style.display !== 'block') {
+        document.querySelectorAll('.stage-body').forEach(b => b.classList.remove('open'));
+      }
+      body.classList.toggle('open');
+    });
+  });
+
+  document.querySelectorAll('.items input').forEach(inp => {
+    inp.addEventListener('change', (e) => {
+      const [_, i, j] = e.target.id.split('-').map((v,idx)=> idx===0?v:+v);
+      state[i].checks[j] = e.target.checked;
+      render();
+    });
+  });
+
+  document.querySelectorAll('.gate-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const idx = +e.target.dataset.idx;
+      state[idx].passed = !state[idx].passed;
+      render();
+    });
+  });
+
+  const passedCount = state.filter(s => s.passed).length;
+  document.getElementById('fill').style.width = (passedCount / STAGES.length * 100) + '%';
+  document.getElementById('progLabel').textContent = `${passedCount} / ${STAGES.length} שלבים עברו`;
+}
+
+render();
+</script>
+</body>
+</html>

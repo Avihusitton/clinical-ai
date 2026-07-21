@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "card_id": {"type": "string"},
+    "canonical_name": {"type": "string"},
+    "aliases": {"type": "array", "items": {"type": "string"}},
+    "definition": {"type": "string"},
+    "status": {"type": "string", "enum": ["APPROVED", "DRAFT", "ARCHIVED"]}
+  },
+  "required": ["card_id", "canonical_name", "aliases", "definition", "status"]
+}

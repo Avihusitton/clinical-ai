@@ -1,0 +1,23 @@
+# סודות - לעולם לא ל-git
+.env
+.env.*
+!.env.example
+
+# קבצי מטופלים אמיתיים - לא שייכים לבקרת גרסאות
+docs_inbox/*
+docs_archive/*
+docs_error/*
+!docs_inbox/.gitkeep
+!docs_archive/.gitkeep
+!docs_error/.gitkeep
+
+# תוצרי ריצה - נוצרים מחדש בכל הרצה, לא צריך להיסטוריה
+out/*
+!out/.gitkeep
+data/backups/
+
+# המצב האמיתי של הזיהוי הכפילויות - ייחודי לכל התקנה, לא לשתף
+data/content_hashes.json
+
+__pycache__/
+*.pyc

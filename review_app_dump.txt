@@ -1,0 +1,96 @@
+﻿# -*- coding: utf-8 -*-
+"""
+ממשק אישור אנושי לקשרי Concept-Concept.
+מציג הצעות מתוך data/concept_relationships_queue.json, אחת בכל פעם,
+עם הציטוט המקורי מהטקסט. לא כותב ל-Neo4j - רק מעדכן את סטטוס ההצעה
+בקובץ התור (pending / approved / rejected).
+
+הרצה: streamlit run review_app.py
+"""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+import streamlit as st
+
+from config import Config
+
+st.set_page_config(page_title="אישור קשרי מושג-מושג", layout="centered")
+
+cfg = Config()
+QUEUE_PATH = cfg.data_dir / "concept_relationships_queue.json"
+
+
+def load_queue() -> list[dict]:
+    if not QUEUE_PATH.exists():
+        return []
+    with open(QUEUE_PATH, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def save_queue(queue: list[dict]) -> None:
+    with open(QUEUE_PATH, "w", encoding="utf-8") as f:
+        json.dump(queue, f, ensure_ascii=False, indent=2)
+
+
+def decide(index: int, new_status: str) -> None:
+    import datetime as dt
+    queue = st.session_state.queue
+    queue[index]["status"] = new_status
+    queue[index]["decided_at"] = dt.datetime.now().isoformat()
+    save_queue(queue)
+    st.session_state.queue = queue
+
+
+if "queue" not in st.session_state:
+    st.session_state.queue = load_queue()
+
+queue = st.session_state.queue
+pending = [(i, e) for i, e in enumerate(queue) if e["status"] == "pending"]
+
+st.title("אישור קשרי מושג-מושג")
+st.caption(
+    f"סה\"כ בתור: {len(queue)} | ממתינים: {len(pending)} | "
+    f"מאושרים: {sum(1 for e in queue if e['status'] == 'approved')} | "
+    f"נדחו: {sum(1 for e in queue if e['status'] == 'rejected')}"
+)
+
+if not pending:
+    st.success("אין הצעות ממתינות לבדיקה כרגע.")
+    st.stop()
+
+idx, edge = pending[0]
+
+st.markdown("---")
+st.subheader(f"{edge['concept_a']}   ---[{edge['type']}]-->   {edge['concept_b']}")
+
+st.markdown("**ציטוט מהמקור:**")
+st.info(edge.get("quote", "(אין ציטוט)"))
+
+col1, col2, col3 = st.columns(3)
+with col1:
+    st.metric("הקשר טיפולי", edge.get("modality", "-"))
+with col2:
+    st.metric("מספר שיעור", edge.get("lesson_number") or "-")
+with col3:
+    st.metric("chunk_id", edge.get("chunk_id", "-")[:10] + "...")
+
+st.markdown("---")
+
+c1, c2 = st.columns(2)
+with c1:
+    if st.button("✅ אשר קשר", use_container_width=True, type="primary"):
+        decide(idx, "approved")
+        st.rerun()
+with c2:
+    if st.button("❌ דחה קשר", use_container_width=True):
+        decide(idx, "rejected")
+        st.rerun()
+
+with st.expander("היסטוריית החלטות (מאושר / נדחה)"):
+    decided = [e for e in queue if e["status"] != "pending"]
+    for e in decided[-20:]:
+        icon = "✅" if e["status"] == "approved" else "❌"
+        st.text(f"{icon} {e['concept_a']} --[{e['type']}]--> {e['concept_b']}")

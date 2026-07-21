@@ -1,0 +1,35 @@
+{
+  "_readme": "טיפוסי הקשר הקנוניים בין מושגים בשיטה. זה שלד לדוגמה בלבד - צריך להתאים אותו לאונטולוגיה האמיתית של השיטה (פייבל דיבר על טבלת סתירות של כ-20 שורות - זו רק נקודת התחלה עם 5 טיפוסים ו-2 זוגות סותרים).",
+  "relationship_types": [
+    {
+      "name": "is_symptom_of",
+      "description": "X הוא ביטוי/סימפטום הנובע מ-Y"
+    },
+    {
+      "name": "leads_to",
+      "description": "X מוביל/גורם ל-Y"
+    },
+    {
+      "name": "prevents",
+      "description": "X מונע או חוסם את Y"
+    },
+    {
+      "name": "is_recommended_for",
+      "description": "X מומלץ כטיפול/גישה עבור Y"
+    },
+    {
+      "name": "is_contraindicated_for",
+      "description": "X אינו מתאים / אסור עבור Y"
+    }
+  ],
+  "contradictions": [
+    {
+      "a": "leads_to",
+      "b": "prevents"
+    },
+    {
+      "a": "is_recommended_for",
+      "b": "is_contraindicated_for"
+    }
+  ]
+}

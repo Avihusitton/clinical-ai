@@ -1,0 +1,5 @@
+{"chunk_id": "a1b2c3d4e5f6a1b2c3d4e5f6", "text": "המטופל דיווח כי הוא חש דיכאון קל לאחר הפרידה.", "temporal_status": "anchored", "lesson_date": "2023-10-01"}
+{"type": "candidate_match", "chunk_id": "a1b2c3d4e5f6a1b2c3d4e5f6", "matched_form": "דיכאון", "canonical": "דיכאון", "score": 100}
+{"type": "verified_link", "chunk_id": "a1b2c3d4e5f6a1b2c3d4e5f6", "canonical": "דיכאון", "llm_decision": "yes", "reasoning": "המושג מופיע כחלק מתיאור סימפטום של המטופל"}
+{"type": "relationship_proposal", "chunk_id": "x9y8z7...", "concept_a": "פחד נטישה", "concept_b": "חרדה", "rel_type": "CAUSES", "status": "pending"}
+{"type": "exercise", "canonical": "תרגיל הכיסא הריק", "definition": "טכניקת גשטאלט לשיח עם דמויות מופנמות"}
