@@ -285,6 +285,8 @@ class BoltQueryExecutor:
                 result = session.run(cypher, parameters or {})
                 return [dict(record) for record in result]
         except Exception as exc:
+            import traceback
+            traceback.print_exc()
             raise Neo4jUnavailable(f"Bolt query failed: {exc}") from exc
 
 
@@ -554,10 +556,10 @@ class CanonicalLocalRetriever:
                     "release_id": DICTIONARY_RELEASE_ID,
                 },
             )
-        except Neo4jUnavailable:
+        except Neo4jUnavailable as e:
             return self._empty_result(
                 "database_unavailable",
-                "מסד הנתונים המקומי Neo4j אינו זמין כרגע. לא בוצעה תשובה חלקית.",
+                f"מסד הנתונים המקומי Neo4j אינו זמין כרגע. שגיאה: {e}",
             )
 
         result = {
