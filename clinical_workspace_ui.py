@@ -1255,6 +1255,13 @@ def render_workspace_html() -> str:
           data = {};
         }
         if (!response.ok) {
+          if (data && data.status === "conversation_or_patient_not_found") {
+            state.activeConversationId = null;
+            state.activePatientId = null;
+            saveState();
+            window.location.reload();
+            return;
+          }
           const error = new Error(data.answer_text || data.message || "לא ניתן להשלים את הפעולה.");
           error.payload = data;
           throw error;

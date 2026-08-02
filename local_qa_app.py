@@ -677,7 +677,10 @@ class LocalQaRequestHandler(BaseHTTPRequestHandler):
             except (KeyError, PatientNotFound, ConversationNotFound):
                 self._send_json(
                     HTTPStatus.NOT_FOUND,
-                    {"status": "conversation_or_patient_not_found"},
+                    {
+                        "status": "conversation_or_patient_not_found",
+                        "message": "השיחה או המטופל לא נמצאו (ייתכן שהשרת הופעל מחדש). רענן את העמוד כדי להתחיל מחדש."
+                    },
                 )
                 return
         if payload.get("use_ai") is True:
