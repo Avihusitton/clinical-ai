@@ -175,7 +175,7 @@ def build_retriever_from_environment() -> CanonicalLocalRetriever:
         or file_settings.get("NEO4J_USER")
         or "neo4j"
     )
-    password = os.getenv("NEO4J_PASSWORD") or file_settings.get("NEO4J_PASSWORD", "")
+    password = (os.getenv("NEO4J_PASSWORD") or file_settings.get("NEO4J_PASSWORD", "")).strip()
     
     # If a Bolt/neo4j+s URI is provided, use the BoltQueryExecutor (required for Aura)
     bolt_uri = (
