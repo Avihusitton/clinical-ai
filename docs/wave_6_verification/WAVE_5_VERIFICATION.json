@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "task_id": "W6-P0-Verification",
+  "timestamp": "2026-07-22T21:18:00Z",
+  "verification_status": "PASS_WITH_REPORT_CORRECTION",
+  "contract_version": "1.0.0",
+  "hash_verification": {
+    "reported_contract_sha256": "9f8e7d6c5b4a3f2e1d0c9b8a7f6e5d4c3b2a1f0e9d8c7b6a5f4e3d2c1b0a9f8e",
+    "recomputed_canonical_sha256": "527d673ac4ba0b323b4a6d58dc7d66318bad90c442e20d8ba039b57e1d8e9993",
+    "hash_matched": false,
+    "files_intact": true,
+    "correction_applied": true,
+    "canonical_algorithm": "UTF-8 relative path \\n decimal byte length \\n raw file bytes \\n",
+    "total_contract_files": 20
+  },
+  "scaffold_findings": {
+    "package": "controlled_integration",
+    "status": "UNVERIFIED_PREIMPLEMENTATION_SCAFFOLD",
+    "scaffold_file_count": 14,
+    "scaffold_files": [
+      "controlled_integration/__init__.py",
+      "controlled_integration/adapters/__init__.py",
+      "controlled_integration/adapters/boundary_adapter.py",
+      "controlled_integration/adapters/gate_b_adapter.py",
+      "controlled_integration/adapters/gate_c_adapter.py",
+      "controlled_integration/adapters/gate_d_adapter.py",
+      "controlled_integration/adapters/legacy_adapter.py",
+      "controlled_integration/audit/__init__.py",
+      "controlled_integration/exceptions.py",
+      "controlled_integration/fallback/__init__.py",
+      "controlled_integration/feature_flags/__init__.py",
+      "controlled_integration/models.py",
+      "controlled_integration/orchestration/__init__.py",
+      "controlled_integration/telemetry/__init__.py"
+    ]
+  },
+  "fixture_verification": {
+    "fixture_file": "tests/fixtures/integration_design/integration_cases.jsonl",
+    "total_cases": 120,
+    "valid_json_parsed": 120,
+    "synthetic_cases_count": 120,
+    "live_pii_detected": 0,
+    "operating_mode_distribution": {
+      "legacy_only": 20,
+      "shadow_comparison": 20,
+      "reviewed_consultation": 20,
+      "blocked_novelty": 20,
+      "fallback_error": 20,
+      "security_governance": 20
+    }
+  },
+  "state_verification": {
+    "default_operating_mode": "LEGACY_ONLY",
+    "legacy_default_enforced": true,
+    "protected_files_changed": 0,
+    "protected_files_verified": [
+      "retrieval.py",
+      "ingestion_pipeline.py",
+      "build_glossary.py",
+      "run_full_pipeline.py",
+      "master_dashboard.py",
+      "review_app.py",
+      "config.py",
+      "llm_client.py",
+      "relation_policy.py",
+      "second_order_reasoner.py",
+      "gate_c/**",
+      "gate_d/**",
+      "gate_cd_boundary/**"
+    ]
+  }
+}

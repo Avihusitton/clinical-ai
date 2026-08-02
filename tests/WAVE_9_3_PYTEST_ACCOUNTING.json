@@ -1,0 +1,14 @@
+{
+  "collected": 1865,
+  "passed": 1865,
+  "failed": 0,
+  "skipped": 0,
+  "xfailed": 0,
+  "xpassed": 0,
+  "errors": 0,
+  "deselected": 0,
+  "warnings": 288,
+  "equation_valid": true,
+  "node_ids_preserved": true,
+  "baseline_node_ids_lost": []
+}

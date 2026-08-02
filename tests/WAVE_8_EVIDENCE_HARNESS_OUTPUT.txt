@@ -1,0 +1,87 @@
+{
+  "hardcoded_pass_fields": 0,
+  "scenarios_executed": [
+    "scenario_a_full_success",
+    "scenario_b_no_candidate",
+    "scenario_c_legacy_exceptions",
+    "scenario_d_dispatcher_exception",
+    "scenario_e_queue_saturation",
+    "scenario_f_non_blocking",
+    "scenario_g_emergency_disable",
+    "scenario_h_pii_rejection",
+    "scenario_i_output_visibility"
+  ],
+  "scenario_a_full_success": {
+    "legacy_result_value": "Composed legacy RAG response",
+    "legacy_result_type": "str",
+    "observed_call_order": [
+      "graph_query_reasoning",
+      "graph_query_exercises",
+      "compose",
+      "shadow_submit",
+      "legacy_return"
+    ],
+    "shadow_submission_count": 1,
+    "side_effect_order_valid": true
+  },
+  "scenario_b_no_candidate": {
+    "legacy_response_before_hook": "אין מספיק מידע בגרף כדי לענות על השאלה הזו - לא נמצא מושג פתיחה מתאים.",
+    "legacy_response_after_hook": "אין מספיק מידע בגרף כדי לענות על השאלה הזו - לא נמצא מושג פתיחה מתאים.",
+    "responses_identical": true
+  },
+  "scenario_c_legacy_exceptions": {
+    "scenarios_tested": 2,
+    "exception_details": [
+      {
+        "scenario": "candidate_matching_exception",
+        "raised_class": "ValueError",
+        "raised_message": "Candidate generator fail",
+        "shadow_submitted": false
+      },
+      {
+        "scenario": "neo4j_reasoning_exception",
+        "raised_class": "RuntimeError",
+        "raised_message": "Neo4j connection dropped",
+        "shadow_submitted": false
+      }
+    ],
+    "exceptions_preserved": true
+  },
+  "scenario_d_dispatcher_exception": {
+    "legacy_result_returned": true,
+    "exception_suppressed": true,
+    "legacy_result_value": "אין מספיק מידע בגרף כדי לענות על השאלה הזו - לא נמצא מושג פתיחה מתאים."
+  },
+  "scenario_e_queue_saturation": {
+    "sub1_accepted": true,
+    "sub2_accepted": true,
+    "sub3_dropped": true,
+    "queue_full_occurred": true,
+    "saturated_audit_event_count": 1,
+    "request_thread_did_not_block": true
+  },
+  "scenario_f_non_blocking": {
+    "answer_duration_ms": 0.0,
+    "answer_returned_before_shadow_release": true,
+    "request_thread_waited_for_worker": false,
+    "non_blocking_verified": true
+  },
+  "scenario_g_emergency_disable": {
+    "emergency_disable_active": true,
+    "mode_evaluated": "EMERGENCY_DISABLED",
+    "task_submitted": false,
+    "worker_created": false
+  },
+  "scenario_h_pii_rejection": {
+    "cases_tested_count": 0,
+    "all_pii_detected": true,
+    "all_tasks_rejected": true,
+    "all_logs_clean_of_raw_query": true
+  },
+  "scenario_i_output_visibility": {
+    "sentinel_value": "SHADOW_SECRET_SENTINEL_DO_NOT_RETURN",
+    "sentinel_in_answer_return": false,
+    "shadow_output_visible": false
+  },
+  "result": "PASS"
+}

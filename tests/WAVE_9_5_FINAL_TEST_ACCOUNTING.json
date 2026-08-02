@@ -1,0 +1,10 @@
+{
+  "TESTS_COLLECTED": 1893,
+  "TESTS_PASSED": 1892,
+  "TESTS_FAILED": 1,
+  "TEST_ERRORS": 0,
+  "TESTS_SKIPPED": 0,
+  "FAILED_NODE_IDS": [
+    "tests/test_gate_cd_boundary.py::TestNoProductionImports::test_gate_cd_boundary_does_not_import_neo4j"
+  ]
+}

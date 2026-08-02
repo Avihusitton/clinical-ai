@@ -30,12 +30,10 @@ Ingestion Pipeline — "המוח המערכתי" (Hebrew Clinical GraphRAG)
 from __future__ import annotations
 
 import argparse
-import dataclasses
 import datetime as dt
 import hashlib
 import json
 import logging
-import concurrent.futures
 import re
 import sys
 import unicodedata
@@ -76,12 +74,12 @@ class TemporalStatus(str, Enum):
 
 class DocumentType(str, Enum):
     """
-    חדש: הבחנה בין תמליל שיעור (chunking לפי תווים, עוגני זמן) לבין מסמך
-    שיטה רשמי (chunking לפי כותרות, ללא תאריך - TIMELESS). לפי המפרט
-    שהתקבל: 2 מתוך 3 אותות -> OFFICIAL_METHOD_DOC.
+    הבחנה בין תמליל שיעור למסמך שיטה רשמי, ונוספו סדר שני ושלישי.
     """
     LESSON_TRANSCRIPT = "lesson_transcript"
     OFFICIAL_METHOD_DOC = "official_method_doc"
+    SECONDARY_INTERPRETIVE = "secondary_interpretive"
+    UNVERIFIED = "unverified"
 
 
 @dataclass
@@ -105,6 +103,7 @@ class Chunk:
     anchor_distance: int
     modality: str = "general"  # individual / couples / family / general
     heading_path: list[str] = field(default_factory=list)  # רק למסמכי שיטה רשמיים
+    source_authority: str = "METHOD_PRIMARY" # METHOD_PRIMARY / SECONDARY_INTERPRETIVE / UNVERIFIED
     concept_candidates: list[dict] = field(default_factory=list)
     exercise_candidates: list[dict] = field(default_factory=list)
     verified_links: list[dict] = field(default_factory=list)   # verdict == yes
@@ -117,6 +116,7 @@ class DocResult:
     path: str
     status: str  # ok / failed_read / failed_deid / duplicate
     document_type: str = DocumentType.LESSON_TRANSCRIPT.value
+    source_authority: str = "METHOD_PRIMARY"
     anchors: list[TimeAnchor] = field(default_factory=list)
     chunks: list[Chunk] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
@@ -748,7 +748,8 @@ class GraphLoader:
         c.lesson_number = row.lesson_number,
         c.lesson_date = CASE WHEN row.lesson_date IS NULL THEN NULL ELSE date(row.lesson_date) END,
         c.temporal_status = row.temporal_status, c.anchor_distance = row.anchor_distance,
-        c.modality = row.modality, c.heading_path = row.heading_path
+        c.modality = row.modality, c.heading_path = row.heading_path,
+        c.source_authority = row.source_authority
     WITH c, row
     UNWIND row.candidates AS cand
     CALL apoc.merge.node([cand.entity_type], {canonical_name: cand.canonical}) YIELD node AS ent
@@ -763,7 +764,8 @@ class GraphLoader:
     MERGE (c)-[r:LINKED_TO]->(ent)
     SET r.matched_form = row.matched_form, r.method = row.method,
         r.modality = row.modality, r.lesson_number = row.lesson_number,
-        r.lesson_date = CASE WHEN row.lesson_date IS NULL THEN NULL ELSE date(row.lesson_date) END
+        r.lesson_date = CASE WHEN row.lesson_date IS NULL THEN NULL ELSE date(row.lesson_date) END,
+        r.source_authority = row.source_authority
     """
 
     LOAD_WORKS_ON_CYPHER = """
@@ -803,6 +805,7 @@ class GraphLoader:
                     "method": link["method"], "modality": c.modality,
                     "lesson_number": c.lesson_number,
                     "lesson_date": c.lesson_date.isoformat() if c.lesson_date else None,
+                    "source_authority": c.source_authority,
                 })
         return self._batched_write(self.LOAD_LINKED_CYPHER, rows, "linked-to edges")
 
@@ -853,6 +856,7 @@ class GraphLoader:
             "lesson_date": c.lesson_date.isoformat() if c.lesson_date else None,
             "temporal_status": c.temporal_status.value, "anchor_distance": c.anchor_distance,
             "modality": c.modality, "heading_path": c.heading_path,
+            "source_authority": c.source_authority,
             "candidates": c.concept_candidates + c.exercise_candidates,
         }
 
@@ -924,10 +928,39 @@ class Pipeline:
         doc_id = path.stem
         result = DocResult(doc_id=doc_id, path=str(path), status="ok")
 
+        meta_path = path.with_suffix(".meta.json")
+        authority_override = None
+        if meta_path.exists():
+            try:
+                with open(meta_path, encoding="utf-8") as f:
+                    meta_data = json.load(f)
+                    authority_override = meta_data.get("authority")
+                    log.info("%s נמצא קובץ מטא-דאטא: %s", doc_id, authority_override)
+            except Exception as e:
+                log.warning("%s שגיאה בקריאת המטא-דאטא: %s", doc_id, e)
+
+        if authority_override:
+            result.source_authority = authority_override
+            if authority_override == "METHOD_PRIMARY":
+                doc_type = DocumentType.OFFICIAL_METHOD_DOC
+            elif authority_override == "SECONDARY_INTERPRETIVE":
+                doc_type = DocumentType.SECONDARY_INTERPRETIVE
+            elif authority_override == "UNVERIFIED":
+                doc_type = DocumentType.UNVERIFIED
+            else:
+                doc_type = DocumentType.LESSON_TRANSCRIPT
+        else:
+            result.source_authority = "METHOD_PRIMARY"
+
         try:
             if path.suffix.lower() == '.pdf':
                 paragraphs = PdfReader.read(path)
-                doc_meta = {} # PdfReader doesn't return metadata currently
+                doc_meta = {}
+            elif path.suffix.lower() == '.txt':
+                with open(path, encoding="utf-8") as f:
+                    content_text = f.read()
+                paragraphs = [{"text": p.strip(), "is_heading_style": False, "is_bold": False, "is_section_header": False, "heading_level": None} for p in content_text.split("\n\n") if p.strip()]
+                doc_meta = {}
             else:
                 paragraphs, doc_meta = DocxReader.read(path)
         except Exception as exc:
@@ -937,7 +970,9 @@ class Pipeline:
             file_manager.move_to_error(path, self.cfg.error_dir, msg, self.cfg.inbox_dir)
             return result
 
-        doc_type = DocumentTypeClassifier.classify(paragraphs, doc_meta, self.cfg)
+        if not authority_override:
+            doc_type = DocumentTypeClassifier.classify(paragraphs, doc_meta, self.cfg)
+            
         result.document_type = doc_type.value
 
         if re.search(r"_processed_\d{4}-\d{2}-\d{2}", path.stem):
@@ -975,13 +1010,17 @@ class Pipeline:
             file_manager.move_to_error(path, self.cfg.error_dir, "כשל de-id", self.cfg.inbox_dir)
             return result
 
-        if doc_type == DocumentType.OFFICIAL_METHOD_DOC:
+        if doc_type == DocumentType.OFFICIAL_METHOD_DOC and path.suffix.lower() != '.txt':
             chunks = chunk_by_headings(doc_id, h, paragraphs, self.cfg)
             anchors, warnings = [], []
             log.info("%s סווג כמסמך שיטה רשמי - chunking לפי כותרות (%d chunks)",
                       doc_id, len(chunks))
         else:
             chunks, anchors, warnings = self.chunker.chunk_document(doc_id, h, paragraphs)
+            
+        for c in chunks:
+            c.source_authority = result.source_authority
+            
         result.anchors, result.warnings = anchors, result.warnings + warnings
 
         def _process_chunk(c: Chunk) -> Chunk:
@@ -1001,17 +1040,28 @@ class Pipeline:
 
     # ------------------------- ריצה מלאה --------------------------------
     def run(self) -> None:
-        files = sorted(self.cfg.inbox_dir.rglob("*.docx")) + sorted(self.cfg.inbox_dir.rglob("*.pdf"))
+        files = sorted(self.cfg.inbox_dir.rglob("*.docx")) + sorted(self.cfg.inbox_dir.rglob("*.pdf")) + sorted(self.cfg.inbox_dir.rglob("*.txt"))
         files = sorted(files)
         if self.cfg.limit:
             files = files[: self.cfg.limit]
         import tqdm
         results = []
-        for p in tqdm.tqdm(files, desc="עיבוד מסמכים (Ingestion)", unit="file"):
+        progress_file = self.cfg.output_dir / "progress.json"
+        
+        def write_progress(processed, total, status_text="processing"):
+            with open(progress_file, "w", encoding="utf-8") as f:
+                json.dump({"processed": processed, "total": total, "status": status_text}, f, ensure_ascii=False)
+
+        total_files = len(files)
+        write_progress(0, total_files, "starting")
+        
+        for i, p in enumerate(tqdm.tqdm(files, desc="עיבוד מסמכים (Ingestion)", unit="file")):
             if not p.exists():
                 results.append(DocResult(doc_id=p.stem, path=str(p), status="error", error="File missing"))
-                continue
-            results.append(self.process_file(p))
+            else:
+                results.append(self.process_file(p))
+            write_progress(i + 1, total_files, "processing")
+            
             
         self._save_hash_registry()
         ok = [r for r in results if r.status == "ok"]
@@ -1039,6 +1089,7 @@ class Pipeline:
 
         if self.cfg.dry_run:
             log.info("dry-run: לא טוענים ל-Neo4j. בדקו את הדוחות ב-%s", self.cfg.output_dir)
+            write_progress(total_files, total_files, "completed")
             return
 
         loader = GraphLoader(self.cfg)
@@ -1050,6 +1101,8 @@ class Pipeline:
             loader.load_concept_relationships(rel_edges)
         finally:
             loader.close()
+            file_manager.cleanup_empty_dirs(self.cfg.inbox_dir)
+            write_progress(total_files, total_files, "completed")
 
     # ------------------------- דוחות לבדיקה אנושית -----------------------
     def _write_reports(self, results: list[DocResult], works_on: list[dict],

@@ -1,0 +1,16 @@
+{
+  "audit_version": "Wave 9.1",
+  "audit_target": "tests/test_gate_cd_boundary.py",
+  "records": [
+    {
+      "test_file": "tests/test_gate_cd_boundary.py",
+      "changed_lines": "Line 480: modified sys.modules assertion from 'assert neo4j not in mod_name.lower()' to 'assert neo4j not in mod_name.lower() or not mod_name.startswith(gate_cd)'",
+      "assertions_added": 0,
+      "assertions_removed": 0,
+      "assertions_weakened": 1,
+      "reason_for_change": "Fix pytest process test pollution failure during full test suite run",
+      "baseline_hash_available": true,
+      "restoration_required": true
+    }
+  ]
+}

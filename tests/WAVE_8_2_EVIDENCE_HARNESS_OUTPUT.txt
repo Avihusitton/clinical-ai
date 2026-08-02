@@ -1,0 +1,203 @@
+{
+  "harness_source_sha256": "97e32063490b95a7de504e7748c746933a80b551e1c5faf68980f842ab167c84",
+  "redaction_source_sha256": "c1bf13702f74013f46a3930366575e33a55a35c95f741fe947eb32ce3fe979ab",
+  "execution_timestamp": "2026-07-23T08:18:09Z",
+  "hardcoded_pass_fields": 0,
+  "scenarios_executed": [
+    "scenario_a_full_success",
+    "scenario_b_no_candidate",
+    "scenario_c_legacy_exceptions",
+    "scenario_d_dispatcher_exception",
+    "scenario_e_queue_saturation",
+    "scenario_f1_request_returns_before_worker_start",
+    "scenario_f2_preblocked_worker_does_not_block_request",
+    "scenario_g_emergency_disable",
+    "scenario_h_pii_rejection",
+    "scenario_i_output_visibility"
+  ],
+  "scenario_a_full_success": {
+    "legacy_result_value": "Composed legacy RAG response",
+    "legacy_result_type": "str",
+    "observed_call_order": [
+      "graph_query_reasoning",
+      "graph_query_exercises",
+      "compose",
+      "shadow_submit",
+      "legacy_return"
+    ],
+    "shadow_submission_count": 1,
+    "calculation": "observed_call_order == ['graph_query_reasoning', 'graph_query_exercises', 'compose', 'shadow_submit', 'legacy_return']",
+    "result": "PASS"
+  },
+  "scenario_b_no_candidate": {
+    "observed": {
+      "legacy_response_before_hook": "אין מספיק מידע בגרף כדי לענות על השאלה הזו - לא נמצא מושג פתיחה מתאים.",
+      "legacy_response_after_hook": "אין מספיק מידע בגרף כדי לענות על השאלה הזו - לא נמצא מושג פתיחה מתאים."
+    },
+    "expected": "אין מספיק מידע בגרף כדי לענות על השאלה הזו - לא נמצא מושג פתיחה מתאים.",
+    "calculation": "legacy_response_before_hook == legacy_response_after_hook",
+    "result": "PASS"
+  },
+  "scenario_c_legacy_exceptions": {
+    "LEGACY_EXCEPTION_SCENARIOS_TESTED": 3,
+    "scenarios": [
+      {
+        "scenario_id": "EXC-CANDIDATE-MATCH",
+        "failure_source": "find_entry_concepts",
+        "before_hook_exception_class": "ValueError",
+        "after_hook_exception_class": "ValueError",
+        "before_hook_exception_message": "Candidate generator fail",
+        "after_hook_exception_message": "Candidate generator fail",
+        "shadow_submit_count": 0,
+        "classes_match": true,
+        "messages_match": true
+      },
+      {
+        "scenario_id": "EXC-GRAPH-RETRIEVAL",
+        "failure_source": "_run_reasoning",
+        "before_hook_exception_class": "RuntimeError",
+        "after_hook_exception_class": "RuntimeError",
+        "before_hook_exception_message": "Neo4j connection dropped",
+        "after_hook_exception_message": "Neo4j connection dropped",
+        "shadow_submit_count": 0,
+        "classes_match": true,
+        "messages_match": true
+      },
+      {
+        "scenario_id": "EXC-LEGACY-COMPOSE",
+        "failure_source": "_compose",
+        "before_hook_exception_class": "KeyError",
+        "after_hook_exception_class": "KeyError",
+        "before_hook_exception_message": "'Missing template parameter in composition'",
+        "after_hook_exception_message": "'Missing template parameter in composition'",
+        "shadow_submit_count": 0,
+        "classes_match": true,
+        "messages_match": true
+      }
+    ],
+    "calculation": "all(classes_match and messages_match and shadow_submit_count == 0)",
+    "result": "PASS"
+  },
+  "scenario_d_dispatcher_exception": {
+    "observed": {
+      "legacy_result_returned": "אין מספיק מידע בגרף כדי לענות על השאלה הזו - לא נמצא מושג פתיחה מתאים.",
+      "exception_raised": false
+    },
+    "calculation": "res_d is not None and exception_raised == False",
+    "result": "PASS"
+  },
+  "scenario_e_queue_saturation": {
+    "observed": {
+      "submit_3_started_ns": 452020181672900,
+      "submit_3_returned_ns": 452020181701300,
+      "worker_release_ns": 452020181701400,
+      "sub1_accepted": true,
+      "sub2_accepted": true,
+      "sub3_accepted": false,
+      "queue_saturation_event_count": 1,
+      "submitted_task_ids": [
+        "req-e3"
+      ]
+    },
+    "calculation": "submit_3_returned_ns < worker_release_ns and sub3_accepted == False and queue_saturation_event_count >= 1",
+    "result": "PASS"
+  },
+  "scenario_f1_request_returns_before_worker_start": {
+    "classification": "REQUEST_RETURNED_BEFORE_WORKER_SCHEDULED",
+    "observed_timestamps": {
+      "answer_thread_started_ns": 452020181862500,
+      "answer_returned_ns": 452020182368000,
+      "runner_entered_ns": 452020182386200,
+      "runner_release_requested_ns": 452020182405900,
+      "runner_exited_ns": 452020182418400
+    },
+    "answer_returned_before_worker_entered": true,
+    "answer_returned_before_runner_release": true,
+    "calculation": "answer_returned_ns < runner_entered_ns",
+    "result": "PASS"
+  },
+  "scenario_f2_preblocked_worker_does_not_block_request": {
+    "observed_timestamps": {
+      "priming_submit_started_ns": 452020182536700,
+      "priming_submit_returned_ns": 452020182678000,
+      "runner_entered_ns": 452020182687100,
+      "answer_started_ns": 452020182823400,
+      "answer_shadow_submit_started_ns": 452020183185100,
+      "answer_shadow_submit_returned_ns": 452020183207300,
+      "answer_returned_ns": 452020183207700,
+      "runner_release_requested_ns": 452020183208100,
+      "runner_exited_ns": 452020183264100
+    },
+    "observed_states": {
+      "runner_entered_event_set": true,
+      "runner_exited_event_set_before_release": false,
+      "runner_exited_event_set_after_release": true
+    },
+    "derived_relations": {
+      "runner_preblocked_before_answer_started": true,
+      "runner_still_blocked_when_answer_returned": true,
+      "answer_returned_before_runner_release": true,
+      "answer_shadow_submit_non_blocking": true,
+      "runner_exited_after_release": true
+    },
+    "calculation": "runner_entered_ns <= answer_started_ns and runner_entered_ns <= answer_returned_ns < runner_release_requested_ns and runner_release_requested_ns <= runner_exited_ns",
+    "result": "PASS"
+  },
+  "scenario_f_non_blocking": {
+    "observed_timestamps": {
+      "priming_submit_started_ns": 452020182536700,
+      "priming_submit_returned_ns": 452020182678000,
+      "runner_entered_ns": 452020182687100,
+      "answer_started_ns": 452020182823400,
+      "answer_shadow_submit_started_ns": 452020183185100,
+      "answer_shadow_submit_returned_ns": 452020183207300,
+      "answer_returned_ns": 452020183207700,
+      "runner_release_requested_ns": 452020183208100,
+      "runner_exited_ns": 452020183264100
+    },
+    "observed_states": {
+      "runner_entered_event_set": true,
+      "runner_exited_event_set_before_release": false,
+      "runner_exited_event_set_after_release": true
+    },
+    "derived_relations": {
+      "runner_preblocked_before_answer_started": true,
+      "runner_still_blocked_when_answer_returned": true,
+      "answer_returned_before_runner_release": true,
+      "answer_shadow_submit_non_blocking": true,
+      "runner_exited_after_release": true
+    },
+    "calculation": "runner_entered_ns <= answer_started_ns and runner_entered_ns <= answer_returned_ns < runner_release_requested_ns and runner_release_requested_ns <= runner_exited_ns",
+    "result": "PASS"
+  },
+  "scenario_g_emergency_disable": {
+    "observed": {
+      "emergency_disable_active": true,
+      "mode_evaluated": "EMERGENCY_DISABLED",
+      "task_submitted": false,
+      "worker_created": false
+    },
+    "calculation": "emergency_disable_active == True and task_submitted == False and worker_created == False",
+    "result": "PASS"
+  },
+  "scenario_h_pii_rejection": {
+    "observed": {
+      "cases_tested_count": 20,
+      "all_pii_detected": true,
+      "all_tasks_rejected": true,
+      "all_audit_clean": true,
+      "all_telemetry_clean": true
+    },
+    "calculation": "cases_tested_count == 20 and all_pii_detected == True and all_tasks_rejected == True and all_audit_clean == True and all_telemetry_clean == True",
+    "result": "PASS"
+  },
+  "scenario_i_output_visibility": {
+    "observed": {
+      "sentinel_value": "SHADOW_SECRET_SENTINEL_DO_NOT_RETURN",
+      "sentinel_in_answer_return": false
+    },
+    "calculation": "sentinel_in_answer_return == False",
+    "result": "PASS"
+  },
+  "result": "PASS"
+}

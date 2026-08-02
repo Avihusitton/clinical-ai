@@ -1,0 +1,76 @@
+{
+  "entities": {
+    "RelationDefinition": {
+      "description": "Defines the semantic and traversal rules for a specific relationship type in the knowledge graph.",
+      "fields": {
+        "relation_type": "string",
+        "is_traversable": "boolean",
+        "is_terminal": "boolean",
+        "semantic_category": "string"
+      }
+    },
+    "RelationPolicyRegistry": {
+      "description": "Registry of access and traversal policies for relation types.",
+      "fields": {
+        "policies": "Map<string, RelationDefinition>"
+      }
+    },
+    "EdgeEvidence": {
+      "description": "Provenance and evidence supporting an edge.",
+      "fields": {
+        "source_id": "string",
+        "extraction_method": "string",
+        "confidence": "float"
+      }
+    },
+    "DirectScoreComponents": {
+      "description": "Explicit scoring components for an edge or path. No hidden LLM weights.",
+      "fields": {
+        "source_confidence": "float",
+        "review_confidence": "float",
+        "relation_specificity": "float",
+        "context_fit": "float",
+        "provenance_factor": "float",
+        "path_specificity": "float"
+      }
+    },
+    "PathCandidate": {
+      "description": "A potential traversal path evaluated for scoring.",
+      "fields": {
+        "nodes": "List<string>",
+        "edges": "List<string>"
+      }
+    },
+    "PathDecision": {
+      "description": "The final decision on whether a PathCandidate is accepted or rejected.",
+      "fields": {
+        "status": "enum { ACCEPTED, REJECTED }",
+        "final_score": "float",
+        "explanation": "ExplanationPayload"
+      }
+    },
+    "BlockingReason": {
+      "description": "Reason why a path or edge was blocked during traversal.",
+      "fields": {
+        "code": "string",
+        "description": "string"
+      }
+    },
+    "ExplanationPayload": {
+      "description": "Detailed explanation for accepted or rejected paths.",
+      "fields": {
+        "accepted_path": "object",
+        "rejected_path": "object"
+      }
+    }
+  },
+  "behaviors": {
+    "missing_value": "fail-closed",
+    "review_status": {
+      "APPROVED": "eligible",
+      "PENDING": "excluded by default",
+      "REJECTED": "always blocked",
+      "UNKNOWN": "blocked"
+    }
+  }
+}

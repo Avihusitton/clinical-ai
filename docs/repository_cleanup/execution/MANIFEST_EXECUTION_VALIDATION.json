@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "validation_title": "Manifest Execution Validation",
+  "version": "1.0.0",
+  "reported_candidate_count_values": {
+    "REPOSITORY_INVENTORY.json": 14,
+    "CLEANUP_VERIFICATION.json": 24,
+    "QUARANTINE_MOVE_MANIFEST.json": 18
+  },
+  "actual_manifest_move_count": 18,
+  "count_discrepancy_detected": true,
+  "discrepancy_explanation": "REPOSITORY_INVENTORY.json cataloged 14 initial candidates; CLEANUP_VERIFICATION.json expanded evaluation to 24 total candidate targets including active packages; QUARANTINE_MOVE_MANIFEST.json contains exactly 18 QUARANTINE_SAFE items approved for move.",
+  "invalid_entries": [],
+  "approved_entries": [
+    "ingestion_pipeline.before_concept_relationship_block.py",
+    "ingestion_pipeline.before_lexicon_guard.py",
+    "ingestion_pipeline.before_pdf_support.py",
+    "ingestion_pipeline.before_review_queue.py",
+    "add_review_queue_dump.txt",
+    "block_dump.txt",
+    "load_approved_dump.txt",
+    "review_app_dump.txt",
+    "temp_log.txt",
+    "output.txt",
+    "error_log.txt",
+    "add_lexicon_guard.py",
+    "add_missing_synonyms.py",
+    "add_pdf_support.py",
+    "add_relationship_guard.py",
+    "add_review_queue.py",
+    "block_concept_relationships.py",
+    "patch.py"
+  ]
+}

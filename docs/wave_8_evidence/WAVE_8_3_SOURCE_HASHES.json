@@ -1,0 +1,8 @@
+{
+  "tests/wave_8_evidence_harness.py": "df916c23a75fbf610a343c3440103c7aac4f425e7da386ce0e3df2ee6ac4b248",
+  "shadow_wiring/redaction.py": "c1bf13702f74013f46a3930366575e33a55a35c95f741fe947eb32ce3fe979ab",
+  "tests/test_shadow_wiring_retrieval_hook.py": "c012f06120b2621749a2457442a894e1bcb5c2a63393409b5bd5452ee2864f59",
+  "tests/test_shadow_wiring_redaction.py": "b5199f52962d1a100a914ffbd8f10937175566db105ffe495a5e2c5584bc05c1",
+  "tests/WAVE_8_LEGACY_INVARIANCE_REPORT.json": "8d08912c6c11d25ace05004fba6814aec56d99bbb6802aa6f7c677e810273938",
+  "tests/WAVE_8_SHADOW_BEHAVIOR_REPORT.json": "32e956a1f4c88e70389cd98ded269d967d2c0cd061557b36f817464df4b7a775"
+}

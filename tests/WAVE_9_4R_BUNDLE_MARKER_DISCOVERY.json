@@ -1,0 +1,28 @@
+[
+  {
+    "target_path": "tests/test_gate_cd_boundary.py",
+    "begin_marker_count": 1,
+    "end_marker_count": 1,
+    "section_count": 1,
+    "begin_line": 75850,
+    "end_line": 76370,
+    "begin_framing_removed": true,
+    "end_framing_removed": false,
+    "framing_lines_removed": true,
+    "success": true,
+    "failure_reason": ""
+  },
+  {
+    "target_path": "tests/test_gate_a_dry_run_and_isolation.py",
+    "begin_marker_count": 1,
+    "end_marker_count": 1,
+    "section_count": 1,
+    "begin_line": 72702,
+    "end_line": 72891,
+    "begin_framing_removed": true,
+    "end_framing_removed": false,
+    "framing_lines_removed": true,
+    "success": true,
+    "failure_reason": ""
+  }
+]

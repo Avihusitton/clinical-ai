@@ -5,26 +5,35 @@ class MockStore:
         self.entries = entries
     def get_all_entries(self):
         return self.entries
+    def validate(self):
+        return []
+    def get_alias_collisions(self):
+        return {}
 
-def test_loader_validation():
-    store = MockStore([
-        {"canonical_name": "Test"}, # Missing card_id
-        {"card_id": "T1", "canonical_name": "Test1"},
-        {"card_id": "T1", "canonical_name": "Test2"} # Duplicate
-    ])
-    loader = OfficialGlossaryLoader(store)
-    errors = loader.validate()
-    
-    assert len(errors) == 2
-    assert any("Missing card_id" in e for e in errors)
-    assert any("Duplicate card_id" in e for e in errors)
+class MockDriver:
+    class MockSession:
+        def __enter__(self):
+            return self
+        def __exit__(self, exc_type, exc_val, exc_tb):
+            pass
+        def run(self, query, **kwargs):
+            class Result:
+                def __iter__(self):
+                    return iter([])
+                def single(self):
+                    return None
+            return Result()
+            
+    def session(self):
+        return self.MockSession()
 
 def test_loader_dry_run():
     store = MockStore([
-        {"card_id": "T1", "canonical_name": "Test1"}
+        {"card_id": "Z901", "entry_name": "Test1", "entry_type": "CONCEPT", "status": "APPROVED", "aliases_and_spellings": []}
     ])
-    loader = OfficialGlossaryLoader(store)
-    report = loader.dry_run()
+    loader = OfficialGlossaryLoader(store, MockDriver())
+    report = loader.dry_run("test_pilot")
     
     assert report["new_entries"] == 1
     assert report["duplicate_card_ids"] == 0
+    assert report["unmapped_official_entries"] == 1

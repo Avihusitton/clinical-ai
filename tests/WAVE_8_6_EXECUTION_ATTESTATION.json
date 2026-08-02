@@ -1,0 +1,8 @@
+{
+  "hash_before_execution": "97e32063490b95a7de504e7748c746933a80b551e1c5faf68980f842ab167c84",
+  "hash_after_execution": "97e32063490b95a7de504e7748c746933a80b551e1c5faf68980f842ab167c84",
+  "source_unchanged_during_execution": true,
+  "exit_code": 0,
+  "output_file": "tests\\WAVE_8_6_HARNESS_OUTPUT.txt",
+  "output_sha256": "472eb1425096e1df3b00443889269655b0235683f8a4094a15f91ba7f958f9ff"
+}

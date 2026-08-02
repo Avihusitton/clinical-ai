@@ -1,0 +1,20 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\avihu\AppData\Local\Programs\Python\Python312\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Avihusitton\clinical_ai
+plugins: anyio-4.13.0
+collecting ... collected 11 items
+
+tests/test_wave96_gate_a_isolation.py::test_fresh_child_process_begins_without_driver_modules PASSED [  9%]
+tests/test_wave96_gate_a_isolation.py::test_gate_a_runner_imports_driver_only_in_child_process PASSED [ 18%]
+tests/test_wave96_gate_a_isolation.py::test_gate_a_wrapper_adds_no_driver_modules_to_parent_process PASSED [ 27%]
+tests/test_wave96_gate_a_isolation.py::test_before_after_parent_driver_module_set_remains_identical PASSED [ 36%]
+tests/test_wave96_gate_a_isolation.py::test_exact_normalized_assertion_multiset_matches_baseline PASSED [ 45%]
+tests/test_wave96_gate_a_isolation.py::test_exit_code_0_maps_to_success PASSED [ 54%]
+tests/test_wave96_gate_a_isolation.py::test_exit_code_77_maps_to_original_skip_behavior PASSED [ 63%]
+tests/test_wave96_gate_a_isolation.py::test_unexpected_nonzero_exit_maps_to_test_failure PASSED [ 72%]
+tests/test_wave96_gate_a_isolation.py::test_ast_mechanical_cleanup_verification PASSED [ 81%]
+tests/test_wave96_gate_a_isolation.py::test_cleanup_attempted_on_assertion_failure PASSED [ 90%]
+tests/test_wave96_gate_a_isolation.py::test_synthetic_canary_secret_redaction PASSED [100%]
+
+============================= 11 passed in 4.56s ==============================

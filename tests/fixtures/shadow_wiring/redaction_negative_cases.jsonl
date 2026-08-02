@@ -1,0 +1,60 @@
+{"case_id": "NEG-HEB-001", "category": "HEBREW_CLINICAL_QUERY", "query_text": "מהן התערבויות היסוד בטיפול בקבלת ומחויבות (ACT)?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-002", "category": "HEBREW_CLINICAL_QUERY", "query_text": "כיצד לבצע אקספוזיציה הדרגתית במטופל עם הפרעת חרדה מוכללת?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-003", "category": "HEBREW_CLINICAL_QUERY", "query_text": "מהו ההבדל בין קבלה (Acceptance) למסורתיות ב-CBT?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-004", "category": "HEBREW_CLINICAL_QUERY", "query_text": "כיצד מסייעת טכניקת הבחנה בין העצמי לתוכן החשיבה (Defusion)?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-005", "category": "HEBREW_CLINICAL_QUERY", "query_text": "מהן הדרכים המומלצות לניטור שיעור החרדה במהלך שיעור או פגישה טיפולית?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-006", "category": "HEBREW_CLINICAL_QUERY", "query_text": "כיצד להתמודד עם הימנעות חווייתית אצל מתבגרים?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-007", "category": "HEBREW_CLINICAL_QUERY", "query_text": "מהו תפקידו של ערך אישי בתהליך קבלת החלטות טיפוליות?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-008", "category": "HEBREW_CLINICAL_QUERY", "query_text": "כיצד לבנות סולם אקספוזיציה עבור פוביה ספציפית?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-009", "category": "HEBREW_CLINICAL_QUERY", "query_text": "מהם שלבי הטיפול הדיאלקטי-התנהגותי (DBT) בהפרעת אישיות גבולית?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-010", "category": "HEBREW_CLINICAL_QUERY", "query_text": "כיצד משלבים מיינדפולנס בטיפול קוגניטיבי מבוסס קבלה?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-011", "category": "HEBREW_CLINICAL_QUERY", "query_text": "מהן הטכניקות היעילות ביותר להרגעה נשימתית במצבי פאניקה?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-012", "category": "HEBREW_CLINICAL_QUERY", "query_text": "כיצד להעריך רמת מוטיבציה לשינוי אצל מטופל?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-013", "category": "HEBREW_CLINICAL_QUERY", "query_text": "מהן התוויות הנגד לטיפול בחשיפה ממושכת (PE)?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-014", "category": "HEBREW_CLINICAL_QUERY", "query_text": "כיצד לעבד חרדה חברתית בעזרת ניתוח התנהגותי?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-015", "category": "HEBREW_CLINICAL_QUERY", "query_text": "מהי חשיבותו של קשר טיפולי בגישה הקוגניטיבית התנהגותית?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-016", "category": "HEBREW_CLINICAL_QUERY", "query_text": "כיצד להגדיר מטרות טיפוליות מדידות וברורות?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-017", "category": "HEBREW_CLINICAL_QUERY", "query_text": "מהם המאפיינים של דיכאון קל לעומת דיכאון מגורמי דחק?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-018", "category": "HEBREW_CLINICAL_QUERY", "query_text": "כיצד מתבצעת הבניה קוגניטיבית של מחשבות אוטומטיות שליליות?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-019", "category": "HEBREW_CLINICAL_QUERY", "query_text": "מהם עקרונות הטיפול בקבלת ומחויבות במצבי כאב כרוני?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-020", "category": "HEBREW_CLINICAL_QUERY", "query_text": "כיצד לעודד אקטיבציה התנהגותית במטופלים עם דיכאון?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-021", "category": "HEBREW_CLINICAL_QUERY", "query_text": "מהי טכניקת הזמן הקצוב להתמודדות עם דאגנות יתר?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-022", "category": "HEBREW_CLINICAL_QUERY", "query_text": "כיצד לעבוד עם מחשבות חודרניות בהפרעה טורדנית כפייתית (OCD)?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-023", "category": "HEBREW_CLINICAL_QUERY", "query_text": "מהו תפקיד הניטור העצמי באמצעות יומן מעקב יומי?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-024", "category": "HEBREW_CLINICAL_QUERY", "query_text": "שאלה קלינית תיאורטית מספר 24: מהם המאפיינים העיקריים של גישת CBT?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-025", "category": "HEBREW_CLINICAL_QUERY", "query_text": "שאלה קלינית תיאורטית מספר 25: מהם המאפיינים העיקריים של גישת CBT?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-026", "category": "HEBREW_CLINICAL_QUERY", "query_text": "שאלה קלינית תיאורטית מספר 26: מהם המאפיינים העיקריים של גישת CBT?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-027", "category": "HEBREW_CLINICAL_QUERY", "query_text": "שאלה קלינית תיאורטית מספר 27: מהם המאפיינים העיקריים של גישת CBT?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-028", "category": "HEBREW_CLINICAL_QUERY", "query_text": "שאלה קלינית תיאורטית מספר 28: מהם המאפיינים העיקריים של גישת CBT?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-029", "category": "HEBREW_CLINICAL_QUERY", "query_text": "שאלה קלינית תיאורטית מספר 29: מהם המאפיינים העיקריים של גישת CBT?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-030", "category": "HEBREW_CLINICAL_QUERY", "query_text": "שאלה קלינית תיאורטית מספר 30: מהם המאפיינים העיקריים של גישת CBT?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-031", "category": "HEBREW_CLINICAL_QUERY", "query_text": "שאלה קלינית תיאורטית מספר 31: מהם המאפיינים העיקריים של גישת CBT?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-032", "category": "HEBREW_CLINICAL_QUERY", "query_text": "שאלה קלינית תיאורטית מספר 32: מהם המאפיינים העיקריים של גישת CBT?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-033", "category": "HEBREW_CLINICAL_QUERY", "query_text": "שאלה קלינית תיאורטית מספר 33: מהם המאפיינים העיקריים של גישת CBT?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-034", "category": "HEBREW_CLINICAL_QUERY", "query_text": "שאלה קלינית תיאורטית מספר 34: מהם המאפיינים העיקריים של גישת CBT?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-035", "category": "HEBREW_CLINICAL_QUERY", "query_text": "שאלה קלינית תיאורטית מספר 35: מהם המאפיינים העיקריים של גישת CBT?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-036", "category": "HEBREW_CLINICAL_QUERY", "query_text": "שאלה קלינית תיאורטית מספר 36: מהם המאפיינים העיקריים של גישת CBT?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-037", "category": "HEBREW_CLINICAL_QUERY", "query_text": "שאלה קלינית תיאורטית מספר 37: מהם המאפיינים העיקריים של גישת CBT?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-038", "category": "HEBREW_CLINICAL_QUERY", "query_text": "שאלה קלינית תיאורטית מספר 38: מהם המאפיינים העיקריים של גישת CBT?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-039", "category": "HEBREW_CLINICAL_QUERY", "query_text": "שאלה קלינית תיאורטית מספר 39: מהם המאפיינים העיקריים של גישת CBT?", "expected_pii_present": false}
+{"case_id": "NEG-HEB-040", "category": "HEBREW_CLINICAL_QUERY", "query_text": "שאלה קלינית תיאורטית מספר 40: מהם המאפיינים העיקריים של גישת CBT?", "expected_pii_present": false}
+{"case_id": "NEG-NUM-001", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "מטופל בן 45 מדווח על תסמיני חרדה מזה 3 שנים.", "expected_pii_present": false}
+{"case_id": "NEG-NUM-002", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "שיעור השיפור במדד BDI עמד על 35% לאחר 12 מפגשים.", "expected_pii_present": false}
+{"case_id": "NEG-NUM-003", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "ציון החרדה בסולם SUDS ירד מ-8 ל-3 במהלך התרגול.", "expected_pii_present": false}
+{"case_id": "NEG-NUM-004", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "הנורמות של השאלון נקבעו בשנת 2020 במחקר קליני.", "expected_pii_present": false}
+{"case_id": "NEG-NUM-005", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "המטופלת בת 28 מדווחת על 4 התקפי פאניקה בשבוע האחרון.", "expected_pii_present": false}
+{"case_id": "NEG-NUM-006", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "ניתוח הנתונים הראה מובהקות סטטיסטית של p < 0.05 במדגם של 150 משתתפים.", "expected_pii_present": false}
+{"case_id": "NEG-NUM-007", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "תדר הדופק שנמדד עמד על 72 פעימות לדקה.", "expected_pii_present": false}
+{"case_id": "NEG-NUM-008", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "בסולם GAD-7 המטופל קיבל ציון של 14 נקודות.", "expected_pii_present": false}
+{"case_id": "NEG-NUM-009", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "המטופל דיווח על 8 שעות שינה בלילה בממוצע.", "expected_pii_present": false}
+{"case_id": "NEG-NUM-010", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "המפגש ה-5 התמקד בהבניה קוגניטיבית של מחשבות אסוציאטיביות.", "expected_pii_present": false}
+{"case_id": "NEG-NUM-011", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "במהלך 60 דקות הטיפול בוצעו 2 תרגילי נשימה.", "expected_pii_present": false}
+{"case_id": "NEG-NUM-012", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "המחקר נערך בין השנים 2018 ל-2022 בקרב 500 מטופלים.", "expected_pii_present": false}
+{"case_id": "NEG-NUM-013", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "ציון הדיכאון בסולם PHQ-9 ירד ב-40 אחוזים.", "expected_pii_present": false}
+{"case_id": "NEG-NUM-014", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "מטופלת בת 62 מדווחת על ירידה בחרדה מזה 5 חודשים.", "expected_pii_present": false}
+{"case_id": "NEG-NUM-015", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "המטופל השלים 10 מתוך 12 משימות הבית שנשלחו.", "expected_pii_present": false}
+{"case_id": "NEG-NUM-016", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "בסולם Hamilton הושג ציון של 9 נקודות.", "expected_pii_present": false}
+{"case_id": "NEG-NUM-017", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "התרגיל בוצע במשך 15 דקות ברציפות.", "expected_pii_present": false}
+{"case_id": "NEG-NUM-018", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "שיעור ההתמדה בטיפול עמד על 85% בקבוצת הניסוי.", "expected_pii_present": false}
+{"case_id": "NEG-NUM-019", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "נרשמה ירידה של 4 יחידות במדד הלחץ הנפשי.", "expected_pii_present": false}
+{"case_id": "NEG-NUM-020", "category": "NUMERICAL_BOUNDARY_CASE", "query_text": "ההתערבות הטיפולית נמשכה 8 שבועות ברציפות.", "expected_pii_present": false}

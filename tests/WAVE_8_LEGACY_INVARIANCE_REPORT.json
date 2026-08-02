@@ -1,0 +1,85 @@
+{
+  "report_title": "Wave 8.2 Legacy Invariance Report",
+  "version": "1.0.0",
+  "result": "PASS",
+  "hardcoded_pass_fields": 0,
+  "evidence_sources": [
+    "tests/wave_8_evidence_harness.py",
+    "tests/WAVE_8_2_EVIDENCE_HARNESS_OUTPUT.txt"
+  ],
+  "legacy_result_invariance": {
+    "result": "PASS",
+    "calculation": "legacy_response_before_hook == legacy_response_after_hook",
+    "observed_scenarios": [
+      {
+        "scenario": "full_success_path",
+        "returned_type": "str",
+        "returned_value_sample": "Composed legacy RAG response"
+      },
+      {
+        "scenario": "no_candidate_path",
+        "before_hook_value": "אין מספיק מידע בגרף כדי לענות על השאלה הזו - לא נמצא מושג פתיחה מתאים.",
+        "after_hook_value": "אין מספיק מידע בגרף כדי לענות על השאלה הזו - לא נמצא מושג פתיחה מתאים.",
+        "identical": true
+      }
+    ]
+  },
+  "legacy_exception_invariance": {
+    "result": "PASS",
+    "calculation": "LEGACY_EXCEPTION_SCENARIOS_TESTED >= 3 and all(classes_match and messages_match and shadow_submit_count == 0)",
+    "LEGACY_EXCEPTION_SCENARIOS_TESTED": 3,
+    "observed_exception_scenarios": [
+      {
+        "scenario_id": "EXC-CANDIDATE-MATCH",
+        "failure_source": "find_entry_concepts",
+        "before_hook_exception_class": "ValueError",
+        "after_hook_exception_class": "ValueError",
+        "before_hook_exception_message": "Candidate generator fail",
+        "after_hook_exception_message": "Candidate generator fail",
+        "shadow_submit_count": 0,
+        "classes_match": true,
+        "messages_match": true
+      },
+      {
+        "scenario_id": "EXC-GRAPH-RETRIEVAL",
+        "failure_source": "_run_reasoning",
+        "before_hook_exception_class": "RuntimeError",
+        "after_hook_exception_class": "RuntimeError",
+        "before_hook_exception_message": "Neo4j connection dropped",
+        "after_hook_exception_message": "Neo4j connection dropped",
+        "shadow_submit_count": 0,
+        "classes_match": true,
+        "messages_match": true
+      },
+      {
+        "scenario_id": "EXC-LEGACY-COMPOSE",
+        "failure_source": "_compose",
+        "before_hook_exception_class": "KeyError",
+        "after_hook_exception_class": "KeyError",
+        "before_hook_exception_message": "'Missing template parameter in composition'",
+        "after_hook_exception_message": "'Missing template parameter in composition'",
+        "shadow_submit_count": 0,
+        "classes_match": true,
+        "messages_match": true
+      }
+    ]
+  },
+  "side_effect_order": {
+    "result": "PASS",
+    "calculation": "observed_call_sequence == ['graph_query_reasoning', 'graph_query_exercises', 'compose', 'shadow_submit', 'legacy_return']",
+    "observed_call_sequence": [
+      "graph_query_reasoning",
+      "graph_query_exercises",
+      "compose",
+      "shadow_submit",
+      "legacy_return"
+    ],
+    "order_valid": true
+  },
+  "shadow_output_isolation": {
+    "result": "PASS",
+    "calculation": "sentinel_in_answer_return == False",
+    "sentinel": "SHADOW_SECRET_SENTINEL_DO_NOT_RETURN",
+    "observed_in_legacy_return": false
+  }
+}

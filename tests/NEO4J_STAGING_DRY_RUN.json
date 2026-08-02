@@ -1,0 +1,21 @@
+{
+  "ingestion_batch_id": "f70910f1-18d4-559e-b464-f8a7c609c06b",
+  "input_dict_sha256": "e18bda5987b1f5fb9dab4fdcea12228176e7b4eaa719ba9da1ee09758ba3741c",
+  "input_gloss_sha256": "127831356413704c7ea56c46622790bd1749d3cc8d2d8465fb24e5ae3dbab522",
+  "generated_at": "2026-07-24T11:48:16Z",
+  "nodes_to_create": 50,
+  "nodes_to_update": 0,
+  "relationships_to_create": 17,
+  "constraints_to_create": 4,
+  "records_rejected": 0,
+  "self_relations_skipped": 2,
+  "estimated_batch_count": 2,
+  "dry_run_errors": 0,
+  "node_breakdown": {
+    "Concept": 48,
+    "GlossaryEntry": 2
+  },
+  "relationship_breakdown": {
+    "CHILD_OF": 17
+  }
+}

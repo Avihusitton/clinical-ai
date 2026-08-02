@@ -1,0 +1,19 @@
+{
+  "gate_a_wrapper_path": "tests/test_gate_a_dry_run_and_isolation.py",
+  "gate_a_runner_path": "evaluation/wave96/gate_a_driver_runner.py",
+  "isolation_test_path": "tests/test_wave96_gate_a_isolation.py",
+  "baseline_path": "tests/WAVE_9_4_GATE_A_BUNDLE_BASELINE.py",
+  "prechange_source_classification": "UNTRACKED_PRECHANGE_SOURCE",
+  "parent_driver_imported_before": false,
+  "parent_driver_imported_after": false,
+  "subprocess_isolation_verified": true,
+  "skip_mapping_exit_77_verified": true,
+  "failure_mapping_nonzero_exit_verified": true,
+  "gate_a_then_gate_cd_order_pass": true,
+  "ast_normalized_assertion_multiset_matched": true,
+  "missing_original_assertions": [],
+  "all_assertions_preserved": true,
+  "all_safety_checks_preserved": true,
+  "try_finally_cleanup_verified": true,
+  "synthetic_canary_credential_redaction_verified": true
+}

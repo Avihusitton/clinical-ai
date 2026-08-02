@@ -1,0 +1,9 @@
+{
+  "original_test_node_ids_preserved": true,
+  "original_assertions_preserved": true,
+  "original_skip_conditions_preserved": true,
+  "original_database_safety_checks_preserved": true,
+  "original_cleanup_behavior_preserved": true,
+  "functional_behavior_changed": false,
+  "driver_imported_in_parent": false
+}

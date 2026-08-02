@@ -1,0 +1,31 @@
+{
+  "ExplanationPayload": {
+    "accepted_path": {
+      "description": "Explanation for a path that successfully passed all gates and scoring.",
+      "type": "object",
+      "properties": {
+        "path_id": { "type": "string" },
+        "nodes": { "type": "array", "items": { "type": "string" } },
+        "edges": { "type": "array", "items": { "type": "string" } },
+        "score_components": { "$ref": "#/entities/DirectScoreComponents" },
+        "hub_penalty_applied": { "type": "number", "description": "The penalty factor applied based on effective degree" },
+        "final_score": { "type": "number" },
+        "decision_rationale": { "type": "string" }
+      }
+    },
+    "rejected_path": {
+      "description": "Explanation for a path that was rejected due to policies or scores.",
+      "type": "object",
+      "properties": {
+        "path_id": { "type": "string" },
+        "candidate_nodes": { "type": "array", "items": { "type": "string" } },
+        "candidate_edges": { "type": "array", "items": { "type": "string" } },
+        "blocking_reasons": {
+          "type": "array",
+          "items": { "$ref": "#/entities/BlockingReason" }
+        },
+        "rejection_point_node_or_edge_id": { "type": "string" }
+      }
+    }
+  }
+}

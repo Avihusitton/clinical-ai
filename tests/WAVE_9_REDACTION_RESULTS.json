@@ -1,0 +1,9 @@
+{
+  "approved_wording": "Observed performance applies only to the supplied synthetic fixture sets. These results do not establish general production precision or recall.",
+  "israeli_pii_cases_evaluated": 20,
+  "israeli_pii_cases_detected": 20,
+  "israeli_pii_cases_queued": 0,
+  "negative_redaction_cases_evaluated": 60,
+  "negative_redaction_cases_flagged": 0,
+  "raw_query_leaks_in_pii_evaluation": 0
+}

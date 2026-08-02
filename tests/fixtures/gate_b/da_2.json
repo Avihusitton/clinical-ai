@@ -1,0 +1,1 @@
+{"id": "da_2", "description": "Terminal relation", "nodes": [{"id": "n1", "scope": "PilotA"}, {"id": "n2", "scope": "PilotA", "is_terminal": true}], "edges": [{"source": "n1", "target": "n2", "type": "TERMINAL_REL", "status": "APPROVED", "provenance": "src_1", "review_state": "REVIEWED"}], "expected_decision": "ACCEPTED", "blocking_reason": null}

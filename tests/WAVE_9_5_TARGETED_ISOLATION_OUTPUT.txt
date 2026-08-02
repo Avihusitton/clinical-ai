@@ -1,0 +1,15 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\avihu\AppData\Local\Programs\Python\Python312\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Avihusitton\clinical_ai
+plugins: anyio-4.13.0
+collecting ... collected 6 items
+
+tests/test_wave95_driver_isolation.py::test_real_shadow_pilot <- tests\test_real_shadow_pilot.py PASSED [ 16%]
+tests/test_wave95_driver_isolation.py::test_fresh_process_has_no_neo4j_driver PASSED [ 33%]
+tests/test_wave95_driver_isolation.py::test_pilot_wrapper_introduces_no_new_parent_driver_modules PASSED [ 50%]
+tests/test_wave95_driver_isolation.py::test_pilot_subprocess_runner_executes PASSED [ 66%]
+tests/test_wave95_driver_isolation.py::test_pilot_runner_functional_assertions PASSED [ 83%]
+tests/test_wave95_driver_isolation.py::test_subprocess_nonzero_exit_causes_test_failure PASSED [100%]
+
+============================== 6 passed in 2.11s ==============================

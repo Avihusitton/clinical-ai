@@ -1,0 +1,51 @@
+{
+  "reality_check_version": "Wave 9.0",
+  "statement": "Synthetic adapter output is plumbing evidence only. It is not evidence of real clinical retrieval or knowledge quality.",
+  "adapters": [
+    {
+      "adapter": "LegacyRetrievalAdapter",
+      "real_input_dependency": "retrieval.Retriever, Neo4j graph session, LLM client",
+      "synthetic_default_present": true,
+      "hardcoded_value_present": true,
+      "external_service_required": false,
+      "eligible_for_offline_evaluation": true,
+      "limitations": "Uses mocked Retriever and mock cypher query results for offline execution."
+    },
+    {
+      "adapter": "GateBAdapter",
+      "real_input_dependency": "models.relation_policy, models.second_order_reasoner",
+      "synthetic_default_present": true,
+      "hardcoded_value_present": true,
+      "external_service_required": false,
+      "eligible_for_offline_evaluation": true,
+      "limitations": "Evaluates mock relation policy definitions and synthetic evidence bundles."
+    },
+    {
+      "adapter": "GateCAdapter",
+      "real_input_dependency": "gate_c.novelty_engine",
+      "synthetic_default_present": true,
+      "hardcoded_value_present": true,
+      "external_service_required": false,
+      "eligible_for_offline_evaluation": true,
+      "limitations": "Evaluates synthetic novelty discovery candidates without live graph persistence."
+    },
+    {
+      "adapter": "BoundaryAdapter",
+      "real_input_dependency": "gate_cd_boundary.evidence_eligibility",
+      "synthetic_default_present": true,
+      "hardcoded_value_present": false,
+      "external_service_required": false,
+      "eligible_for_offline_evaluation": true,
+      "limitations": "Filters reviewed vs unreviewed novelty using synthetic eligibility rules."
+    },
+    {
+      "adapter": "GateDAdapter",
+      "real_input_dependency": "gate_d.consultation_engine",
+      "synthetic_default_present": true,
+      "hardcoded_value_present": true,
+      "external_service_required": false,
+      "eligible_for_offline_evaluation": true,
+      "limitations": "Executes consultation synthesis using offline rule engine without external LLM calls."
+    }
+  ]
+}

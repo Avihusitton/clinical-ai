@@ -1,0 +1,1 @@
+{"id": "da_5", "description": "Allowed ordered composition", "nodes": [{"id": "n1", "scope": "PilotA"}, {"id": "n2", "scope": "PilotA"}], "edges": [{"source": "n1", "target": "n2", "type": "ORDERED_COMP", "status": "APPROVED", "provenance": "src_1", "review_state": "REVIEWED"}], "expected_decision": "ACCEPTED", "blocking_reason": null}

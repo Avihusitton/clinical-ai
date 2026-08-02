@@ -1,0 +1,21 @@
+{
+  "prechange_source_classification": "SUPPORTING_BUT_NOT_AUTHORITATIVE",
+  "authoritative_prechange_source_path": null,
+  "authoritative_prechange_source_sha256": null,
+  "hardcoded_preservation_field_count": 0,
+  "canary_error_path_executed": true,
+  "canary_secret_leak_count": 0,
+  "cleanup_failure_path_test_exit_code": 0,
+  "background_tasks_used_in_final_sequence": false,
+  "targeted_isolation_exit_code": 0,
+  "gate_a_then_gate_cd_exit_code": 0,
+  "final_collect_exit_code": 0,
+  "final_pytest_exit_code": 0,
+  "tests_collected": 1904,
+  "tests_passed": 1904,
+  "tests_failed": 0,
+  "test_errors": 0,
+  "implementation_verification": "PASS",
+  "full_test_suite": "PASS",
+  "final_status": "BLOCKED_INDEPENDENT_PRECHANGE_BASELINE_UNAVAILABLE"
+}

@@ -1,0 +1,1 @@
+{"id": "da_9", "description": "High-degree hub in-edge", "nodes": [{"id": "n1", "scope": "PilotA"}, {"id": "hub2", "scope": "PilotA", "degree": 100}], "edges": [{"source": "n1", "target": "hub2", "type": "INFER", "status": "APPROVED", "provenance": "src_1", "review_state": "REVIEWED"}], "expected_decision": "ACCEPTED", "blocking_reason": null}

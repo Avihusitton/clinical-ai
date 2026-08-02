@@ -1,0 +1,19 @@
+{
+  "gate_only_exit_code": 0,
+  "pilot_then_gate_exit_code": 1,
+  "gate_then_pilot_exit_code": 0,
+  "neo4j_import_location": "inside the test function",
+  "first_importing_node": "tests/test_real_shadow_pilot.py::test_real_shadow_pilot",
+  "first_importing_module": "tests/test_real_shadow_pilot.py",
+  "wave9_file_imports_neo4j": false,
+  "repairable_in_allowed_file": false,
+  "protected_file_change_required": true,
+  "import_chain": [
+    "tests/test_real_shadow_pilot.py runs before tests/test_gate_cd_boundary.py in full pytest suite alphabetical order",
+    "test_real_shadow_pilot.py line 15: from neo4j import GraphDatabase (inside test function body)",
+    "When pytest executes test_real_shadow_pilot, neo4j and neo4j._typing are loaded into sys.modules",
+    "neo4j._typing persists in sys.modules across subsequent test execution in the process",
+    "tests/test_gate_cd_boundary.py::TestNoProductionImports::test_gate_cd_boundary_does_not_import_neo4j checks sys.modules keys for 'neo4j'",
+    "neo4j._typing matches the 'neo4j' substring check, causing assertion failure"
+  ]
+}

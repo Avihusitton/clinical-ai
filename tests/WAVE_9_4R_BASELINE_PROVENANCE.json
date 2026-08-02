@@ -1,0 +1,23 @@
+{
+  "normalized_path": "PROJECT_CODE_BUNDLE.txt",
+  "file_exists": true,
+  "git_tracked": false,
+  "git_status": "??",
+  "byte_length": 3947894,
+  "sha256": "1893549b053d8e8e0432eb3e4d4c752274ac0ecd8444a735c587425f1b54abbc",
+  "matching_section_count_for_gate_cd": 1,
+  "matching_section_count_for_gate_a": 1,
+  "gate_cd_begin_line": 75850,
+  "gate_cd_end_line": 76370,
+  "gate_a_begin_line": 72702,
+  "gate_a_end_line": 72891,
+  "working_file_currently_modified": false,
+  "working_file_currently_staged": false,
+  "commit_where_file_first_appeared": null,
+  "commit_where_module_level_neo4j_import_changed": null,
+  "change_occurred_before_wave9": null,
+  "change_occurred_during_wave9": false,
+  "independent_baseline_authoritative": false,
+  "bundle_provenance_classification": "SUPPORTING_BUT_NOT_AUTHORITATIVE",
+  "provenance_conclusion": "PROJECT_CODE_BUNDLE.txt is an untracked file containing complete bundle grammar and matching sections for both protected tests. Because it is untracked in git commit history, it serves as supporting evidence rather than an authoritative git baseline."
+}

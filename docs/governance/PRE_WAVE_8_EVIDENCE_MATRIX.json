@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "audit_task_id": "PreWave8-Phase5-Audit",
+  "timestamp": "2026-07-23T08:28:00+03:00",
+  "verdict": "PASS",
+  "governance_audit": {
+    "governor_skill_status": "NON_BLOCKING_REGISTERED",
+    "agent_vs_runtime_separation": true,
+    "developer_agent_model": "Gemini 3.6 Flash",
+    "runtime_llm_provider": "OpenRouter",
+    "intended_runtime_model": "DeepSeek v4 Pro",
+    "glossary_status": "CONCEPT_DICTIONARY_IN_PROGRESS",
+    "official_glossary_ready": false
+  },
+  "shadow_wiring_audit": {
+    "execution_strategy": "OFF_CRITICAL_PATH_SHADOW",
+    "queue_saturation_policy": "DROP_SHADOW_TASK_AND_AUDIT",
+    "canonical_manifest_version": "2.0.0",
+    "canonical_hash": "5df950e8459eb7b6fd34d705cc0af06fbe7b3f58ac7d8a7ab05bcba4d7277342",
+    "total_fixtures": 140,
+    "israeli_pii_fixtures": 20,
+    "pii_case_range": "SHD-ISR-001 to SHD-ISR-020"
+  },
+  "runtime_model_audit": {
+    "intended_runtime_model": "DeepSeek v4 Pro",
+    "openrouter_endpoint": "https://openrouter.ai/api/v1/chat/completions",
+    "stale_reference_identified": "config.py:60 (deepseek/deepseek-v4-flash)",
+    "remediation_task": "TASK_RUNTIME_MODEL_ALIGNMENT",
+    "runtime_code_modified": false
+  },
+  "cleanup_inventory_audit": {
+    "inventory_status": "READ_ONLY_INVENTORY",
+    "files_moved": 0,
+    "files_deleted": 0,
+    "active_package": "gate_d",
+    "quarantine_candidate": "models/gate_d",
+    "quarantine_backups": 4
+  },
+  "safety_and_security_invariants": {
+    "production_code_changed": 0,
+    "runtime_models_changed": 0,
+    "files_moved": 0,
+    "files_deleted": 0,
+    "secrets_read": 0,
+    "protected_files_mutated": 0
+  }
+}

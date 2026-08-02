@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "audit_metadata": {
+    "task_id": "W7-Agent5-Audit",
+    "timestamp": "2026-07-23T08:18:40Z",
+    "auditor": "Independent Research Subagent (Strict Read-Only Audit)",
+    "contract_version": "1.0.0",
+    "canonical_combined_sha256": "40a536aadd8436ca29b4bf5bc7ac226deb1eefd685146011d3aaae83028f58d2",
+    "overall_verdict": "PASS",
+    "total_criteria": 10,
+    "passed_criteria": 10,
+    "failed_criteria": 0,
+    "fixture_count": 120
+  },
+  "criteria_matrix": [
+    {
+      "criterion_id": "AC-01",
+      "title": "Seam Location in retrieval.py",
+      "status": "PASSED",
+      "evidence": "RETRIEVAL_SEAM_MAP.md identifies Retriever.answer (lines 93-109) post-processing wrapper SEAM-001-ANSWER-WRAPPER."
+    },
+    {
+      "criterion_id": "AC-02",
+      "title": "Legacy Output Preservation",
+      "status": "PASSED",
+      "evidence": "SHADOW_WIRING_CONTRACT.md specifies 10-step lifecycle returning legacy response unmutated."
+    },
+    {
+      "criterion_id": "AC-03",
+      "title": "LEGACY_ONLY Default Mode",
+      "status": "PASSED",
+      "evidence": "SHADOW_WIRING_FROZEN_CONTRACT.json sets shadow_default_enabled: false."
+    },
+    {
+      "criterion_id": "AC-04",
+      "title": "Failure Isolation",
+      "status": "PASSED",
+      "evidence": "SHADOW_ERROR_MODEL.json handles ERR_SHD_TIMEOUT and ERR_SHD_EXCEPTION cleanly."
+    },
+    {
+      "criterion_id": "AC-05",
+      "title": "Emergency Disable",
+      "status": "PASSED",
+      "evidence": "SHADOW_TEST_MATRIX.md DOM-06 verifies instant degradation under EMERGENCY_DISABLED mode."
+    },
+    {
+      "criterion_id": "AC-06",
+      "title": "Novelty Leak Prevention",
+      "status": "PASSED",
+      "evidence": "SHADOW_WIRING_CONTRACT.md prohibits DISCOVERY_ONLY candidates from serving as evidence."
+    },
+    {
+      "criterion_id": "AC-07",
+      "title": "Privacy & Redaction",
+      "status": "PASSED",
+      "evidence": "SHADOW_DATA_FLOW.md specifies salted SHA-256 user ID hashing and PII scanning."
+    },
+    {
+      "criterion_id": "AC-08",
+      "title": "Synthetic Fixture Dataset",
+      "status": "PASSED",
+      "evidence": "tests/fixtures/shadow_wiring/shadow_cases.jsonl contains 120 JSON lines across 6 domains."
+    },
+    {
+      "criterion_id": "AC-09",
+      "title": "Canonical Manifest Hash",
+      "status": "PASSED",
+      "evidence": "SHADOW_WIRING_CANONICAL_MANIFEST.json digest 40a536aadd8436ca29b4bf5bc7ac226deb1eefd685146011d3aaae83028f58d2 verified."
+    },
+    {
+      "criterion_id": "AC-10",
+      "title": "Zero Production Code Modifications",
+      "status": "PASSED",
+      "evidence": "0 protected baseline code modifications in retrieval.py or config.py."
+    }
+  ]
+}

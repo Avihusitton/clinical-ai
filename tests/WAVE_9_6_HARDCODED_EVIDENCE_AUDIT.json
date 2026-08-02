@@ -1,0 +1,83 @@
+{
+  "hardcoded_preservation_field_count": 0,
+  "audited_fields_count": 11,
+  "audit_records": [
+    {
+      "field": "test_node_ids_identical",
+      "generator_file": "evaluation/wave96/calculate_preservation_evidence.py",
+      "calculation_method": "AST function name comparison between baseline and wrapper module",
+      "source_evidence": "tests/WAVE_9_4_GATE_A_BUNDLE_BASELINE.py vs tests/test_gate_a_dry_run_and_isolation.py AST",
+      "hardcoded": false
+    },
+    {
+      "field": "skip_condition_mapping_preserved",
+      "generator_file": "evaluation/wave96/calculate_preservation_evidence.py",
+      "calculation_method": "AST inspection of wrapper exit code 77 handling and runner exception mapping",
+      "source_evidence": "evaluation/wave96/gate_a_driver_runner.py AST",
+      "hardcoded": false
+    },
+    {
+      "field": "database_identity_validation_executes_before_writes",
+      "generator_file": "evaluation/wave96/calculate_preservation_evidence.py",
+      "calculation_method": "AST control-flow verification of Config() and driver session setup before dry_run/load_shadow",
+      "source_evidence": "evaluation/wave96/gate_a_driver_runner.py AST",
+      "hardcoded": false
+    },
+    {
+      "field": "dry_run_write_count_assertion_executes",
+      "generator_file": "evaluation/wave96/calculate_preservation_evidence.py",
+      "calculation_method": "AST normalized assertion expression multiset matching",
+      "source_evidence": "evaluation/wave96/gate_a_driver_runner.py AST node assert write_query_count == 0",
+      "hardcoded": false
+    },
+    {
+      "field": "cross_boundary_checks_execute",
+      "generator_file": "evaluation/wave96/calculate_preservation_evidence.py",
+      "calculation_method": "AST normalized assertion expression multiset matching",
+      "source_evidence": "evaluation/wave96/gate_a_driver_runner.py AST node assert cross_boundary == 0",
+      "hardcoded": false
+    },
+    {
+      "field": "orphan_checks_execute",
+      "generator_file": "evaluation/wave96/calculate_preservation_evidence.py",
+      "calculation_method": "AST normalized assertion expression multiset matching",
+      "source_evidence": "evaluation/wave96/gate_a_driver_runner.py AST node assert orphan_aliases == 0",
+      "hardcoded": false
+    },
+    {
+      "field": "pilot_id_checks_execute",
+      "generator_file": "evaluation/wave96/calculate_preservation_evidence.py",
+      "calculation_method": "AST normalized assertion expression multiset matching",
+      "source_evidence": "evaluation/wave96/gate_a_driver_runner.py AST nodes for pilot_id assertions",
+      "hardcoded": false
+    },
+    {
+      "field": "idempotency_checks_execute",
+      "generator_file": "evaluation/wave96/calculate_preservation_evidence.py",
+      "calculation_method": "AST normalized assertion expression multiset matching",
+      "source_evidence": "evaluation/wave96/gate_a_driver_runner.py AST nodes for second_load assertions",
+      "hardcoded": false
+    },
+    {
+      "field": "post_cleanup_count_assertions_execute",
+      "generator_file": "evaluation/wave96/calculate_preservation_evidence.py",
+      "calculation_method": "AST normalized assertion expression multiset matching",
+      "source_evidence": "evaluation/wave96/gate_a_driver_runner.py AST nodes for shadow_entries_after_cleanup == 0",
+      "hardcoded": false
+    },
+    {
+      "field": "production_label_counts_unchanged",
+      "generator_file": "evaluation/wave96/calculate_preservation_evidence.py",
+      "calculation_method": "AST normalized assertion expression multiset matching",
+      "source_evidence": "evaluation/wave96/gate_a_driver_runner.py AST node assert prod_labels_before == prod_labels_after",
+      "hardcoded": false
+    },
+    {
+      "field": "production_relationship_counts_unchanged",
+      "generator_file": "evaluation/wave96/calculate_preservation_evidence.py",
+      "calculation_method": "AST normalized assertion expression multiset matching",
+      "source_evidence": "evaluation/wave96/gate_a_driver_runner.py AST node assert prod_rels_before == prod_rels_after",
+      "hardcoded": false
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Clinical AI dictionary candidate input",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "candidate_id": {"type": "string", "minLength": 1},
+    "source_document_id": {"type": "string", "pattern": "^SRC-[A-F0-9]{16}$"},
+    "source_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source_authority": {
+      "type": "string",
+      "enum": ["METHOD_PRIMARY", "SECONDARY_INTERPRETIVE", "UNVERIFIED"]
+    },
+    "source_authority_basis": {
+      "type": "string",
+      "enum": [
+        "OWNER_DECLARATION",
+        "SIGNED_PRODUCER_MANIFEST",
+        "APPROVED_COLLECTION_RULE",
+        "PATH_DECLARATION",
+        "UNVERIFIED"
+      ]
+    },
+    "candidate_kind": {
+      "type": "string",
+      "enum": [
+        "NEW_CANONICAL_ENTRY",
+        "CANONICAL_UPDATE",
+        "SUBCONCEPT",
+        "RELATION",
+        "EXAMPLE"
+      ]
+    },
+    "candidate_label": {"type": "string", "minLength": 1},
+    "candidate_text": {"type": "string"},
+    "anchor_card_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^[A-H][0-9]{3}$"}
+    },
+    "relation_type": {"type": "string"},
+    "evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "chunk_id": {"type": "string", "minLength": 1},
+          "source_location": {"type": "string", "minLength": 1},
+          "evidence_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        },
+        "required": ["chunk_id", "source_location", "evidence_hash"]
+      }
+    },
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+    "pii_status": {"type": "string", "enum": ["NOT_SCANNED", "CLEAR", "BLOCKED"]},
+    "rights_status": {"type": "string", "enum": ["UNVERIFIED", "CLEARED", "BLOCKED"]},
+    "notes": {"type": "string"}
+  },
+  "required": [
+    "candidate_id",
+    "source_document_id",
+    "source_sha256",
+    "source_authority",
+    "source_authority_basis",
+    "candidate_kind",
+    "candidate_label",
+    "anchor_card_ids",
+    "evidence_refs",
+    "pii_status",
+    "rights_status"
+  ]
+}

@@ -2,6 +2,8 @@
 .env
 .env.*
 !.env.example
+.secrets/*
+!.secrets/*.example
 
 # קבצי מטופלים אמיתיים - לא שייכים לבקרת גרסאות
 docs_inbox/*
@@ -21,3 +23,19 @@ data/content_hashes.json
 
 __pycache__/
 *.pyc
+
+# סביבות וירטואליות
+venv/
+env/
+.venv/
+pip-log.txt
+
+# עורכי קוד (IDEs)
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# קבצי מערכת הפעלה
+.DS_Store
+Thumbs.db

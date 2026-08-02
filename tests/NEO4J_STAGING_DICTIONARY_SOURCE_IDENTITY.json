@@ -1,0 +1,341 @@
+{
+  "observed_at": "2026-07-28T19:52:44+03:00",
+  "workspace_root": "C:\\Avihusitton",
+  "consumer_project": "C:\\Avihusitton\\clinical_ai",
+  "producer_project": "C:\\Avihusitton\\dherech-dictionery\\Derech_Dictionary_Project",
+  "source_authority": {
+    "producer_contract": "C:\\Avihusitton\\dherech-dictionery\\Derech_Dictionary_Project\\05_INVENTORY_AND_PLANS\\DICTIONARY_TO_CLINICAL_AI_INTERFACE.md",
+    "producer_status": "GATE_1_IN_PROGRESS",
+    "consumer_role": "CONSUMER_ONLY",
+    "expected_identifier_count": 1006,
+    "expected_identifier_range": "A001-H560",
+    "expected_release_files": [
+      "official_glossary.jsonl",
+      "dictionary_release_manifest.json",
+      "ACTIVE_IDS.csv",
+      "REDIRECTS.csv",
+      "CROSS_REFERENCES.csv",
+      "SOURCE_MAP.csv",
+      "RELATION_CANDIDATES.csv",
+      "SCHEMA_COMPATIBILITY_REPORT.md"
+    ],
+    "release_files_present": [
+      "SOURCE_MAP.csv"
+    ],
+    "release_files_missing": [
+      "official_glossary.jsonl",
+      "dictionary_release_manifest.json",
+      "ACTIVE_IDS.csv",
+      "REDIRECTS.csv",
+      "CROSS_REFERENCES.csv",
+      "RELATION_CANDIDATES.csv",
+      "SCHEMA_COMPATIBILITY_REPORT.md"
+    ],
+    "canonical_release_complete": false
+  },
+  "candidates": [
+    {
+      "path": "C:\\Avihusitton\\dherech-dictionery\\Derech_Dictionary_Project\\07_UPDATED_DICTIONARY",
+      "format": "release_directory",
+      "byte_length": 0,
+      "raw_sha256": null,
+      "record_count": 0,
+      "schema": "EXPECTED_RELEASE_PACKAGE",
+      "modified_time": "2026-07-28T18:31:11+03:00",
+      "references_from_code": 0,
+      "references_from_docs": 2,
+      "version_or_provenance": "Producer-owned canonical release destination; currently empty",
+      "likely_role": "future_canonical_concept_dictionary_and_official_glossary",
+      "canonical_confidence": "BLOCKED_ABSENT"
+    },
+    {
+      "path": "C:\\Avihusitton\\dherech-dictionery\\Derech_Dictionary_Project\\05_INVENTORY_AND_PLANS\\SOURCE_MAP.csv",
+      "format": "csv",
+      "byte_length": 268472,
+      "raw_sha256": "99a0a48d8edd5eea3879654f1cae44d58872095474eda0de5cc8add368507806",
+      "record_count": 192,
+      "schema": [
+        "source_key",
+        "logical_path",
+        "source_family",
+        "file_type",
+        "classification",
+        "classification_reasons",
+        "open_status",
+        "bytes",
+        "sha256",
+        "normalized_text_sha256",
+        "character_count",
+        "word_count_approx",
+        "page_count",
+        "paragraph_count",
+        "heading_count",
+        "table_count",
+        "hyperlink_count",
+        "footnote_count",
+        "id_count",
+        "ids",
+        "field_label_count",
+        "fields_detected",
+        "extracted_text_path",
+        "extracted_json_path",
+        "tables_file",
+        "classified_copy_path",
+        "notes"
+      ],
+      "modified_time": "2026-07-28T19:50:35.152112+03:00",
+      "references_from_code": 0,
+      "references_from_docs": 2,
+      "version_or_provenance": "Gate 1 source inventory generated from 192 read-only producer inputs",
+      "likely_role": "supporting_provenance_map_not_dictionary_content",
+      "canonical_confidence": "SUPPORTING_ONLY"
+    },
+    {
+      "path": "C:\\Avihusitton\\dherech-dictionery\\Derech_Dictionary_Project\\02_EXTRACTED_READ_ONLY",
+      "format": "docx_pdf_corpus",
+      "byte_length": 291895798,
+      "raw_sha256": null,
+      "record_count": 192,
+      "schema": "SOURCE_DOCUMENTS_NOT_RELEASE_RECORDS",
+      "modified_time": "2026-07-28T18:19:43+03:00",
+      "references_from_code": 1,
+      "references_from_docs": 196,
+      "version_or_provenance": "Read-only copies verified against producer input hashes",
+      "likely_role": "authoritative_source_material_for_future_release",
+      "canonical_confidence": "SOURCE_MATERIAL_ONLY"
+    },
+    {
+      "path": "C:\\Avihusitton\\clinical_ai\\data\\glossary.json",
+      "format": "json",
+      "byte_length": 19765,
+      "raw_sha256": "e18bda5987b1f5fb9dab4fdcea12228176e7b4eaa719ba9da1ee09758ba3741c",
+      "record_count": 48,
+      "schema": {
+        "root_keys": [
+          "_readme",
+          "concepts"
+        ],
+        "record_keys": [
+          "definition",
+          "parent",
+          "synonyms"
+        ]
+      },
+      "modified_time": "2026-07-23T14:52:13+03:00",
+      "references_from_code": 19,
+      "references_from_docs": 15,
+      "version_or_provenance": "Current legacy runtime glossary",
+      "likely_role": "legacy_concept_glossary",
+      "canonical_confidence": "REJECTED_AS_CANONICAL"
+    },
+    {
+      "path": "C:\\Avihusitton\\clinical_ai\\data\\official_glossary\\official_glossary.sample.jsonl",
+      "format": "jsonl",
+      "byte_length": 473,
+      "raw_sha256": "127831356413704c7ea56c46622790bd1749d3cc8d2d8465fb24e5ae3dbab522",
+      "record_count": 2,
+      "schema": [
+        "aliases",
+        "canonical_name",
+        "card_id",
+        "definition",
+        "status"
+      ],
+      "modified_time": "2026-07-21T23:22:14+03:00",
+      "references_from_code": 12,
+      "references_from_docs": 3,
+      "version_or_provenance": "Explicit sample fixture with GLOS identifiers and 5 fields",
+      "likely_role": "sample_fixture",
+      "canonical_confidence": "REJECTED_AS_CANONICAL"
+    },
+    {
+      "path": "C:\\Avihusitton\\clinical_ai\\out\\glossary_draft.json",
+      "format": "json",
+      "byte_length": 1706147,
+      "raw_sha256": "dc0eb1f9e3375234840cc666a4a66e1ba36b191595a3aa9ffc1c319003c23d77",
+      "record_count": 5071,
+      "schema": {
+        "root_keys": [
+          "concepts",
+          "source_document",
+          "status"
+        ],
+        "record_keys": [
+          "definition",
+          "parent",
+          "synonyms",
+          "type"
+        ]
+      },
+      "modified_time": "2026-07-21T10:39:18+03:00",
+      "references_from_code": 11,
+      "references_from_docs": 5,
+      "version_or_provenance": "Generated LLM draft",
+      "likely_role": "generated_draft",
+      "canonical_confidence": "REJECTED_AS_CANONICAL"
+    },
+    {
+      "path": "C:\\Avihusitton\\clinical_ai\\out\\glossary_clean_draft.json",
+      "format": "json",
+      "byte_length": 5883,
+      "raw_sha256": "ca3b3ec182d44611a14c894c33913c71fa556db0b4a842a22e246846e96c150c",
+      "record_count": 19,
+      "schema": {
+        "root_keys": [
+          "_readme",
+          "concepts",
+          "source_document"
+        ],
+        "record_keys": [
+          "definition",
+          "synonyms"
+        ]
+      },
+      "modified_time": "2026-07-10T18:49:54+03:00",
+      "references_from_code": 1,
+      "references_from_docs": 0,
+      "version_or_provenance": "Cleaned generated draft",
+      "likely_role": "generated_draft",
+      "canonical_confidence": "REJECTED_AS_CANONICAL"
+    },
+    {
+      "path": "C:\\Avihusitton\\clinical_ai\\out\\glossary_excluded_for_review.json",
+      "format": "json",
+      "byte_length": 14957,
+      "raw_sha256": "0be893548c37a3108d83141f672e9e31a08bcc87f4530329d073168edaa21861",
+      "record_count": 49,
+      "schema": {
+        "root_keys": [
+          "_readme",
+          "concepts"
+        ],
+        "record_keys": [
+          "definition",
+          "parent",
+          "synonyms"
+        ]
+      },
+      "modified_time": "2026-07-10T18:47:38+03:00",
+      "references_from_code": 1,
+      "references_from_docs": 0,
+      "version_or_provenance": "Explicitly excluded review set",
+      "likely_role": "review_exclusions",
+      "canonical_confidence": "REJECTED_AS_CANONICAL"
+    },
+    {
+      "path": "C:\\Avihusitton\\clinical_ai\\preflight_run\\data\\glossary.json",
+      "format": "json",
+      "byte_length": 5958,
+      "raw_sha256": "7fdded9ac44f9d7ef053768a0b4814530f224292f3fb7779dfdc9a158dca4dfe",
+      "record_count": 19,
+      "schema": {
+        "root_keys": [
+          "_readme",
+          "concepts"
+        ],
+        "record_keys": [
+          "definition",
+          "synonyms"
+        ]
+      },
+      "modified_time": "2026-07-10T19:18:42+03:00",
+      "references_from_code": 0,
+      "references_from_docs": 0,
+      "version_or_provenance": "Historic preflight copy",
+      "likely_role": "legacy_preflight_fixture",
+      "canonical_confidence": "REJECTED_AS_CANONICAL"
+    },
+    {
+      "path": "C:\\Avihusitton\\clinical_ai\\data\\backups\\20260710_183528\\glossary.json",
+      "format": "json",
+      "byte_length": 1049,
+      "raw_sha256": "3ca6b88a1e5b5678a635c5fdf3c6d4461140e5626e564bda5e6f68532caa599a",
+      "record_count": 2,
+      "schema": "LEGACY_GLOSSARY",
+      "modified_time": "2026-07-10T12:37:40+03:00",
+      "references_from_code": 0,
+      "references_from_docs": 0,
+      "version_or_provenance": "Backup",
+      "likely_role": "legacy_backup",
+      "canonical_confidence": "REJECTED_AS_CANONICAL"
+    },
+    {
+      "path": "C:\\Avihusitton\\clinical_ai\\data\\backups\\20260710_185842\\glossary.json",
+      "format": "json",
+      "byte_length": 5792,
+      "raw_sha256": "b6f53013be2f6a76af5f8a53f831966cc867de4a13e15e8ffaa9680abfe3a724",
+      "record_count": 19,
+      "schema": "LEGACY_GLOSSARY",
+      "modified_time": "2026-07-10T18:35:28+03:00",
+      "references_from_code": 0,
+      "references_from_docs": 0,
+      "version_or_provenance": "Backup",
+      "likely_role": "legacy_backup",
+      "canonical_confidence": "REJECTED_AS_CANONICAL"
+    },
+    {
+      "path": "C:\\Avihusitton\\clinical_ai\\data\\backups\\20260723_144633\\glossary.json",
+      "format": "json",
+      "byte_length": 20301,
+      "raw_sha256": "4f8ed630e05defad203b57e1a1c06fec9ca133e5f41e67c61dc04830c96ab84f",
+      "record_count": 48,
+      "schema": "LEGACY_GLOSSARY",
+      "modified_time": "2026-07-21T10:39:18+03:00",
+      "references_from_code": 0,
+      "references_from_docs": 0,
+      "version_or_provenance": "Backup",
+      "likely_role": "legacy_backup",
+      "canonical_confidence": "REJECTED_AS_CANONICAL"
+    },
+    {
+      "path": "C:\\Avihusitton\\clinical_ai\\data\\backups\\20260723_144646\\glossary.json",
+      "format": "json",
+      "byte_length": 5792,
+      "raw_sha256": "b6f53013be2f6a76af5f8a53f831966cc867de4a13e15e8ffaa9680abfe3a724",
+      "record_count": 19,
+      "schema": "LEGACY_GLOSSARY",
+      "modified_time": "2026-07-23T14:46:33+03:00",
+      "references_from_code": 0,
+      "references_from_docs": 0,
+      "version_or_provenance": "Backup duplicate of 20260710_185842",
+      "likely_role": "legacy_backup_duplicate",
+      "canonical_confidence": "REJECTED_AS_CANONICAL"
+    },
+    {
+      "path": "C:\\Avihusitton\\avihu-knowledge\\01_concepts",
+      "format": "markdown_corpus",
+      "byte_length": 1095420,
+      "raw_sha256": null,
+      "record_count": 541,
+      "schema": "DOCUMENTS_NOT_RELEASE_RECORDS",
+      "modified_time": "2026-07-10T12:50:24+03:00",
+      "references_from_code": 0,
+      "references_from_docs": 0,
+      "version_or_provenance": "Separate project knowledge corpus",
+      "likely_role": "derived_knowledge_documents",
+      "canonical_confidence": "REJECTED_AS_CANONICAL"
+    }
+  ],
+  "schema_authority": {
+    "path": "C:\\Avihusitton\\clinical_ai\\data\\official_glossary\\schema.json",
+    "byte_length": 2371,
+    "raw_sha256": "5c2d5b3d21eb144d03fa928e41f593074b34c82589546b1025492ebc09d1e671",
+    "required_field_count": 25,
+    "identifier_pattern": "^[A-Z][0-9]{3}$"
+  },
+  "decision": {
+    "canonical_concept_dictionary_path": null,
+    "canonical_official_glossary_path": null,
+    "duplicates": [
+      "C:\\Avihusitton\\clinical_ai\\data\\backups\\20260710_185842\\glossary.json",
+      "C:\\Avihusitton\\clinical_ai\\data\\backups\\20260723_144646\\glossary.json"
+    ],
+    "legacy_copies_present": true,
+    "generated_exports_present": true,
+    "test_fixtures_present": true,
+    "canonical_authority_established": false,
+    "technical_preflight_permitted": false,
+    "neo4j_staging_load_permitted": false,
+    "final_status": "BLOCKED_CANONICAL_DICTIONARY_SOURCE_AMBIGUOUS"
+  }
+}

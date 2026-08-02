@@ -1,0 +1,12 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\avihu\AppData\Local\Programs\Python\Python312\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Avihusitton\clinical_ai
+plugins: anyio-4.13.0
+collecting ... collected 3 items
+
+tests/test_gate_a_dry_run_and_isolation.py::test_dry_run_no_writes PASSED
+tests/test_gate_a_dry_run_and_isolation.py::test_shadow_isolation PASSED
+tests/test_gate_cd_boundary.py::TestNoProductionImports::test_gate_cd_boundary_does_not_import_neo4j PASSED
+
+============================== 3 passed in 1.24s ==============================

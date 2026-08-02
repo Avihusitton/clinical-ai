@@ -1,0 +1,207 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "manifest_title": "Quarantine Move Manifest",
+  "version": "1.0.0",
+  "current_branch": "master",
+  "execution_status": "HELD_MAIN_BRANCH_SAFETY_RULE",
+  "moves": [
+    {
+      "source": "ingestion_pipeline.before_concept_relationship_block.py",
+      "destination": "_archive/historical_patches/ingestion_pipeline.before_concept_relationship_block.py",
+      "classification": "QUARANTINE_SAFE",
+      "reason": "Historical pre-patch backup",
+      "import_references": [],
+      "documentation_references": ["REPOSITORY_INVENTORY.json"],
+      "test_references": [],
+      "risk": "LOW",
+      "rollback_path": "ingestion_pipeline.before_concept_relationship_block.py"
+    },
+    {
+      "source": "ingestion_pipeline.before_lexicon_guard.py",
+      "destination": "_archive/historical_patches/ingestion_pipeline.before_lexicon_guard.py",
+      "classification": "QUARANTINE_SAFE",
+      "reason": "Historical pre-patch backup",
+      "import_references": [],
+      "documentation_references": ["REPOSITORY_INVENTORY.json"],
+      "test_references": [],
+      "risk": "LOW",
+      "rollback_path": "ingestion_pipeline.before_lexicon_guard.py"
+    },
+    {
+      "source": "ingestion_pipeline.before_pdf_support.py",
+      "destination": "_archive/historical_patches/ingestion_pipeline.before_pdf_support.py",
+      "classification": "QUARANTINE_SAFE",
+      "reason": "Historical pre-patch backup",
+      "import_references": [],
+      "documentation_references": ["REPOSITORY_INVENTORY.json"],
+      "test_references": [],
+      "risk": "LOW",
+      "rollback_path": "ingestion_pipeline.before_pdf_support.py"
+    },
+    {
+      "source": "ingestion_pipeline.before_review_queue.py",
+      "destination": "_archive/historical_patches/ingestion_pipeline.before_review_queue.py",
+      "classification": "QUARANTINE_SAFE",
+      "reason": "Historical pre-patch backup",
+      "import_references": [],
+      "documentation_references": ["REPOSITORY_INVENTORY.json"],
+      "test_references": [],
+      "risk": "LOW",
+      "rollback_path": "ingestion_pipeline.before_review_queue.py"
+    },
+    {
+      "source": "add_review_queue_dump.txt",
+      "destination": "_archive/generated_artifacts/add_review_queue_dump.txt",
+      "classification": "QUARANTINE_SAFE",
+      "reason": "Disposable execution log",
+      "import_references": [],
+      "documentation_references": [],
+      "test_references": [],
+      "risk": "LOW",
+      "rollback_path": "add_review_queue_dump.txt"
+    },
+    {
+      "source": "block_dump.txt",
+      "destination": "_archive/generated_artifacts/block_dump.txt",
+      "classification": "QUARANTINE_SAFE",
+      "reason": "Disposable execution log",
+      "import_references": [],
+      "documentation_references": [],
+      "test_references": [],
+      "risk": "LOW",
+      "rollback_path": "block_dump.txt"
+    },
+    {
+      "source": "load_approved_dump.txt",
+      "destination": "_archive/generated_artifacts/load_approved_dump.txt",
+      "classification": "QUARANTINE_SAFE",
+      "reason": "Disposable execution log",
+      "import_references": [],
+      "documentation_references": [],
+      "test_references": [],
+      "risk": "LOW",
+      "rollback_path": "load_approved_dump.txt"
+    },
+    {
+      "source": "review_app_dump.txt",
+      "destination": "_archive/generated_artifacts/review_app_dump.txt",
+      "classification": "QUARANTINE_SAFE",
+      "reason": "Disposable execution log",
+      "import_references": [],
+      "documentation_references": [],
+      "test_references": [],
+      "risk": "LOW",
+      "rollback_path": "review_app_dump.txt"
+    },
+    {
+      "source": "temp_log.txt",
+      "destination": "_archive/generated_artifacts/temp_log.txt",
+      "classification": "QUARANTINE_SAFE",
+      "reason": "Disposable temporary log",
+      "import_references": [],
+      "documentation_references": [],
+      "test_references": [],
+      "risk": "LOW",
+      "rollback_path": "temp_log.txt"
+    },
+    {
+      "source": "output.txt",
+      "destination": "_archive/generated_artifacts/output.txt",
+      "classification": "QUARANTINE_SAFE",
+      "reason": "Disposable execution output log",
+      "import_references": [],
+      "documentation_references": [],
+      "test_references": [],
+      "risk": "LOW",
+      "rollback_path": "output.txt"
+    },
+    {
+      "source": "error_log.txt",
+      "destination": "_archive/generated_artifacts/error_log.txt",
+      "classification": "QUARANTINE_SAFE",
+      "reason": "Disposable execution error log",
+      "import_references": [],
+      "documentation_references": [],
+      "test_references": [],
+      "risk": "LOW",
+      "rollback_path": "error_log.txt"
+    },
+    {
+      "source": "add_lexicon_guard.py",
+      "destination": "_archive/historical_patches/add_lexicon_guard.py",
+      "classification": "QUARANTINE_SAFE",
+      "reason": "One-off patch script",
+      "import_references": [],
+      "documentation_references": [],
+      "test_references": [],
+      "risk": "LOW",
+      "rollback_path": "add_lexicon_guard.py"
+    },
+    {
+      "source": "add_missing_synonyms.py",
+      "destination": "_archive/historical_patches/add_missing_synonyms.py",
+      "classification": "QUARANTINE_SAFE",
+      "reason": "One-off patch script",
+      "import_references": [],
+      "documentation_references": [],
+      "test_references": [],
+      "risk": "LOW",
+      "rollback_path": "add_missing_synonyms.py"
+    },
+    {
+      "source": "add_pdf_support.py",
+      "destination": "_archive/historical_patches/add_pdf_support.py",
+      "classification": "QUARANTINE_SAFE",
+      "reason": "One-off patch script",
+      "import_references": [],
+      "documentation_references": [],
+      "test_references": [],
+      "risk": "LOW",
+      "rollback_path": "add_pdf_support.py"
+    },
+    {
+      "source": "add_relationship_guard.py",
+      "destination": "_archive/historical_patches/add_relationship_guard.py",
+      "classification": "QUARANTINE_SAFE",
+      "reason": "One-off patch script",
+      "import_references": [],
+      "documentation_references": [],
+      "test_references": [],
+      "risk": "LOW",
+      "rollback_path": "add_relationship_guard.py"
+    },
+    {
+      "source": "add_review_queue.py",
+      "destination": "_archive/historical_patches/add_review_queue.py",
+      "classification": "QUARANTINE_SAFE",
+      "reason": "One-off patch script",
+      "import_references": [],
+      "documentation_references": [],
+      "test_references": [],
+      "risk": "LOW",
+      "rollback_path": "add_review_queue.py"
+    },
+    {
+      "source": "block_concept_relationships.py",
+      "destination": "_archive/historical_patches/block_concept_relationships.py",
+      "classification": "QUARANTINE_SAFE",
+      "reason": "One-off patch script",
+      "import_references": [],
+      "documentation_references": [],
+      "test_references": [],
+      "risk": "LOW",
+      "rollback_path": "block_concept_relationships.py"
+    },
+    {
+      "source": "patch.py",
+      "destination": "_archive/historical_patches/patch.py",
+      "classification": "QUARANTINE_SAFE",
+      "reason": "One-off patch script",
+      "import_references": [],
+      "documentation_references": [],
+      "test_references": [],
+      "risk": "LOW",
+      "rollback_path": "patch.py"
+    }
+  ]
+}

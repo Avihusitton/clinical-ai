@@ -1,0 +1,82 @@
+requirement: depth-1 path is returned
+test_name: test_depth_1
+fixture: c0->c1
+expected_result: Depth1 in nodes
+actual_result: True
+
+---
+requirement: depth-2 path is returned
+test_name: test_depth_2
+fixture: c1->c2
+expected_result: Depth2 in nodes
+actual_result: True
+
+---
+requirement: depth-3 path is excluded
+test_name: test_depth_3
+fixture: c2->c3
+expected_result: Depth3 not in nodes
+actual_result: True
+
+---
+requirement: approved relation is traversed
+test_name: test_approved_rel
+fixture: RELATES_TO
+expected_result: Traversed
+actual_result: Traversed
+
+---
+requirement: blocked relation is excluded
+test_name: test_blocked_rel
+fixture: IS_SIMILAR
+expected_result: Excluded
+actual_result: True
+
+---
+requirement: HAS_CANDIDATE is not treated as verified evidence
+test_name: test_candidate
+fixture: HAS_CANDIDATE
+expected_result: Excluded
+actual_result: True
+
+---
+requirement: LINKED_TO is retrievable under the legacy contract
+test_name: test_linked_to
+fixture: LINKED_TO
+expected_result: Included
+actual_result: True
+
+---
+requirement: Exercise is returned through terminal lookup
+test_name: test_exercise_terminal
+fixture: e1-WORKS_ON->c1
+expected_result: Ex1 returned
+actual_result: Ex1 returned
+
+---
+requirement: Exercise is never used as an intermediate bridge
+test_name: test_exercise_bridge
+fixture: c0->e2->c2
+expected_result: Excluded
+actual_result: False
+
+---
+requirement: empty-result fallback is preserved
+test_name: test_empty_fallback
+fixture: Empty query
+expected_result: Fallback string
+actual_result: Fallback string
+
+---
+requirement: current response contract is preserved
+test_name: test_contract
+fixture: LLM call
+expected_result: Mock answer
+actual_result: Mock answer
+
+---
+requirement: no production nodes mutated
+test_name: test_production_isolation
+fixture: MockDriver
+expected_result: 0 mutations
+actual_result: 0 mutations

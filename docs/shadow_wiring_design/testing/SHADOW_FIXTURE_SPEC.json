@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Shadow Fixture Specification",
+  "version": "1.0.1",
+  "fixture_file": "tests/fixtures/shadow_wiring/shadow_cases.jsonl",
+  "expected_total_count": 140,
+  "domains": [
+    "shadow_disabled (20)",
+    "agreement (20)",
+    "controlled_difference (20)",
+    "failure_and_timeout (20)",
+    "security_and_redaction (20)",
+    "rollback_and_emergency (20)",
+    "israeli_pii_security (20)"
+  ],
+  "case_schema": {
+    "type": "object",
+    "required": [
+      "case_id",
+      "legacy_request",
+      "legacy_result",
+      "shadow_flag_state",
+      "shadow_input",
+      "shadow_result_or_error",
+      "expected_user_visible_result",
+      "expected_difference_class",
+      "expected_audit_events",
+      "expected_telemetry",
+      "expected_redactions",
+      "expected_fallback"
+    ]
+  }
+}

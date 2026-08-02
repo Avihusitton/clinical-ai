@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "inventory_title": "Repository Files Cleanup Inventory",
+  "version": "1.0.0",
+  "rules": {
+    "files_moved": 0,
+    "files_deleted": 0,
+    "quarantine_first": true,
+    "requires_owner_approval_for_deletion": true
+  },
+  "items": [
+    {
+      "path": "gate_d",
+      "classification": "ACTIVE_PRODUCTION",
+      "evidence": "Imported by controlled_integration/adapters/gate_d_adapter.py and tests/test_gate_d_*.py"
+    },
+    {
+      "path": "models/gate_d",
+      "classification": "QUARANTINE_CANDIDATE",
+      "evidence": "Duplicate package under models/ not imported by controlled_integration or test suites"
+    },
+    {
+      "path": "ingestion_pipeline.before_concept_relationship_block.py",
+      "classification": "QUARANTINE_CANDIDATE",
+      "evidence": "Historical backup copy of ingestion_pipeline.py prior to concept relationship block"
+    },
+    {
+      "path": "ingestion_pipeline.before_lexicon_guard.py",
+      "classification": "QUARANTINE_CANDIDATE",
+      "evidence": "Historical backup copy of ingestion_pipeline.py prior to lexicon guard patch"
+    },
+    {
+      "path": "ingestion_pipeline.before_pdf_support.py",
+      "classification": "QUARANTINE_CANDIDATE",
+      "evidence": "Historical backup copy of ingestion_pipeline.py prior to PDF support patch"
+    },
+    {
+      "path": "ingestion_pipeline.before_review_queue.py",
+      "classification": "QUARANTINE_CANDIDATE",
+      "evidence": "Historical backup copy of ingestion_pipeline.py prior to review queue patch"
+    },
+    {
+      "path": "add_review_queue_dump.txt",
+      "classification": "GENERATED_ARTIFACT",
+      "evidence": "Temporary execution stdout log from historical patch run"
+    },
+    {
+      "path": "block_dump.txt",
+      "classification": "GENERATED_ARTIFACT",
+      "evidence": "Temporary execution stdout log from historical block patch run"
+    },
+    {
+      "path": "load_approved_dump.txt",
+      "classification": "GENERATED_ARTIFACT",
+      "evidence": "Temporary log output from script execution"
+    },
+    {
+      "path": "review_app_dump.txt",
+      "classification": "GENERATED_ARTIFACT",
+      "evidence": "Temporary log output from review app execution"
+    },
+    {
+      "path": "temp_log.txt",
+      "classification": "GENERATED_ARTIFACT",
+      "evidence": "Root level temporary log file"
+    },
+    {
+      "path": "error_log.txt",
+      "classification": "GENERATED_ARTIFACT",
+      "evidence": "Root level execution error log"
+    },
+    {
+      "path": "output.txt",
+      "classification": "GENERATED_ARTIFACT",
+      "evidence": "Root level execution output log"
+    },
+    {
+      "path": "patch.py",
+      "classification": "HISTORICAL_PATCH",
+      "evidence": "One-off historical patch script"
+    }
+  ]
+}

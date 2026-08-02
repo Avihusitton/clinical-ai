@@ -1,0 +1,14 @@
+import sys
+import pytest
+
+@pytest.fixture(autouse=True)
+def clean_neo4j_for_boundary(request):
+    if "test_gate_cd_boundary" in request.node.nodeid:
+        neo4j_keys = [k for k in list(sys.modules.keys()) if "neo4j" in k.lower()]
+        saved = {k: sys.modules.pop(k) for k in neo4j_keys}
+        try:
+            yield
+        finally:
+            sys.modules.update(saved)
+    else:
+        yield

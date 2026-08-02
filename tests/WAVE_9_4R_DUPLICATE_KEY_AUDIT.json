@@ -1,0 +1,32 @@
+[
+  {
+    "file": "docs/wave_9_audit/WAVE_9_4R_FINAL_INTEGRITY_EVIDENCE.json",
+    "duplicate_keys": [],
+    "strict_parse_success": true
+  },
+  {
+    "file": "tests/WAVE_9_4R_PYTEST_ACCOUNTING.json",
+    "duplicate_keys": [],
+    "strict_parse_success": true
+  },
+  {
+    "file": "tests/WAVE_9_4R_BASELINE_TEST_IDENTITY.json",
+    "duplicate_keys": [],
+    "strict_parse_success": true
+  },
+  {
+    "file": "tests/WAVE_9_4R_BASELINE_PROVENANCE.json",
+    "duplicate_keys": [],
+    "strict_parse_success": true
+  },
+  {
+    "file": "tests/WAVE_9_4R_EXECUTION_ATTESTATION.json",
+    "duplicate_keys": [],
+    "strict_parse_success": true
+  },
+  {
+    "file": "tests/WAVE_9_4R_ATTESTATION_VALIDATION.json",
+    "duplicate_keys": [],
+    "strict_parse_success": true
+  }
+]

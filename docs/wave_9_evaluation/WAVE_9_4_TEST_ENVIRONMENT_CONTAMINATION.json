@@ -1,0 +1,27 @@
+{
+  "pytest_ini": {
+    "path": "pytest.ini",
+    "exists_now": true,
+    "tracked_by_git": false,
+    "present_in_pre_wave9_branch": false,
+    "created_during_wave9_3": true,
+    "sha256": "b01dd884ff7d8c75e2bd75a2c19bf72f98bbdbbf7ea2bf81bd89e0f56752c801",
+    "behavioral_effect": "Modified pytest test discovery pattern (python_files = test_gate_cd_boundary.py test_*.py) to force test_gate_cd_boundary.py collection order",
+    "removal_required": true
+  },
+  "conftest_py": {
+    "path": "conftest.py",
+    "exists_now": true,
+    "tracked_by_git": false,
+    "present_in_pre_wave9_branch": false,
+    "created_during_wave9_3": true,
+    "sha256": "7e95668fbe106d4112c120ea4b471b9f9825a71062b56b37d2f2312ead3ba6b3",
+    "behavioral_effect": "Injected autouse clean_neo4j_for_boundary fixture to mutate sys.modules at test runtime and hide Neo4j import contamination",
+    "removal_required": true
+  },
+  "summary": {
+    "pytest_ini_present_before_wave9_3": false,
+    "root_conftest_present_before_wave9_3": false,
+    "test_environment_files_added": 2
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "contract_classes_observed": [
+    "AGREEMENT",
+    "FALLBACK_TRIGGERED",
+    "SAFETY_BLOCK_DIFFERENCE",
+    "SHADOW_ERROR",
+    "SHADOW_ONLY_REVIEWED_EVIDENCE",
+    "SHADOW_TIMEOUT",
+    "UNCERTAINTY_DIFFERENCE"
+  ],
+  "contract_classes_unreachable": [
+    "LEGACY_ONLY_EVIDENCE",
+    "RANKING_DIFFERENCE"
+  ],
+  "non_contract_labels_found": 0,
+  "non_contract_labels_reclassified": 0,
+  "taxonomy_breakdown": {
+    "submission_decisions": [
+      "REJECTED_PII",
+      "SKIPPED_MODE"
+    ],
+    "safety_decisions": [
+      "PASS_CLEAN",
+      "REJECTED_ISRAELI_PII"
+    ],
+    "execution_outcomes": [
+      "SKIPPED"
+    ],
+    "operating_modes": [
+      "SHADOW_COMPARE",
+      "LEGACY_ONLY",
+      "EMERGENCY_DISABLED"
+    ]
+  }
+}

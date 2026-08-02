@@ -1,0 +1,15 @@
+{
+  "attestation_validator_exit_code": 0,
+  "validator_result": "PASS",
+  "missing_from_before": [],
+  "unexpected_in_before": [],
+  "missing_from_after": [],
+  "unexpected_in_after": [],
+  "evaluation_wave9_file_count": 11,
+  "shadow_wiring_file_count": 8,
+  "controlled_integration_file_count": 21,
+  "other_required_file_count": 3,
+  "total_source_file_count": 43,
+  "source_unchanged_verified": true,
+  "failed_checks": []
+}

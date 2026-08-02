@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Governor Audit Output Schema",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [
+    "action_classification",
+    "developer_agent_model",
+    "runtime_llm_provider",
+    "runtime_model",
+    "content_readiness_status",
+    "engineering_readiness_status",
+    "security_compliance",
+    "owner_approval_granted",
+    "verdict"
+  ],
+  "properties": {
+    "action_classification": {
+      "type": "string",
+      "enum": ["SAFE_LOCAL", "REQUIRES_VERIFICATION", "REQUIRES_OWNER_APPROVAL", "BLOCKED_BY_SECURITY"]
+    },
+    "developer_agent_model": { "type": "string" },
+    "runtime_llm_provider": { "type": "string" },
+    "runtime_model": { "type": "string" },
+    "content_readiness_status": { "type": "string" },
+    "engineering_readiness_status": { "type": "string" },
+    "security_compliance": { "type": "boolean" },
+    "owner_approval_granted": { "type": "boolean" },
+    "verdict": { "type": "string", "enum": ["PASS", "FAIL", "BLOCKED"] }
+  }
+}

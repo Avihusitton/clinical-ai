@@ -1,0 +1,22 @@
+<frozen runpy>:128: RuntimeWarning: 'evaluation.wave9.stress_harness' found in sys.modules after import of package 'evaluation.wave9', but prior to execution of 'evaluation.wave9.stress_harness'; this may result in unpredictable behaviour
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception
+Shadow worker exception: Synthetic worker exception

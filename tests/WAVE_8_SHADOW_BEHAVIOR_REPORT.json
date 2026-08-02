@@ -1,0 +1,53 @@
+{
+  "report_title": "Wave 8.2 Shadow Behavior Report",
+  "version": "1.0.0",
+  "result": "PASS",
+  "hardcoded_pass_fields": 0,
+  "evidence_sources": [
+    "tests/wave_8_evidence_harness.py",
+    "tests/WAVE_8_2_EVIDENCE_HARNESS_OUTPUT.txt"
+  ],
+  "queue_saturation": {
+    "result": "PASS",
+    "calculation": "submit_3_returned_ns < worker_release_ns and sub3_accepted == False and queue_saturation_event_count >= 1",
+    "observed": {
+      "queue_capacity": 1,
+      "sub1_accepted": true,
+      "sub2_accepted": true,
+      "sub3_accepted": false,
+      "queue_saturation_event_count": 1,
+      "submitted_task_ids": ["req-e3"]
+    }
+  },
+  "non_blocking_verification": {
+    "result": "PASS",
+    "calculation": "answer_returned_ns < runner_release_requested_ns and runner_entered_ns is not None and runner_exited_ns is None pre-release",
+    "observed": {
+      "duration_ms": 0.6,
+      "answer_returned_before_runner_release": true,
+      "runner_actually_entered": true,
+      "runner_actually_blocked": true,
+      "request_thread_waited_for_worker": false
+    }
+  },
+  "emergency_disable": {
+    "result": "PASS",
+    "calculation": "emergency_disable_active == True and task_submitted == False and worker_created == False",
+    "observed": {
+      "emergency_disable_active": true,
+      "mode_evaluated": "EMERGENCY_DISABLED",
+      "task_submitted": false,
+      "worker_created": false
+    }
+  },
+  "israeli_pii_rejection": {
+    "result": "PASS",
+    "calculation": "cases_tested_count == 20 and all_pii_detected == True and all_tasks_rejected == True and all_logs_clean == True",
+    "observed": {
+      "cases_tested_count": 20,
+      "all_pii_detected": true,
+      "all_tasks_rejected": true,
+      "all_logs_clean_of_raw_query": true
+    }
+  }
+}

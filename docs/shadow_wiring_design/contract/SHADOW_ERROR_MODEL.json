@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Shadow Error Model Specification",
+  "version": "1.0.0",
+  "error_categories": {
+    "ERR_SHD_TIMEOUT": {
+      "code": "ERR_SHD_TIMEOUT",
+      "description": "Shadow execution exceeded maximum latency budget (default 500ms)",
+      "handling": "Cancel background thread/task, log SHADOW_TIMEOUT telemetry, return legacy result"
+    },
+    "ERR_SHD_EXCEPTION": {
+      "code": "ERR_SHD_EXCEPTION",
+      "description": "Unhandled exception inside shadow orchestrator or adapters",
+      "handling": "Catch exception, log SHADOW_ERROR telemetry, return legacy result"
+    },
+    "ERR_SHD_PII": {
+      "code": "ERR_SHD_PII",
+      "description": "PII detected in shadow request payload",
+      "handling": "Reject shadow request, log PII_REJECTED event, return legacy result"
+    },
+    "ERR_SHD_EMERGENCY": {
+      "code": "ERR_SHD_EMERGENCY",
+      "description": "Emergency kill-switch active",
+      "handling": "Skip shadow execution entirely, return legacy result"
+    }
+  }
+}

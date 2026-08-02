@@ -1,0 +1,231 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Integration Test Fixture Specification",
+  "description": "Specification and JSON Schema definition for synthetic evaluation cases supporting the clinical GraphRAG controlled integration pilot.",
+  "spec_version": "1.0.0",
+  "dataset_metadata": {
+    "fixture_file": "tests/fixtures/integration_design/integration_cases.jsonl",
+    "total_cases": 120,
+    "pii_contains_patient_data": false,
+    "synthetic_guarantee": "100% synthetic protocol queries without live patient data or real PII",
+    "operating_mode_breakdown": {
+      "legacy_only": 20,
+      "shadow_comparison": 20,
+      "reviewed_consultation": 20,
+      "blocked_novelty": 20,
+      "fallback_error": 20,
+      "security_governance": 20
+    }
+  },
+  "operating_modes": {
+    "legacy_only": {
+      "description": "System operates exclusively using legacy guidelines retrieval engine without active GraphRAG features.",
+      "target_case_count": 20,
+      "id_pattern": "SYN-LEG-*"
+    },
+    "shadow_comparison": {
+      "description": "GraphRAG retrieval runs silently alongside legacy retrieval to evaluate retrieval agreement without user-facing impact.",
+      "target_case_count": 20,
+      "id_pattern": "SYN-SHD-*"
+    },
+    "reviewed_consultation": {
+      "description": "GraphRAG is active for therapist consultation using strictly peer-reviewed graph relations backed by official evidence.",
+      "target_case_count": 20,
+      "id_pattern": "SYN-REV-*"
+    },
+    "blocked_novelty": {
+      "description": "Clinical queries encountering unreviewed graph relations or speculative hypotheses that are blocked by governance policy.",
+      "target_case_count": 20,
+      "id_pattern": "SYN-NOV-*"
+    },
+    "fallback_error": {
+      "description": "Simulated subsystem failures (timeout, connection loss, schema error) triggering deterministic fallback to legacy retrieval.",
+      "target_case_count": 20,
+      "id_pattern": "SYN-ERR-*"
+    },
+    "security_governance": {
+      "description": "Boundary cases testing RBAC access, PII filtering, feature flag enforcement, and emergency kill-switch blocking.",
+      "target_case_count": 20,
+      "id_pattern": "SYN-SEC-*"
+    }
+  },
+  "component_catalog": [
+    "legacy_retrieval_engine",
+    "graph_rag_retriever",
+    "shadow_comparator",
+    "provenance_validator",
+    "uncertainty_calculator",
+    "ui_provenance_formatter",
+    "novelty_filter",
+    "security_policy_enforcer",
+    "fallback_orchestrator",
+    "audit_logger",
+    "unreviewed_relation_synthesizer",
+    "novel_hypothesis_output",
+    "graph_rag_synthesizer",
+    "user_facing_graph_synthesizer",
+    "synthesis_engine"
+  ],
+  "case_schema": {
+    "type": "object",
+    "required": [
+      "case_id",
+      "operating_mode",
+      "synthetic_request",
+      "feature_flags",
+      "available_official_evidence",
+      "available_reviewed_relations",
+      "available_novelty",
+      "expected_components_called",
+      "expected_components_blocked",
+      "expected_output_type",
+      "expected_fallback",
+      "expected_audit_events",
+      "expected_security_result"
+    ],
+    "properties": {
+      "case_id": {
+        "type": "string",
+        "pattern": "^SYN-(LEG|SHD|REV|NOV|ERR|SEC)-[0-9]{3}$"
+      },
+      "operating_mode": {
+        "type": "string",
+        "enum": [
+          "legacy_only",
+          "shadow_comparison",
+          "reviewed_consultation",
+          "blocked_novelty",
+          "fallback_error",
+          "security_governance"
+        ]
+      },
+      "synthetic_request": {
+        "type": "object",
+        "required": ["request_id", "query", "user_role", "session_context"],
+        "properties": {
+          "request_id": { "type": "string" },
+          "query": { "type": "string" },
+          "user_role": { "type": "string" },
+          "session_context": {
+            "type": "object",
+            "required": ["facility_id", "environment"],
+            "properties": {
+              "facility_id": { "type": "string" },
+              "environment": { "type": "string" }
+            }
+          }
+        }
+      },
+      "feature_flags": {
+        "type": "object",
+        "required": [
+          "master_pilot_flag",
+          "shadow_mode_enabled",
+          "graph_rag_enabled",
+          "strict_provenance_enforced",
+          "novelty_blocking_enabled",
+          "legacy_fallback_enabled"
+        ],
+        "properties": {
+          "master_pilot_flag": { "type": "boolean" },
+          "shadow_mode_enabled": { "type": "boolean" },
+          "graph_rag_enabled": { "type": "boolean" },
+          "strict_provenance_enforced": { "type": "boolean" },
+          "novelty_blocking_enabled": { "type": "boolean" },
+          "legacy_fallback_enabled": { "type": "boolean" }
+        }
+      },
+      "available_official_evidence": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["evidence_id", "source", "confidence_score", "verified_status", "content_summary"],
+          "properties": {
+            "evidence_id": { "type": "string" },
+            "source": { "type": "string" },
+            "confidence_score": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+            "verified_status": { "type": "string", "enum": ["official", "draft", "deprecated"] },
+            "content_summary": { "type": "string" }
+          }
+        }
+      },
+      "available_reviewed_relations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["relation_id", "source_node", "target_node", "relation_type", "review_status", "evidence_link"],
+          "properties": {
+            "relation_id": { "type": "string" },
+            "source_node": { "type": "string" },
+            "target_node": { "type": "string" },
+            "relation_type": { "type": "string" },
+            "review_status": { "type": "string", "enum": ["reviewed"] },
+            "evidence_link": { "type": "string" }
+          }
+        }
+      },
+      "available_novelty": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["novelty_id", "description", "review_status", "risk_score"],
+          "properties": {
+            "novelty_id": { "type": "string" },
+            "description": { "type": "string" },
+            "review_status": { "type": "string", "enum": ["unreviewed"] },
+            "risk_score": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+          }
+        }
+      },
+      "expected_components_called": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "expected_components_blocked": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "expected_output_type": {
+        "type": "string",
+        "enum": [
+          "legacy_guideline_response",
+          "shadow_comparison_log",
+          "reviewed_evidence_response",
+          "novelty_blocked_notice",
+          "deterministic_fallback_response",
+          "security_denial_audit"
+        ]
+      },
+      "expected_fallback": {
+        "type": "object",
+        "required": ["triggered", "reason", "fallback_component"],
+        "properties": {
+          "triggered": { "type": "boolean" },
+          "reason": { "type": ["string", "null"] },
+          "fallback_component": { "type": ["string", "null"] }
+        }
+      },
+      "expected_audit_events": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "expected_security_result": {
+        "type": "object",
+        "required": ["passed", "reason", "block_type"],
+        "properties": {
+          "passed": { "type": "boolean" },
+          "reason": { "type": "string" },
+          "block_type": { "type": ["string", "null"] }
+        }
+      }
+    }
+  },
+  "validation_rules": [
+    "No line in the JSONL fixture may contain real patient PII or unhashed identity identifiers.",
+    "Every case object must strictly contain all 13 required fields.",
+    "Component names in expected_components_called and expected_components_blocked must belong to the component_catalog.",
+    "If available_novelty is non-empty and novelty_blocking_enabled is true, expected_components_blocked must include unreviewed synthesizers.",
+    "If expected_security_result.passed is false, expected_output_type must be security_denial_audit.",
+    "If expected_fallback.triggered is true, fallback_component must specify legacy_retrieval_engine."
+  ]
+}

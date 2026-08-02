@@ -1,0 +1,13 @@
+{
+  "stage_a_validator_exit_code": 0,
+  "validator_source_sha256": "45f66cd2e5a07f0c63191633d5d77245918029b3bc64edeea6679a4fe326f03a",
+  "fixtures_validated": 140,
+  "distinct_fixture_ids": 140,
+  "exact_legacy_matches": 140,
+  "raw_query_leaks": 0,
+  "determinism_runs": 3,
+  "deterministic_outcomes": 140,
+  "israeli_pii_cases_queued": 0,
+  "failed_checks": [],
+  "validator_result": "PASS"
+}

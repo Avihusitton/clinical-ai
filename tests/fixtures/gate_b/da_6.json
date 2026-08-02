@@ -1,0 +1,1 @@
+{"id": "da_6", "description": "Approved inferential edge with strong provenance", "nodes": [{"id": "n1", "scope": "PilotA"}, {"id": "n2", "scope": "PilotA"}], "edges": [{"source": "n1", "target": "n2", "type": "INFER", "status": "APPROVED", "provenance": "verified_src", "review_state": "REVIEWED"}], "expected_decision": "ACCEPTED", "blocking_reason": null}

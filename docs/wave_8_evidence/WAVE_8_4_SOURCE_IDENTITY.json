@@ -1,0 +1,10 @@
+{
+  "tests/wave_8_evidence_harness.py": {
+    "sha256": "ce797be3c8b7fc3134a49624f882b7cf8c39e46183e88e4d4c5cacc00df0c1e9",
+    "byte_length": 21641
+  },
+  "shadow_wiring/redaction.py": {
+    "sha256": "c1bf13702f74013f46a3930366575e33a55a35c95f741fe947eb32ce3fe979ab",
+    "byte_length": 2180
+  }
+}

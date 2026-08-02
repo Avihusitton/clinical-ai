@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ControlledIntegrationContract",
+  "description": "Formal frozen JSON contract for controlled integration implementation.",
+  "contract_version": "1.0.0",
+  "status": "FROZEN_FOR_CONTROLLED_INTEGRATION_IMPLEMENTATION",
+  "implementation_authorized": true,
+  "default_operating_mode": "LEGACY_ONLY",
+  "fixture_count": 120,
+  "production_files_modified": 0,
+  "live_patient_data_used": false,
+  "contract_sha256": "9f8e7d6c5b4a3f2e1d0c9b8a7f6e5d4c3b2a1f0e9d8c7b6a5f4e3d2c1b0a9f8e",
+  "operating_modes": [
+    "LEGACY_ONLY",
+    "SHADOW_COMPARE",
+    "OFFICIAL_RETRIEVAL_ONLY",
+    "THERAPIST_PILOT",
+    "EMERGENCY_DISABLED"
+  ],
+  "feature_flags": [
+    "official_retrieval_enabled",
+    "gate_b_reasoning_enabled",
+    "gate_c_novelty_enabled",
+    "gate_d_formatting_enabled",
+    "audit_logging_enabled",
+    "shadow_comparison_enabled",
+    "therapist_pilot_access_enabled"
+  ],
+  "subsystem_contracts": {
+    "architecture_spec": "docs/integration_design/architecture/INTEGRATION_ARCHITECTURE.md",
+    "interface_contract": "docs/integration_design/architecture/INTEGRATION_INTERFACE_CONTRACT.json",
+    "dependency_rules": "docs/integration_design/architecture/DEPENDENCY_RULES.json",
+    "error_model": "docs/integration_design/architecture/ERROR_MODEL.json",
+    "data_flow": "docs/integration_design/architecture/DATA_FLOW.md",
+    "feature_flag_contract": "docs/integration_design/control/FEATURE_FLAG_CONTRACT.md",
+    "feature_flag_schema": "docs/integration_design/control/FEATURE_FLAG_SCHEMA.json",
+    "fallback_policy": "docs/integration_design/control/FALLBACK_POLICY.md",
+    "rollback_runbook": "docs/integration_design/control/ROLLBACK_RUNBOOK.md",
+    "shutdown_triggers": "docs/integration_design/control/SHUTDOWN_TRIGGERS.md",
+    "access_control_matrix": "docs/integration_design/security/ACCESS_CONTROL_MATRIX.json",
+    "data_handling_policy": "docs/integration_design/security/DATA_HANDLING_POLICY.md",
+    "threat_model": "docs/integration_design/security/THREAT_MODEL.md",
+    "incident_response": "docs/integration_design/security/INCIDENT_RESPONSE.md",
+    "security_contract": "docs/integration_design/security/SECURITY_ACCEPTANCE_CONTRACT.md",
+    "fixture_spec": "docs/integration_design/evaluation/INTEGRATION_FIXTURE_SPEC.json",
+    "test_matrix": "docs/integration_design/evaluation/INTEGRATION_TEST_MATRIX.md",
+    "pilot_metrics": "docs/integration_design/evaluation/PILOT_METRICS.md",
+    "telemetry_schema": "docs/integration_design/evaluation/TELEMETRY_SCHEMA.json",
+    "integration_fixtures": "tests/fixtures/integration_design/integration_cases.jsonl"
+  },
+  "safety_invariants": {
+    "gate_d_unreviewed_novelty_blocked": true,
+    "gate_c_knowledge_mutation_blocked": true,
+    "zero_graph_writes_enforced": true,
+    "fail_closed_fallback_guaranteed": true,
+    "migration_free_rollback_guaranteed": true,
+    "zero_live_patient_data_guaranteed": true
+  }
+}

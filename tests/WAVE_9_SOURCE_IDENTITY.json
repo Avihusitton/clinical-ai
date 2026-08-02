@@ -1,0 +1,14 @@
+{
+  "evaluation_source_hashes": {
+    "evaluation/wave9/evaluation_harness.py": "bd017cb5fb0b54a167957dce7a69b8f451766098ed3bb4c284d94077e45c532f",
+    "evaluation/wave9/stress_harness.py": "d9fe78040a4aed53f8a23add38c3be444639f8baee76fa52b0d1836d79749d58",
+    "evaluation/wave9/deterministic_runner.py": "23fcaabdd53cfec5d6f3b57ba9d41dee71475be1940e645f78d307b13bf875c7",
+    "evaluation/wave9/fixture_loader.py": "6a7f4376c20716659771b9d5d965bab7667c3bfd64e5d63c81ae1bc226b353b4",
+    "evaluation/wave9/validator.py": "a0c9a33d229fa27a5a9a66b44d83a81633b4495e50bb7cddfc3aa22fb1054596",
+    "tests/fixtures/shadow_wiring/shadow_cases.jsonl": "8e97545572ed079419ed389305aab3c1e4c12001f13e124bbea8bf7c7e515ca0",
+    "tests/fixtures/shadow_wiring/redaction_negative_cases.jsonl": "543d4f49bbb8ab94446692be7a08d09ae9845a3d6b4478fc0d1d5027e4fafa4a",
+    "retrieval.py": "9621f5af984da39270d11dddb1df610522d4dfa972d9dfd4b54055ed38bb7ccf"
+  },
+  "source_unchanged_during_evaluation": true,
+  "timestamp": "2026-07-23T13:56:15Z"
+}

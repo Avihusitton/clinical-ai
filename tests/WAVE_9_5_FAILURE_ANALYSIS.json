@@ -1,0 +1,24 @@
+{
+  "junit_raw_match": true,
+  "failure_count": 1,
+  "wave95_caused_failure_count": 0,
+  "failures": [
+    {
+      "exact_node_id": "tests/test_gate_cd_boundary.py::TestNoProductionImports::test_gate_cd_boundary_does_not_import_neo4j",
+      "source_file": "tests/test_gate_cd_boundary.py",
+      "test_name": "test_gate_cd_boundary_does_not_import_neo4j",
+      "failure_type": "AssertionError",
+      "failure_message": "AssertionError: neo4j imported via neo4j._typing",
+      "complete_traceback": "def test_gate_cd_boundary_does_not_import_neo4j(self):\n    import gate_cd_boundary\n    import gate_cd_boundary.models\n    import gate_cd_boundary.evidence_eligibility\n    import sys\n    for mod_name in sys.modules:\n>       assert \"neo4j\" not in mod_name.lower(), f\"neo4j imported via {mod_name}\"\nE       AssertionError: neo4j imported via neo4j._typing",
+      "passes_in_isolation": true,
+      "fails_only_in_full_suite": true,
+      "first_relevant_preceding_test": "tests/test_gate_a_dry_run_and_isolation.py::test_dry_run_no_writes",
+      "likely_root_cause": "Pre-existing protected test file tests/test_gate_a_dry_run_and_isolation.py imports neo4j at line 9, polluting sys.modules before test_gate_cd_boundary.py runs.",
+      "classification": "PREEXISTING_PROTECTED_TEST_FAILURE",
+      "caused_by_wave95_change": false,
+      "repairable_in_allowed_wave95_file": false,
+      "protected_file_change_required": true,
+      "recommended_minimal_repair": "Refactor pre-Wave-9 protected test tests/test_gate_a_dry_run_and_isolation.py in Wave 9.6 to isolate its Neo4j imports in a subprocess."
+    }
+  ]
+}

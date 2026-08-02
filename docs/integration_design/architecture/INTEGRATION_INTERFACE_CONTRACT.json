@@ -1,0 +1,482 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "IntegrationInterfaceContract",
+  "description": "JSON Schema and contract specification for controlled_integration domain entities and public inter-gate interfaces.",
+  "version": "1.0.0",
+  "definitions": {
+    "IntegrationContext": {
+      "type": "object",
+      "description": "Contextual metadata accompanying an integration request.",
+      "required": [
+        "session_id",
+        "user_id",
+        "user_role",
+        "environment",
+        "correlation_id",
+        "timestamp"
+      ],
+      "properties": {
+        "session_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique session identifier."
+        },
+        "user_id": {
+          "type": "string",
+          "description": "Anonymized user or therapist identifier."
+        },
+        "user_role": {
+          "type": "string",
+          "enum": [
+            "ROLE_INTERNAL_THERAPIST",
+            "ROLE_RESEARCHER",
+            "ROLE_SYSTEM",
+            "ROLE_ANONYMOUS"
+          ],
+          "description": "Role of the requesting agent."
+        },
+        "environment": {
+          "type": "string",
+          "enum": [
+            "PROD",
+            "STAGING",
+            "DEV",
+            "TEST"
+          ],
+          "description": "Runtime deployment environment."
+        },
+        "correlation_id": {
+          "type": "string",
+          "description": "Traceability ID spanning log entries."
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 UTC timestamp."
+        }
+      },
+      "additionalProperties": false
+    },
+    "IntegrationRequest": {
+      "type": "object",
+      "description": "Top-level request payload entering the controlled integration pipeline.",
+      "required": [
+        "request_id",
+        "query_text",
+        "context"
+      ],
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for this integration request."
+        },
+        "query_text": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Clinical or retrieval query text."
+        },
+        "context": {
+          "$ref": "#/definitions/IntegrationContext"
+        },
+        "operating_mode_override": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "LEGACY_ONLY",
+            "SHADOW_COMPARE",
+            "OFFICIAL_RETRIEVAL_ONLY",
+            "THERAPIST_PILOT",
+            "EMERGENCY_DISABLED",
+            null
+          ],
+          "description": "Optional mode override for testing/staging."
+        },
+        "flag_overrides": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "boolean"
+          },
+          "description": "Optional feature flag overrides."
+        }
+      },
+      "additionalProperties": false
+    },
+    "OfficialEvidenceBundle": {
+      "type": "object",
+      "description": "Verified official entries and approved graph traversals from Gate A/B.",
+      "required": [
+        "bundle_id",
+        "official_entries",
+        "traversed_paths",
+        "confidence_score",
+        "provenance_valid"
+      ],
+      "properties": {
+        "bundle_id": {
+          "type": "string",
+          "description": "Unique identifier for the evidence bundle."
+        },
+        "official_entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "source_id",
+              "content_summary",
+              "provenance"
+            ],
+            "properties": {
+              "source_id": { "type": "string" },
+              "content_summary": { "type": "string" },
+              "provenance": { "type": "string" },
+              "is_approved": { "type": "boolean", "const": true }
+            }
+          }
+        },
+        "traversed_paths": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "nodes",
+              "edges",
+              "status"
+            ],
+            "properties": {
+              "nodes": { "type": "array", "items": { "type": "string" } },
+              "edges": { "type": "array", "items": { "type": "string" } },
+              "status": { "type": "string", "const": "ACCEPTED" }
+            }
+          }
+        },
+        "confidence_score": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "provenance_valid": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "NoveltyDiscoveryBundle": {
+      "type": "object",
+      "description": "Discovery-only relation candidates and contradiction records from Gate C.",
+      "required": [
+        "bundle_id",
+        "candidates",
+        "contradictions",
+        "status",
+        "review_status"
+      ],
+      "properties": {
+        "bundle_id": {
+          "type": "string"
+        },
+        "candidates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "candidate_id",
+              "source_entity",
+              "target_entity",
+              "relation_type"
+            ],
+            "properties": {
+              "candidate_id": { "type": "string" },
+              "source_entity": { "type": "string" },
+              "target_entity": { "type": "string" },
+              "relation_type": { "type": "string" }
+            }
+          }
+        },
+        "contradictions": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "DISCOVERY_ONLY"
+          ],
+          "description": "Gate C candidates must remain DISCOVERY_ONLY."
+        },
+        "review_status": {
+          "type": "string",
+          "enum": [
+            "PENDING_HUMAN_REVIEW",
+            "REJECTED",
+            "APPROVED"
+          ],
+          "description": "Status of human review."
+        }
+      },
+      "additionalProperties": false
+    },
+    "ConsultationInputBundle": {
+      "type": "object",
+      "description": "Screened evidence bundle passing Gate C/D boundary check, ready for Gate D.",
+      "required": [
+        "session_id",
+        "eligible_official_evidence",
+        "blocked_novelty_count",
+        "boundary_decisions",
+        "is_validated"
+      ],
+      "properties": {
+        "session_id": {
+          "type": "string"
+        },
+        "eligible_official_evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "source_id",
+              "content_summary",
+              "provenance",
+              "is_approved",
+              "is_reviewed"
+            ],
+            "properties": {
+              "source_id": { "type": "string" },
+              "content_summary": { "type": "string" },
+              "provenance": { "type": "string" },
+              "is_approved": { "type": "boolean", "const": true },
+              "is_reviewed": { "type": "boolean", "const": true }
+            }
+          }
+        },
+        "blocked_novelty_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "boundary_decisions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "source_id",
+              "status"
+            ],
+            "properties": {
+              "source_id": { "type": "string" },
+              "status": { "type": "string", "enum": ["ELIGIBLE", "BLOCKED"] },
+              "blocked_reason": { "type": ["string", "null"] },
+              "notes": { "type": "string" }
+            }
+          }
+        },
+        "is_validated": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "ConsultationOutputBundle": {
+      "type": "object",
+      "description": "Structured consultation output produced by Gate D.",
+      "required": [
+        "request_summary",
+        "official_entries",
+        "interpretations",
+        "alternatives",
+        "uncertainties",
+        "safety_boundaries",
+        "therapist_decision_required"
+      ],
+      "properties": {
+        "request_summary": {
+          "type": "string"
+        },
+        "official_entries": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "interpretations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "description",
+              "supporting_evidence_ids"
+            ]
+          }
+        },
+        "alternatives": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "description",
+              "reason"
+            ]
+          }
+        },
+        "uncertainties": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "topic",
+              "reason"
+            ]
+          }
+        },
+        "safety_boundaries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "boundary_type",
+              "description",
+              "enforced"
+            ]
+          }
+        },
+        "therapist_decision_required": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "IntegrationDecision": {
+      "type": "object",
+      "description": "Top-level decision verdict detailing how the request was fulfilled.",
+      "required": [
+        "request_id",
+        "verdict",
+        "active_mode",
+        "timestamp"
+      ],
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "verdict": {
+          "type": "string",
+          "enum": [
+            "LEGACY_SERVED",
+            "OFFICIAL_RAG_SERVED",
+            "FULL_PILOT_SERVED",
+            "FALLBACK_TRIGGERED"
+          ]
+        },
+        "active_mode": {
+          "type": "string",
+          "enum": [
+            "LEGACY_ONLY",
+            "SHADOW_COMPARE",
+            "OFFICIAL_RETRIEVAL_ONLY",
+            "THERAPIST_PILOT",
+            "EMERGENCY_DISABLED"
+          ]
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    },
+    "IntegrationExplanation": {
+      "type": "object",
+      "description": "Diagnostic explanation payload for audit and debugging.",
+      "required": [
+        "request_id",
+        "decision_verdict",
+        "step_trace",
+        "blocking_reasons",
+        "score_breakdown",
+        "boundary_summary"
+      ],
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "decision_verdict": {
+          "type": "string"
+        },
+        "step_trace": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "blocking_reasons": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "score_breakdown": {
+          "type": "object",
+          "additionalProperties": { "type": "number" }
+        },
+        "boundary_summary": {
+          "type": "object",
+          "required": [
+            "total_evaluated",
+            "eligible_count",
+            "blocked_count"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "IntegrationAuditEvent": {
+      "type": "object",
+      "description": "Immutable audit event emitted by the integration pipeline.",
+      "required": [
+        "event_id",
+        "event_type",
+        "request_id",
+        "session_id",
+        "details",
+        "timestamp"
+      ],
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "event_type": {
+          "type": "string",
+          "enum": [
+            "INTEGRATION_REQUEST_RECEIVED",
+            "FEATURE_FLAGS_EVALUATED",
+            "GATE_B_EXECUTION_SUCCESS",
+            "GATE_C_NOVELTY_EVALUATED",
+            "BOUNDARY_SCREENING_COMPLETED",
+            "GATE_D_CONSULTATION_GENERATED",
+            "LEGACY_FALLBACK_EXECUTED",
+            "BOUNDARY_VIOLATION_BLOCKED",
+            "INTEGRATION_COMPLETED"
+          ]
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "session_id": {
+          "type": "string"
+        },
+        "details": {
+          "type": "object"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

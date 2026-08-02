@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Therapist Pilot Access Control Matrix",
+  "version": "1.0.0",
+  "description": "Role-Based and Attribute-Based Access Control Specification for the Therapist Pilot environment enforcing Least Privilege.",
+  "roles": {
+    "THERAPIST_PILOT_USER": {
+      "role_id": "role_therapist_pilot_user",
+      "display_name": "Therapist Pilot User",
+      "description": "Authorized clinical therapist participating in the internal pilot. Access restricted to advisory queries, synthetic note processing, and evidence viewing.",
+      "least_privilege_scope": "Read-only access to GraphRAG advisor endpoints scoped strictly to own pilot_id and active session."
+    },
+    "CLINICAL_REVIEWER": {
+      "role_id": "role_clinical_reviewer",
+      "display_name": "Clinical Reviewer",
+      "description": "Member of the Clinical Governance Board responsible for evaluating novel insights, review feedback, and safety compliance.",
+      "least_privilege_scope": "Read-access to pilot interaction logs, candidate novelty queue, and review sign-off endpoints."
+    },
+    "CONTENT_REVIEWER": {
+      "role_id": "role_content_reviewer",
+      "display_name": "Content Reviewer",
+      "description": "Domain expert responsible for auditing clinical knowledge accuracy, evidence citations, and knowledge graph node quality.",
+      "least_privilege_scope": "Read access to staging knowledge graph and evidence provenance data; approval rights on candidate knowledge updates."
+    },
+    "SYSTEM_OPERATOR": {
+      "role_id": "role_system_operator",
+      "display_name": "System Operator",
+      "description": "Technical system administrator managing system health, feature flags, deployment pipelines, and service availability.",
+      "least_privilege_scope": "Administrative access to feature flags, infrastructure telemetry, service lifecycle, and operational metrics. Zero access to raw query content."
+    },
+    "SECURITY_AUDITOR": {
+      "role_id": "role_security_auditor",
+      "display_name": "Security Auditor",
+      "description": "Independent security and compliance officer monitoring audit trails, security policy enforcement, and incident logs.",
+      "least_privilege_scope": "Read-only access to immutable audit log streams, security alert dashboards, and policy compliance verification tools."
+    }
+  },
+  "resources_and_endpoints": [
+    {
+      "resource_id": "pilot_query_advisor",
+      "endpoint_pattern": "/api/v1/pilot/query",
+      "methods": ["POST"],
+      "description": "Execute GraphRAG advisory consultation query",
+      "permissions": {
+        "THERAPIST_PILOT_USER": "ALLOW_SCOPED",
+        "CLINICAL_REVIEWER": "DENY",
+        "CONTENT_REVIEWER": "DENY",
+        "SYSTEM_OPERATOR": "DENY",
+        "SECURITY_AUDITOR": "DENY"
+      },
+      "conditions": [
+        "INTERNAL_CLINICAL_PILOT_READY == true",
+        "request.pilot_id == token.pilot_id",
+        "request.contains_pii == false"
+      ]
+    },
+    {
+      "resource_id": "pilot_note_summarize",
+      "endpoint_pattern": "/api/v1/pilot/summarize-note",
+      "methods": ["POST"],
+      "description": "Ephemeral summarization of anonymized session notes",
+      "permissions": {
+        "THERAPIST_PILOT_USER": "ALLOW_SCOPED",
+        "CLINICAL_REVIEWER": "DENY",
+        "CONTENT_REVIEWER": "DENY",
+        "SYSTEM_OPERATOR": "DENY",
+        "SECURITY_AUDITOR": "DENY"
+      },
+      "conditions": [
+        "INTERNAL_CLINICAL_PILOT_READY == true",
+        "request.pilot_id == token.pilot_id",
+        "request.contains_pii == false",
+        "store_raw_narrative == false"
+      ]
+    },
+    {
+      "resource_id": "knowledge_graph_read",
+      "endpoint_pattern": "/api/v1/graph/read",
+      "methods": ["GET", "POST"],
+      "description": "Read-only query of approved clinical knowledge graph",
+      "permissions": {
+        "THERAPIST_PILOT_USER": "ALLOW",
+        "CLINICAL_REVIEWER": "ALLOW",
+        "CONTENT_REVIEWER": "ALLOW",
+        "SYSTEM_OPERATOR": "DENY",
+        "SECURITY_AUDITOR": "DENY"
+      },
+      "conditions": [
+        "db_connection == read_only_pool",
+        "query_type == MATCH_ONLY"
+      ]
+    },
+    {
+      "resource_id": "knowledge_graph_write",
+      "endpoint_pattern": "/api/v1/graph/write",
+      "methods": ["POST", "PUT", "DELETE"],
+      "description": "Mutate knowledge graph (Create/Update/Delete nodes or edges)",
+      "permissions": {
+        "THERAPIST_PILOT_USER": "DENY",
+        "CLINICAL_REVIEWER": "DENY",
+        "CONTENT_REVIEWER": "DENY",
+        "SYSTEM_OPERATOR": "DENY",
+        "SECURITY_AUDITOR": "DENY"
+      },
+      "conditions": [
+        "EXPLICIT_DENY_IN_PILOT: Knowledge graph mutations prohibited during pilot execution."
+      ]
+    },
+    {
+      "resource_id": "novelty_candidate_queue",
+      "endpoint_pattern": "/api/v1/novelty/candidates",
+      "methods": ["GET", "POST"],
+      "description": "View and manage novel insight candidates staging queue",
+      "permissions": {
+        "THERAPIST_PILOT_USER": "DENY",
+        "CLINICAL_REVIEWER": "ALLOW",
+        "CONTENT_REVIEWER": "ALLOW",
+        "SYSTEM_OPERATOR": "DENY",
+        "SECURITY_AUDITOR": "READ_ONLY"
+      },
+      "conditions": [
+        "requires_multi_signature_approval == true"
+      ]
+    },
+    {
+      "resource_id": "audit_logs",
+      "endpoint_pattern": "/api/v1/audit/logs",
+      "methods": ["GET"],
+      "description": "Read immutable audit logs and safety event trails",
+      "permissions": {
+        "THERAPIST_PILOT_USER": "DENY",
+        "CLINICAL_REVIEWER": "READ_SCOPED",
+        "CONTENT_REVIEWER": "DENY",
+        "SYSTEM_OPERATOR": "DENY",
+        "SECURITY_AUDITOR": "ALLOW_FULL_READ"
+      },
+      "conditions": [
+        "audit_store == append_only_worm",
+        "logs_redacted == true"
+      ]
+    },
+    {
+      "resource_id": "feature_flags",
+      "endpoint_pattern": "/api/v1/admin/feature-flags",
+      "methods": ["GET", "PUT"],
+      "description": "Toggle master pilot feature flag and safety switches",
+      "permissions": {
+        "THERAPIST_PILOT_USER": "DENY",
+        "CLINICAL_REVIEWER": "DENY",
+        "CONTENT_REVIEWER": "DENY",
+        "SYSTEM_OPERATOR": "ALLOW",
+        "SECURITY_AUDITOR": "READ_ONLY"
+      },
+      "conditions": [
+        "mfa_verified == true",
+        "action_logged_in_audit == true"
+      ]
+    },
+    {
+      "resource_id": "system_telemetry",
+      "endpoint_pattern": "/api/v1/admin/telemetry",
+      "methods": ["GET"],
+      "description": "System performance, error rates, and health metrics",
+      "permissions": {
+        "THERAPIST_PILOT_USER": "DENY",
+        "CLINICAL_REVIEWER": "DENY",
+        "CONTENT_REVIEWER": "DENY",
+        "SYSTEM_OPERATOR": "ALLOW",
+        "SECURITY_AUDITOR": "ALLOW"
+      },
+      "conditions": []
+    }
+  ],
+  "session_and_token_policies": {
+    "max_access_token_lifetime_minutes": 15,
+    "max_session_inactivity_minutes": 15,
+    "max_total_session_hours": 8,
+    "token_type": "OAuth2 JWT with RSA-256 Signature",
+    "required_claims": ["sub", "role", "pilot_id", "session_id", "mfa_verified", "exp", "iat"],
+    "token_storage": "Memory / HttpOnly Secure SameSite=Strict Cookie",
+    "revocation_mechanism": "Redis-backed Token Blacklist with instant propagation"
+  },
+  "isolation_rules": {
+    "pilot_id_isolation": "All database queries, vector searches, and cache lookups MUST include `pilot_id` in the filter predicate. Cross-pilot_id data access returns 403 Forbidden.",
+    "session_isolation": "LLM interaction memory buffers are bound strictly to `session_id`. Memory buffers are destroyed upon session logout or 15-minute inactivity timeout.",
+    "network_isolation": "Pilot API runtime runs in an isolated network namespace with zero outbound access to external public IP addresses."
+  }
+}

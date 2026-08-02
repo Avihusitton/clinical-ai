@@ -1,0 +1,5 @@
+{
+  "gate_cd_boundary_exact_match": true,
+  "gate_a_dry_run_exact_match": true,
+  "working_files_used_as_own_baseline": false
+}

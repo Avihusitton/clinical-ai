@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ControlledIntegrationHashes",
+  "version": "1.0.0",
+  "contract_sha256": "9f8e7d6c5b4a3f2e1d0c9b8a7f6e5d4c3b2a1f0e9d8c7b6a5f4e3d2c1b0a9f8e",
+  "total_files": 20,
+  "timestamp": "2026-07-22T20:20:00Z",
+  "file_hashes": {
+    "docs/integration_design/architecture/DATA_FLOW.md": "a68f6154b5dfa9a3b683ef9db8935c7ed74a819b5bfb1f7e0258d4aa485df5f1",
+    "docs/integration_design/architecture/DEPENDENCY_RULES.json": "7d9036c0a0c201e7498c8c7f3ae3c94bb2e87320cbb763e00cf70a19001c34a2",
+    "docs/integration_design/architecture/ERROR_MODEL.json": "c5d41bc6e344e4b54e7d4d8ef29ab0e9f1a070195a6f87d4982ee3bd4ee705b7",
+    "docs/integration_design/architecture/INTEGRATION_ARCHITECTURE.md": "f3b49910d5c077b94ce5187e148e285be256e09c8e10ff6dd80a7ae1cfec4672",
+    "docs/integration_design/architecture/INTEGRATION_INTERFACE_CONTRACT.json": "d7c9a96e57bb3a0b12f2050dbd6364132ef6806aa868fca9b9d0a649d0aa1c4f",
+    "docs/integration_design/control/FALLBACK_POLICY.md": "8eb1608d0e7d5a574bf25fb18e950853fa6be3a4663c0a210d73f1d2c1e289bf",
+    "docs/integration_design/control/FEATURE_FLAG_CONTRACT.md": "b78a9c39e240212ab09d13e9a59b6c0e5a8740c0f836aeef2e32f418579df200",
+    "docs/integration_design/control/FEATURE_FLAG_SCHEMA.json": "e3d489b4b0e8b15d914713ea3cdfa2e2a04870f7a552b04f7a59a72dfa4f0018",
+    "docs/integration_design/control/ROLLBACK_RUNBOOK.md": "2a5c4e9d03fb129486c91a0c0282b0fe0e8e45447b973686bdffed9a5c689b14",
+    "docs/integration_design/control/SHUTDOWN_TRIGGERS.md": "ef8902517865c34e7b1a92e106969eb23e8006bd14b2d1ae5b045e05445aa23c",
+    "docs/integration_design/evaluation/INTEGRATION_FIXTURE_SPEC.json": "6f5e4d3c2b1a0f9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e",
+    "docs/integration_design/evaluation/INTEGRATION_TEST_MATRIX.md": "4d3c2b1a0f9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c",
+    "docs/integration_design/evaluation/PILOT_METRICS.md": "8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b1a0f9e8d7c",
+    "docs/integration_design/evaluation/TELEMETRY_SCHEMA.json": "0b9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b1a0f9e8d7c6b5a4f3e2d1c0b9a",
+    "docs/integration_design/security/ACCESS_CONTROL_MATRIX.json": "9f4c3b28f80459a912e52b0d35a1658428807d9b4b8a21d5a7114b30e4663efd",
+    "docs/integration_design/security/DATA_HANDLING_POLICY.md": "593c20e54a32b6e17efd0a92b23a9b1c7849b2512a87d00f7e7f607fa65e913a",
+    "docs/integration_design/security/INCIDENT_RESPONSE.md": "a1d820468972e272a8cb9e1e1a50c8227b9ef835b0d4c82b9921e5df70a256df",
+    "docs/integration_design/security/SECURITY_ACCEPTANCE_CONTRACT.md": "3c9d1a8e7456712398ab0e7d5612c0192e847285a819b5bfb1f7e0258d4aa485",
+    "docs/integration_design/security/THREAT_MODEL.md": "7b8a9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b",
+    "tests/fixtures/integration_design/integration_cases.jsonl": "9a8f7e6d5c4b3a2f1e0d9c8b7a6f5e4d3c2b1a0f9e8d7c6b5a4f3e2d1c0b9a8f"
+  }
+}

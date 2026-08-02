@@ -1,0 +1,74 @@
+{
+  "canonical_manifest_version": "2.0.0",
+  "old_reported_hash": "40a536aadd8436ca29b4bf5bc7ac226deb1eefd685146011d3aaae83028f58d2",
+  "new_canonical_hash": "5df950e8459eb7b6fd34d705cc0af06fbe7b3f58ac7d8a7ab05bcba4d7277342",
+  "hash_algorithm": "SHA-256",
+  "path_normalization": "relative_forward_slash",
+  "tracked_file_count": 16,
+  "files": {
+    "docs/shadow_wiring_design\\contract\\SHADOW_COMPARISON_SCHEMA.json": {
+      "sha256": "6a8778df8e48f5de177fcbbeb0e082ee866624d8b2c111ca3b6b8abed4f0aa46",
+      "byte_length": 1029
+    },
+    "docs/shadow_wiring_design\\contract\\SHADOW_DATA_FLOW.md": {
+      "sha256": "8b0e65d779decb9c2a5f93cc9e04d10acd8b42af08ea54ea3254d4c7cce26261",
+      "byte_length": 1327
+    },
+    "docs/shadow_wiring_design\\contract\\SHADOW_ERROR_MODEL.json": {
+      "sha256": "be6a3e1250acad8df2dbe3aecd6b5eba464dc880f9019fe94b4291d489130793",
+      "byte_length": 1053
+    },
+    "docs/shadow_wiring_design\\contract\\SHADOW_WIRING_CONTRACT.md": {
+      "sha256": "1cd6df128a50e5312e63abb1d9e81c7946261936acacf381fbc78a968312fe72",
+      "byte_length": 3301
+    },
+    "docs/shadow_wiring_design\\contract\\SHADOW_WIRING_INTERFACE.json": {
+      "sha256": "cd1342706647ce8098f2b66d9884d26028b3305e257d45fd8abb7cb034a61a5a",
+      "byte_length": 1658
+    },
+    "docs/shadow_wiring_design\\frozen\\SHADOW_WIRING_ACCEPTANCE.md": {
+      "sha256": "bce797e3d4bd080019e82b16bbe7ab8991a8873bebbd14953919e0ddb8086ec0",
+      "byte_length": 1330
+    },
+    "docs/shadow_wiring_design\\frozen\\SHADOW_WIRING_FROZEN_CONTRACT.json": {
+      "sha256": "2f5fb27e5989ba384da9629bb65f79125a424719e5b3f4786baee77747856f23",
+      "byte_length": 704
+    },
+    "docs/shadow_wiring_design\\frozen\\SHADOW_WIRING_FROZEN_CONTRACT.md": {
+      "sha256": "fdc166db8cf59560c9ebdfa304e9db3067aebe8073a85b56e7b5c39c82211ab6",
+      "byte_length": 1461
+    },
+    "docs/shadow_wiring_design\\seam_map\\LEGACY_PAYLOAD_CONTRACT.json": {
+      "sha256": "bde4e6539c4f8cb31aca218fa924711dc2d4b856a35e52e625daae338a7138ce",
+      "byte_length": 717
+    },
+    "docs/shadow_wiring_design\\seam_map\\RETRIEVAL_SEAM_MAP.json": {
+      "sha256": "36b939af2d3e829622655721aa511e0145a7ba57b73e93de1cad75a464b0f007",
+      "byte_length": 1378
+    },
+    "docs/shadow_wiring_design\\seam_map\\RETRIEVAL_SEAM_MAP.md": {
+      "sha256": "8236422652d50b8463f1b132af1a281d587eff48a804dd227dcb167415d25817",
+      "byte_length": 3849
+    },
+    "docs/shadow_wiring_design\\seam_map\\UNSAFE_INSERTION_POINTS.md": {
+      "sha256": "ffd9b92b796149291452a0f0e224f82817dbac365c032cd4ec0a82ec784fff96",
+      "byte_length": 1039
+    },
+    "docs/shadow_wiring_design\\testing\\SHADOW_ACCEPTANCE_CONTRACT.md": {
+      "sha256": "592cb70b3cc710bab6478227639b1b2b0b211ef1c9eaa22aa095a3d84e977026",
+      "byte_length": 1310
+    },
+    "docs/shadow_wiring_design\\testing\\SHADOW_FIXTURE_SPEC.json": {
+      "sha256": "5831631559c9f4522a2a15cf0a7bfea5f6b757d543d79b26bb88f1991a0e4186",
+      "byte_length": 864
+    },
+    "docs/shadow_wiring_design\\testing\\SHADOW_TEST_MATRIX.md": {
+      "sha256": "e3ed607c98176a8c50479345c281fc6a7dbe43a75528d83c9cf53941ebb3d865",
+      "byte_length": 2232
+    },
+    "tests/fixtures/shadow_wiring/shadow_cases.jsonl": {
+      "sha256": "8e97545572ed079419ed389305aab3c1e4c12001f13e124bbea8bf7c7e515ca0",
+      "byte_length": 111706
+    }
+  }
+}

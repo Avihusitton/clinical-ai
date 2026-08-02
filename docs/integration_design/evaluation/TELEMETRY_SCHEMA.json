@@ -1,0 +1,173 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Clinical Integration Telemetry & Audit Schema",
+  "description": "Structured JSON schema for real-time telemetry, audit logging, performance monitoring, and safety guardrail verification during controlled integration and internal pilot execution.",
+  "schema_version": "1.0.0",
+  "privacy_policy": {
+    "zero_pii_guarantee": true,
+    "pii_scrubbing_active": true,
+    "therapist_identity_handling": "Hashed using HMAC-SHA256 with rotating salt; raw identities never stored in telemetry",
+    "patient_data_policy": "Zero patient data allowed; all queries and sessions are synthetic or anonymized protocol lookups"
+  },
+  "event_types": [
+    "telemetry_event",
+    "audit_event",
+    "metric_snapshot",
+    "security_alert"
+  ],
+  "common_header": {
+    "type": "object",
+    "required": [
+      "trace_id",
+      "request_id",
+      "session_id",
+      "timestamp",
+      "environment",
+      "operating_mode",
+      "therapist_id_hash",
+      "feature_flags"
+    ],
+    "properties": {
+      "trace_id": { "type": "string", "pattern": "^tr-[a-f0-9]{32}$" },
+      "request_id": { "type": "string", "pattern": "^req-[a-f0-9]{16}$" },
+      "session_id": { "type": "string", "pattern": "^sess-[a-f0-9]{16}$" },
+      "timestamp": { "type": "string", "format": "date-time" },
+      "environment": { "type": "string", "enum": ["integration_test", "shadow_pilot", "internal_pilot"] },
+      "operating_mode": {
+        "type": "string",
+        "enum": [
+          "legacy_only",
+          "shadow_comparison",
+          "reviewed_consultation",
+          "blocked_novelty",
+          "fallback_error",
+          "security_governance"
+        ]
+      },
+      "therapist_id_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+      "feature_flags": {
+        "type": "object",
+        "required": [
+          "master_pilot_flag",
+          "shadow_mode_enabled",
+          "graph_rag_enabled",
+          "strict_provenance_enforced",
+          "novelty_blocking_enabled",
+          "legacy_fallback_enabled"
+        ],
+        "properties": {
+          "master_pilot_flag": { "type": "boolean" },
+          "shadow_mode_enabled": { "type": "boolean" },
+          "graph_rag_enabled": { "type": "boolean" },
+          "strict_provenance_enforced": { "type": "boolean" },
+          "novelty_blocking_enabled": { "type": "boolean" },
+          "legacy_fallback_enabled": { "type": "boolean" }
+        }
+      }
+    }
+  },
+  "payload_definitions": {
+    "retrieval_event": {
+      "type": "object",
+      "required": ["legacy_document_count", "graph_node_count", "retrieval_agreement_score", "retrieval_latency_ms"],
+      "properties": {
+        "legacy_document_count": { "type": "integer", "minimum": 0 },
+        "graph_node_count": { "type": "integer", "minimum": 0 },
+        "retrieval_agreement_score": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "retrieval_latency_ms": { "type": "number", "minimum": 0.0 },
+        "retrieved_evidence_ids": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "evidence_verification_event": {
+      "type": "object",
+      "required": ["total_claims_generated", "verified_claims_count", "unsupported_claim_count", "coverage_ratio"],
+      "properties": {
+        "total_claims_generated": { "type": "integer", "minimum": 0 },
+        "verified_claims_count": { "type": "integer", "minimum": 0 },
+        "unsupported_claim_count": { "type": "integer", "minimum": 0 },
+        "coverage_ratio": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "provenance_hashes": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "novelty_block_event": {
+      "type": "object",
+      "required": ["unreviewed_relation_detected", "novelty_id", "risk_score", "action_taken"],
+      "properties": {
+        "unreviewed_relation_detected": { "type": "boolean" },
+        "novelty_id": { "type": "string" },
+        "risk_score": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "action_taken": { "type": "string", "enum": ["BLOCKED_INTERCEPTED", "LOGGED_SHADOW", "ALLOWED_REVIEWED"] },
+        "blocked_components": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "fallback_event": {
+      "type": "object",
+      "required": ["fallback_triggered", "failure_reason", "failing_component", "fallback_component", "fallback_latency_ms"],
+      "properties": {
+        "fallback_triggered": { "type": "boolean" },
+        "failure_reason": { "type": "string" },
+        "failing_component": { "type": "string" },
+        "fallback_component": { "type": "string", "enum": ["legacy_retrieval_engine"] },
+        "fallback_latency_ms": { "type": "number", "minimum": 0.0 }
+      }
+    },
+    "audit_logging_event": {
+      "type": "object",
+      "required": ["event_sequence_number", "previous_event_hash", "current_event_hash", "storage_confirmation"],
+      "properties": {
+        "event_sequence_number": { "type": "integer", "minimum": 1 },
+        "previous_event_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "current_event_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "storage_confirmation": { "type": "boolean" }
+      }
+    },
+    "therapist_interaction_event": {
+      "type": "object",
+      "required": ["uncertainty_score_displayed", "provenance_cards_rendered", "therapist_action"],
+      "properties": {
+        "uncertainty_score_displayed": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "provenance_cards_rendered": { "type": "integer", "minimum": 0 },
+        "therapist_action": { "type": "string", "enum": ["ACCEPTED", "REJECTED", "MODIFIED", "CONSULTED_ONLY"] },
+        "override_notes_pii_clean": { "type": "string" }
+      }
+    },
+    "security_event": {
+      "type": "object",
+      "required": ["security_check_type", "passed", "violation_code", "action_enforced"],
+      "properties": {
+        "security_check_type": { "type": "string", "enum": ["RBAC_ROLE", "PII_SCAN", "FEATURE_FLAG", "KILL_SWITCH", "PAYLOAD_SIGNATURE"] },
+        "passed": { "type": "boolean" },
+        "violation_code": { "type": ["string", "null"] },
+        "action_enforced": { "type": "string", "enum": ["DENIED_AND_ALERTED", "ALLOWED_AUTHORIZED", "FALLBACK_ROUTED"] }
+      }
+    },
+    "performance_event": {
+      "type": "object",
+      "required": ["latency_breakdown_ms", "memory_usage_mb", "status_code"],
+      "properties": {
+        "latency_breakdown_ms": {
+          "type": "object",
+          "required": ["graph_ms", "vector_ms", "validation_ms", "synthesis_ms", "total_ms"],
+          "properties": {
+            "graph_ms": { "type": "number" },
+            "vector_ms": { "type": "number" },
+            "validation_ms": { "type": "number" },
+            "synthesis_ms": { "type": "number" },
+            "total_ms": { "type": "number" }
+          }
+        },
+        "memory_usage_mb": { "type": "number" },
+        "status_code": { "type": "integer" }
+      }
+    }
+  }
+}

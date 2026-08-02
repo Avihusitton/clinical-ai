@@ -1,0 +1,23 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\avihu\AppData\Local\Programs\Python\Python312\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Avihusitton\clinical_ai
+plugins: anyio-4.13.0
+collecting ... collected 14 items
+
+tests/test_wave_8_4_report_validator.py::test_validator_passes_on_unmodified_evidence PASSED [  7%]
+tests/test_wave_8_4_report_validator.py::test_validator_fails_when_exception_record_removed PASSED [ 14%]
+tests/test_wave_8_4_report_validator.py::test_validator_fails_when_duplicate_exception_scenario_id PASSED [ 21%]
+tests/test_wave_8_4_report_validator.py::test_validator_fails_when_queue_submit_3_moved_after_worker_release PASSED [ 28%]
+tests/test_wave_8_4_report_validator.py::test_validator_fails_when_runner_entered_ns_removed PASSED [ 35%]
+tests/test_wave_8_4_report_validator.py::test_validator_fails_when_answer_returned_moved_after_release PASSED [ 42%]
+tests/test_wave_8_4_report_validator.py::test_validator_fails_when_pii_record_removed PASSED [ 50%]
+tests/test_wave_8_4_report_validator.py::test_validator_fails_when_pii_detected_false PASSED [ 57%]
+tests/test_wave_8_4_report_validator.py::test_validator_fails_when_task_queued_true PASSED [ 64%]
+tests/test_wave_8_4_report_validator.py::test_validator_fails_when_raw_text_in_audit_true PASSED [ 71%]
+tests/test_wave_8_4_report_validator.py::test_validator_fails_when_synthetic_query_subscript_count_non_zero PASSED [ 78%]
+tests/test_wave_8_4_report_validator.py::test_validator_fails_when_harness_hash_mismatched PASSED [ 85%]
+tests/test_wave_8_4_report_validator.py::test_validator_fails_when_redaction_wording_overclaims PASSED [ 92%]
+tests/test_wave_8_4_report_validator.py::test_validator_fails_when_harness_output_missing PASSED [100%]
+
+============================= 14 passed in 0.35s ==============================

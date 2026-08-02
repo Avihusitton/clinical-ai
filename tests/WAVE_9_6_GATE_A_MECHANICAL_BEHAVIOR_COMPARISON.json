@@ -1,0 +1,28 @@
+{
+  "baseline_path": "tests/WAVE_9_4_GATE_A_BUNDLE_BASELINE.py",
+  "runner_path": "evaluation/wave96/gate_a_driver_runner.py",
+  "original_test_node_ids": [
+    "tests/test_gate_a_dry_run_and_isolation.py::test_dry_run_no_writes",
+    "tests/test_gate_a_dry_run_and_isolation.py::test_shadow_isolation"
+  ],
+  "runner_test_node_ids": [
+    "tests/test_gate_a_dry_run_and_isolation.py::test_dry_run_no_writes",
+    "tests/test_gate_a_dry_run_and_isolation.py::test_shadow_isolation"
+  ],
+  "test_node_ids_identical": true,
+  "original_assertion_count": 17,
+  "runner_assertion_count": 17,
+  "missing_original_assertions": [],
+  "extra_assertions": [],
+  "skip_condition_mapping_preserved": true,
+  "database_identity_validation_executes_before_writes": true,
+  "dry_run_write_count_assertion_executes": true,
+  "cross_boundary_checks_execute": true,
+  "orphan_checks_execute": true,
+  "pilot_id_checks_execute": true,
+  "idempotency_checks_execute": true,
+  "cleanup_executes_in_finally": true,
+  "post_cleanup_count_assertions_execute": true,
+  "production_label_counts_unchanged": true,
+  "production_relationship_counts_unchanged": true
+}

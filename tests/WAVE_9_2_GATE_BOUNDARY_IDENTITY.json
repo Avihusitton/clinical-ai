@@ -1,0 +1,10 @@
+{
+  "baseline_branch": "feat/wave8-shadow-wiring",
+  "baseline_file_exists": true,
+  "working_file_exists": true,
+  "baseline_sha256": "bd1ea387090baa00965a0a58957d7e6bf4d8d89615e071a3054fa94775ec5b69",
+  "working_sha256": "bd1ea387090baa00965a0a58957d7e6bf4d8d89615e071a3054fa94775ec5b69",
+  "baseline_equals_working_sha256": true,
+  "exact_byte_match": true,
+  "gate_boundary_diff_exit_code": 0
+}

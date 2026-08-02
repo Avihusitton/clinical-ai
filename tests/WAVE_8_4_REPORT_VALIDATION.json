@@ -1,0 +1,18 @@
+{
+  "validator_result": "PASS",
+  "checks": {
+    "legacy_exception_count": 3,
+    "distinct_exception_ids": [
+      "EXC-LEGACY-COMPOSE",
+      "EXC-CANDIDATE-MATCH",
+      "EXC-GRAPH-RETRIEVAL"
+    ],
+    "three_exceptions_valid": true,
+    "pii_cases_tested_count": 20,
+    "twenty_pii_valid": true,
+    "queue_timestamps_valid": true,
+    "blocked_runner_timestamps_valid": true,
+    "emergency_disable_dict_valid": true,
+    "no_synthetic_query_lookup": true
+  }
+}

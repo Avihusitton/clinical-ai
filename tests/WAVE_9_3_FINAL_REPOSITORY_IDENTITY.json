@@ -1,0 +1,10 @@
+{
+  "current_branch": "feat/wave9-synthetic-shadow-evaluation",
+  "protected_production_files_modified_in_wave9_3": 0,
+  "baseline_test_files_modified": 0,
+  "gate_cd_boundary_modified": false,
+  "gate_a_dry_run_modified": false,
+  "retrieval_seam_modified": true,
+  "retrieval_seam_modification_wave": "Wave 8",
+  "repository_identity_valid": true
+}

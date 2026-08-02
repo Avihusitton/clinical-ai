@@ -1,0 +1,77 @@
+{
+  "schema_version": "0.1",
+  "as_of": "2026-07-29",
+  "status": "PASS_DICTIONARY_AND_CONTEXT_QUARANTINE_LOADED_TO_STAGING",
+  "dictionary": {
+    "release_id": "D4-99F53565A7BCC45E",
+    "manifest_status": "D4_CANONICAL_RELEASE",
+    "producer_finalization": "PASS_D4_CANONICAL_RELEASE_SIGNED_AND_COMPLETE",
+    "producer_checks": {
+      "passed": 22,
+      "failed": 0
+    },
+    "clinical_acceptance": "PASS_CANONICAL_PACKAGE_ACCEPTED_FOR_PREFLIGHT",
+    "unified_preflight": "PASS_CANONICAL_READY_FOR_STAGING_TARGET_PREFLIGHT",
+    "graph_plan_id": "GRAPHPLAN-37D441363E44ED86",
+    "graph_nodes": 1023,
+    "graph_relationships": 8003,
+    "dry_run_errors": 0,
+    "records_rejected": 0,
+    "relation_candidates_quarantined": 873,
+    "content_ready_for_staging_load": true,
+    "load_executed": true,
+    "ingestion_batch_id": "DICTBATCH-E9C8ECB4A7372979BA57",
+    "post_load_validation": "PASS_POST_LOAD_VALIDATION"
+  },
+  "target": {
+    "static_nonproduction_audit": "PASS",
+    "local_execution_gates": "PASS",
+    "runtime_readonly_verification": "PASS",
+    "service_detected": true,
+    "runtime_database": "neo4j",
+    "postload_node_count": 1125,
+    "postload_relationship_count": 8093,
+    "required_action": "NONE_FOR_DICTIONARY_OR_QUARANTINE_LOAD"
+  },
+  "chunk_context": {
+    "quarantine_release_id": "CONTEXTQUARANTINE-786B27A48BD861F2",
+    "quarantine_plan_id": "CONTEXTPLAN-DF2A0F311DCC4BAE",
+    "evidence_excerpts": 20,
+    "relation_candidates": 32,
+    "both_endpoints_unique": 9,
+    "partially_mapped": 23,
+    "quarantine_nodes": 52,
+    "quarantine_edges": 73,
+    "canonical_semantic_edges": 0,
+    "automatic_promotions": 0,
+    "quarantine_plan_ready_after_dictionary": true,
+    "quarantine_load_executed": true,
+    "ingestion_batch_id": "CONTEXTBATCH-39118BDE64AEDA51FB43",
+    "post_load_validation": "PASS_CONTEXT_QUARANTINE_POST_LOAD_VALIDATION",
+    "canonical_relation_load_ready": false
+  },
+  "durable_chunk_reconstruction": {
+    "source_files_scanned": 343,
+    "target_chunk_ids": 20,
+    "matched_chunk_ids": 11,
+    "missing_chunk_ids": 9,
+    "queue_excerpt_mismatches": 5,
+    "direct_identifier_findings": 0,
+    "raw_package_emitted": false,
+    "status": "BLOCKED_FAIL_CLOSED"
+  },
+  "verification": {
+    "focused_tests_passed": 52,
+    "focused_tests_failed": 0,
+    "automatic_promotions": 0,
+    "api_key_use": 0,
+    "neo4j_production_writes_allowed": false,
+    "neo4j_staging_writes_performed": true
+  },
+  "declaration": {
+    "dictionary_loaded_to_nonproduction_staging": true,
+    "dictionary_ready_for_production": false,
+    "context_quarantine_loaded_after_dictionary": true,
+    "canonical_context_relations_require_review_and_full_chunk_export": true
+  }
+}

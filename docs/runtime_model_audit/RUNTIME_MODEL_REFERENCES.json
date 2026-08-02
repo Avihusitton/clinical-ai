@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "audit_title": "Runtime Model References Registry",
+  "version": "1.0.0",
+  "intended_target_model": "DeepSeek v4 Pro through OpenRouter",
+  "references": [
+    {
+      "file": "config.py",
+      "symbol_or_section": "Config.llm_model (line 60)",
+      "value": "deepseek/deepseek-v4-flash",
+      "source_type": "python_default_fallback",
+      "runtime_or_test_or_documentation": "runtime",
+      "effective_or_fallback_or_example": "fallback",
+      "suspected_stale": true,
+      "recommended_action": "Update default fallback to verified OpenRouter DeepSeek v4 Pro slug in TASK_RUNTIME_MODEL_ALIGNMENT"
+    },
+    {
+      "file": "llm_client.py",
+      "symbol_or_section": "OPENROUTER_URL (line 23)",
+      "value": "https://openrouter.ai/api/v1/chat/completions",
+      "source_type": "api_endpoint",
+      "runtime_or_test_or_documentation": "runtime",
+      "effective_or_fallback_or_example": "effective",
+      "suspected_stale": false,
+      "recommended_action": "Maintain OpenRouter endpoint URL"
+    },
+    {
+      "file": "test_live_llm.py",
+      "symbol_or_section": "LLMClient instantiation (line 5)",
+      "value": "cfg.llm_model",
+      "source_type": "test_harness",
+      "runtime_or_test_or_documentation": "test",
+      "effective_or_fallback_or_example": "effective",
+      "suspected_stale": false,
+      "recommended_action": "Uses config model dynamically; no hardcoding present"
+    }
+  ],
+  "future_task": {
+    "task_id": "TASK_RUNTIME_MODEL_ALIGNMENT",
+    "target": "DeepSeek v4 Pro through OpenRouter",
+    "status": "REQUIRES_VERIFIED_MODEL_IDENTIFIER_AND_COMPATIBILITY_TESTS"
+  }
+}

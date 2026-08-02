@@ -1,0 +1,8 @@
+# Composition Matrix Draft
+# Rules for combining multiple hops into a single inferred path
+
+CURRENT_LEGACY_BEHAVIOR:
+  composition_rules: UNKNOWN
+  
+PROPOSED_GATE_B_BEHAVIOR:
+  composition_rules: UNKNOWN

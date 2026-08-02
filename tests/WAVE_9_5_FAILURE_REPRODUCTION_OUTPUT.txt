@@ -1,0 +1,43 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\avihu\AppData\Local\Programs\Python\Python312\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Avihusitton\clinical_ai
+plugins: anyio-4.13.0
+collecting ... collected 5 items
+
+tests/test_gate_cd_boundary.py::TestNoProductionImports::test_gate_cd_boundary_does_not_import_neo4j FAILED [ 20%]
+tests/test_wave95_neo4j_isolation.py::test_neo4j_absent_from_parent_sys_modules_before_pilot PASSED [ 40%]
+tests/test_wave95_neo4j_isolation.py::test_neo4j_remains_absent_from_parent_sys_modules_after_pilot PASSED [ 60%]
+tests/test_wave95_neo4j_isolation.py::test_gate_test_passes_after_pilot PASSED [ 80%]
+tests/test_wave95_neo4j_isolation.py::test_gate_test_passes_alone PASSED [100%]
+
+================================== FAILURES ===================================
+_____ TestNoProductionImports.test_gate_cd_boundary_does_not_import_neo4j _____
+
+self = <tests.test_gate_cd_boundary.TestNoProductionImports object at 0x00000178BDDBC080>
+
+    def test_gate_cd_boundary_does_not_import_neo4j(self):
+        import gate_cd_boundary
+        import gate_cd_boundary.models
+        import gate_cd_boundary.evidence_eligibility
+        import sys
+        for mod_name in sys.modules:
+>           assert "neo4j" not in mod_name.lower(), (
+                f"neo4j imported via {mod_name}"
+            )
+E           AssertionError: neo4j imported via tests.test_wave95_neo4j_isolation
+E           assert 'neo4j' not in 'tests.test_wave95_neo4j_isolation'
+E             
+E             'neo4j' is contained here:
+E               tests.test_wave95_neo4j_isolation
+E             ?                   +++++
+
+tests\test_gate_cd_boundary.py:480: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_gate_cd_boundary.py::TestNoProductionImports::test_gate_cd_boundary_does_not_import_neo4j - AssertionError: neo4j imported via tests.test_wave95_neo4j_isolation
+assert 'neo4j' not in 'tests.test_wave95_neo4j_isolation'
+  
+  'neo4j' is contained here:
+    tests.test_wave95_neo4j_isolation
+  ?                   +++++
+========================= 1 failed, 4 passed in 1.35s =========================

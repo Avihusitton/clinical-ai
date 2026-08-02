@@ -1,0 +1,1 @@
+{"id": "dr_9", "description": "Out-of-scope relation", "nodes": [{"id": "n1", "scope": "PilotA"}, {"id": "n2", "scope": "GlobalScope"}], "edges": [{"source": "n1", "target": "n2", "type": "INFER", "status": "APPROVED", "provenance": "src", "review_state": "REVIEWED"}], "expected_decision": "REJECTED", "blocking_reason": "Out-of-scope nodes cannot form direct inferential edges"}

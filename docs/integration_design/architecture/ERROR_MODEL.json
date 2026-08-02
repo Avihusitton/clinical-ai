@@ -1,0 +1,126 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ErrorModelSpecification",
+  "description": "Classification taxonomy, error codes, fail-closed rules, and fallback mappings for controlled_integration.",
+  "version": "1.0.0",
+  "error_categories": {
+    "FEATURE_FLAG_ERRORS": {
+      "ERR_FF_01": {
+        "code": "ERR_FF_01",
+        "name": "EmergencyModeActive",
+        "description": "Operating mode is EMERGENCY_DISABLED. All sub-flags forced to false.",
+        "severity": "CRITICAL",
+        "fail_closed_action": "Force legacy retrieval fallback.",
+        "http_status_equivalent": 503
+      },
+      "ERR_FF_02": {
+        "code": "ERR_FF_02",
+        "name": "InvalidFlagCombination",
+        "description": "Incompatible feature flags enabled simultaneously (e.g. Gate B without Official Retrieval).",
+        "severity": "HIGH",
+        "fail_closed_action": "Reject configuration, default to LEGACY_ONLY.",
+        "http_status_equivalent": 400
+      },
+      "ERR_FF_03": {
+        "code": "ERR_FF_03",
+        "name": "UnknownFlagKey",
+        "description": "Unrecognized flag key present in configuration.",
+        "severity": "HIGH",
+        "fail_closed_action": "Fail closed to LEGACY_ONLY.",
+        "http_status_equivalent": 400
+      }
+    },
+    "BOUNDARY_VIOLATION_ERRORS": {
+      "ERR_BND_01": {
+        "code": "ERR_BND_01",
+        "name": "UnreviewedNoveltyLeak",
+        "description": "Gate C candidate with status DISCOVERY_ONLY attempted to cross into Gate D.",
+        "severity": "CRITICAL",
+        "fail_closed_action": "Block candidate immediately, raise security audit alarm, fallback to LEGACY_ONLY.",
+        "http_status_equivalent": 403
+      },
+      "ERR_BND_02": {
+        "code": "ERR_BND_02",
+        "name": "PendingReviewLeak",
+        "description": "Candidate with review_status PENDING_HUMAN_REVIEW attempted to cross into Gate D.",
+        "severity": "CRITICAL",
+        "fail_closed_action": "Block candidate immediately, fallback to LEGACY_ONLY.",
+        "http_status_equivalent": 403
+      },
+      "ERR_BND_03": {
+        "code": "ERR_BND_03",
+        "name": "UnresolvedContradictionLeak",
+        "description": "Candidate with POSSIBLE_CONTRADICTION attempted to cross into Gate D.",
+        "severity": "HIGH",
+        "fail_closed_action": "Block candidate, exclude from consultation input bundle.",
+        "http_status_equivalent": 422
+      },
+      "ERR_BND_04": {
+        "code": "ERR_BND_04",
+        "name": "InsufficientEvidenceLeak",
+        "description": "Candidate failing confidence threshold attempted to cross boundary.",
+        "severity": "MEDIUM",
+        "fail_closed_action": "Exclude item from consultation input bundle.",
+        "http_status_equivalent": 422
+      }
+    },
+    "GATE_EXECUTION_ERRORS": {
+      "ERR_GATE_B": {
+        "code": "ERR_GATE_B",
+        "name": "GateBReasoningFailure",
+        "description": "Exception encountered during Gate B traversal evaluation.",
+        "severity": "MEDIUM",
+        "fail_closed_action": "Log error, fall back to simple keyword retrieval.",
+        "http_status_equivalent": 500
+      },
+      "ERR_GATE_C": {
+        "code": "ERR_GATE_C",
+        "name": "GateCNoveltyEngineFailure",
+        "description": "Exception encountered during Gate C novelty discovery.",
+        "severity": "MEDIUM",
+        "fail_closed_action": "Bypass Gate C novelty, continue with official evidence only.",
+        "http_status_equivalent": 500
+      },
+      "ERR_GATE_D": {
+        "code": "ERR_GATE_D",
+        "name": "GateDConsultationFailure",
+        "description": "Exception encountered during Gate D consultation generation.",
+        "severity": "HIGH",
+        "fail_closed_action": "Fallback to legacy retrieval baseline.",
+        "http_status_equivalent": 500
+      }
+    },
+    "EXTERNAL_DEPENDENCY_ERRORS": {
+      "ERR_DEP_IO": {
+        "code": "ERR_DEP_IO",
+        "name": "ForbiddenExternalIOCall",
+        "description": "Attempted live network, Neo4j, or LLM call within controlled integration adapter.",
+        "severity": "CRITICAL",
+        "fail_closed_action": "Abort call, log critical security alarm, execute legacy fallback.",
+        "http_status_equivalent": 403
+      },
+      "ERR_DEP_WRITE": {
+        "code": "ERR_DEP_WRITE",
+        "name": "ForbiddenKnowledgeWrite",
+        "description": "Attempted graph mutation or official knowledge modification.",
+        "severity": "CRITICAL",
+        "fail_closed_action": "Block mutation, log audit alarm.",
+        "http_status_equivalent": 403
+      }
+    }
+  },
+  "fallback_mapping_rules": [
+    {
+      "trigger_severity": "CRITICAL",
+      "action": "Immediate fail-closed fallback to retrieval.py (LEGACY_ONLY)."
+    },
+    {
+      "trigger_severity": "HIGH",
+      "action": "Fallback to OFFICIAL_RETRIEVAL_ONLY or LEGACY_ONLY."
+    },
+    {
+      "trigger_severity": "MEDIUM",
+      "action": "Graceful degradation: exclude faulty item, continue pipeline if safe."
+    }
+  ]
+}

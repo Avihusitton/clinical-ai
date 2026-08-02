@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "map_title": "Retriever.answer Path Map",
+  "version": "1.0.0",
+  "timestamp": "2026-07-23T09:45:00+03:00",
+  "target_file": "retrieval.py",
+  "target_method": "Retriever.answer",
+  "paths": [
+    {
+      "path_id": "PATH-01-NO-ENTRY-CONCEPTS",
+      "trigger": "CandidateGenerator finds no entry concepts matching question",
+      "legacy_operations": ["find_entry_concepts"],
+      "legacy_return_type": "str",
+      "legacy_exception_type": null,
+      "shadow_submission_reached": true,
+      "shadow_submission_allowed": true,
+      "user_visible_result": "Hebrew string: אין מספיק מידע בגרף כדי לענות על השאלה הזו - לא נמצא מושג פתיחה מתאים."
+    },
+    {
+      "path_id": "PATH-02-NO-OUTGOING-PATHS",
+      "trigger": "Entry concept found but Neo4j reasoning returns empty path list",
+      "legacy_operations": ["find_entry_concepts", "_run_reasoning"],
+      "legacy_return_type": "str",
+      "legacy_exception_type": null,
+      "shadow_submission_reached": true,
+      "shadow_submission_allowed": true,
+      "user_visible_result": "Hebrew string: נמצא מושג פתיחה אבל אין קשרים תיאורטיים..."
+    },
+    {
+      "path_id": "PATH-03-SUCCESSFUL-RETRIEVAL-AND-COMPOSE",
+      "trigger": "Entry concepts found and reasoning paths retrieved successfully",
+      "legacy_operations": ["find_entry_concepts", "_run_reasoning", "_run_exercises", "_compose"],
+      "legacy_return_type": "str",
+      "legacy_exception_type": null,
+      "shadow_submission_reached": true,
+      "shadow_submission_allowed": true,
+      "user_visible_result": "Composed RAG text response with exercise recommendations"
+    },
+    {
+      "path_id": "PATH-04-CANDIDATE-MATCH-EXCEPTION",
+      "trigger": "Candidate matching raises unexpected error",
+      "legacy_operations": ["find_entry_concepts"],
+      "legacy_return_type": null,
+      "legacy_exception_type": "Exception",
+      "shadow_submission_reached": false,
+      "shadow_submission_allowed": false,
+      "user_visible_result": "Exception bubbled to caller"
+    },
+    {
+      "path_id": "PATH-05-NEO4J-REASONING-EXCEPTION",
+      "trigger": "Neo4j query execution raises database error",
+      "legacy_operations": ["find_entry_concepts", "_run_reasoning"],
+      "legacy_return_type": null,
+      "legacy_exception_type": "Exception",
+      "shadow_submission_reached": false,
+      "shadow_submission_allowed": false,
+      "user_visible_result": "Exception bubbled to caller"
+    },
+    {
+      "path_id": "PATH-06-LLM-COMPOSE-EXCEPTION",
+      "trigger": "LLM text generation or de-identification raises error",
+      "legacy_operations": ["find_entry_concepts", "_run_reasoning", "_run_exercises", "_compose"],
+      "legacy_return_type": null,
+      "legacy_exception_type": "Exception",
+      "shadow_submission_reached": false,
+      "shadow_submission_allowed": false,
+      "user_visible_result": "Exception bubbled to caller"
+    }
+  ]
+}

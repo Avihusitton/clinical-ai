@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ClinicalAIFeatureFlagConfig",
+  "description": "Strict JSON schema for Clinical AI feature flag and operating mode configuration.",
+  "type": "object",
+  "required": [
+    "operating_mode",
+    "flags",
+    "metadata"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "operating_mode": {
+      "type": "string",
+      "enum": [
+        "LEGACY_ONLY",
+        "SHADOW_COMPARE",
+        "OFFICIAL_RETRIEVAL_ONLY",
+        "THERAPIST_PILOT",
+        "EMERGENCY_DISABLED"
+      ],
+      "default": "LEGACY_ONLY",
+      "description": "System-wide operating mode. Defaults to LEGACY_ONLY in production."
+    },
+    "flags": {
+      "type": "object",
+      "description": "Granular, independent functional feature flags.",
+      "required": [
+        "official_retrieval_enabled",
+        "gate_b_reasoning_enabled",
+        "gate_c_novelty_enabled",
+        "gate_d_formatting_enabled",
+        "audit_logging_enabled",
+        "shadow_comparison_enabled",
+        "therapist_pilot_access_enabled"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "official_retrieval_enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Controls official glossary and method document node retrieval."
+        },
+        "gate_b_reasoning_enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Controls GraphRAG multi-hop traversal and entity linking."
+        },
+        "gate_c_novelty_enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Controls Gate C novelty discovery and cross-domain therapeutic hypothesis generation."
+        },
+        "gate_d_formatting_enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Controls Gate D clinical consultation response formatting and advisory output structuring."
+        },
+        "audit_logging_enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Controls immutable audit trail logging across all pipeline steps."
+        },
+        "shadow_comparison_enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Controls dual-execution shadow testing mode for latency and diff analysis."
+        },
+        "therapist_pilot_access_enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Master gate for enabling internal therapist pilot user access via RBAC."
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Governance and audit tracking metadata for configuration deployments.",
+      "required": [
+        "schema_version",
+        "environment",
+        "last_updated",
+        "updated_by",
+        "sign_off_reference"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+          "example": "1.0.0"
+        },
+        "environment": {
+          "type": "string",
+          "enum": [
+            "DEV",
+            "STAGING",
+            "PROD"
+          ],
+          "description": "Target deployment environment."
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 UTC timestamp of configuration change."
+        },
+        "updated_by": {
+          "type": "string",
+          "description": "Email or identity of authorizer making the configuration change."
+        },
+        "sign_off_reference": {
+          "type": "string",
+          "description": "Reference ticket or audit sign-off ID (e.g. AUDIT-GATE-D-20260722)."
+        }
+      }
+    }
+  }
+}

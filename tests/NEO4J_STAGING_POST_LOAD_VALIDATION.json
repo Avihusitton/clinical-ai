@@ -1,0 +1,43 @@
+{
+  "loaded_concept_count": 48,
+  "loaded_glossary_entry_count": 2,
+  "loaded_relationship_count": {
+    "CHILD_OF": 17
+  },
+  "duplicate_concept_ids": 0,
+  "missing_required_properties": 0,
+  "broken_relationships": 0,
+  "orphan_concepts": 26,
+  "records_with_batch_id": 50,
+  "records_rejected": 0,
+  "deterministic_sample": [
+    {
+      "cid": "CONCEPT-001",
+      "term": "מבנה הנפש"
+    },
+    {
+      "cid": "CONCEPT-002",
+      "term": "מהות"
+    },
+    {
+      "cid": "CONCEPT-003",
+      "term": "פגיעות"
+    },
+    {
+      "cid": "CONCEPT-004",
+      "term": "הגנות"
+    },
+    {
+      "cid": "CONCEPT-005",
+      "term": "מנהלים"
+    }
+  ],
+  "post_load_validation_errors": 0,
+  "errors": [],
+  "ingestion_batch_id": "f70910f1-18d4-559e-b464-f8a7c609c06b",
+  "dict_sha256": "e18bda5987b1f5fb9dab4fdcea12228176e7b4eaa719ba9da1ee09758ba3741c",
+  "gloss_sha256": "127831356413704c7ea56c46622790bd1749d3cc8d2d8465fb24e5ae3dbab522",
+  "validated_at": "2026-07-24T11:48:24Z",
+  "rollback_available": true,
+  "rollback_command": "python neo4j_staging/neo4j_staging_ingest.py --rollback f70910f1-18d4-559e-b464-f8a7c609c06b"
+}

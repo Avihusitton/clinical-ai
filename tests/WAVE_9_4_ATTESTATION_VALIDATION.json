@@ -1,0 +1,29 @@
+{
+  "attestation_validator_exit_code": 1,
+  "validator_result": "FAIL",
+  "expected_source_path_count": 44,
+  "attested_source_path_count_before": 43,
+  "attested_source_path_count_after": 43,
+  "expected_equals_before": false,
+  "expected_equals_after": false,
+  "before_equals_after": true,
+  "missing_from_before": [
+    "evaluation/wave9/run_wave9_4r_closure.py"
+  ],
+  "unexpected_in_before": [],
+  "missing_from_after": [
+    "evaluation/wave9/run_wave9_4r_closure.py"
+  ],
+  "unexpected_in_after": [],
+  "evaluation_wave9_file_count": 11,
+  "shadow_wiring_file_count": 8,
+  "controlled_integration_file_count": 21,
+  "other_required_file_count": 3,
+  "total_source_file_count": 43,
+  "source_unchanged_verified": false,
+  "failed_checks": [
+    "source_inventory_set_inequality",
+    "source_inventory_count_mismatch",
+    "source_hashes_changed_during_evaluation"
+  ]
+}

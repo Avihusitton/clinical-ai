@@ -1,0 +1,13 @@
+{
+  "tests_collected": 1887,
+  "tests_passed": 1886,
+  "tests_failed": 1,
+  "test_errors": 0,
+  "tests_skipped": 0,
+  "tests_unaccounted": 0,
+  "failed_tests": [
+    "tests.test_gate_cd_boundary.TestNoProductionImports::test_gate_cd_boundary_does_not_import_neo4j"
+  ],
+  "error_tests": [],
+  "accounting_exit_code": 0
+}

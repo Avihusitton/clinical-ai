@@ -1,0 +1,65 @@
+[
+  {
+    "requirement": "No except ImportError: pass",
+    "severity": "HIGH",
+    "file": "tests/test_relation_policy.py, tests/test_second_order_reasoner.py",
+    "line_or_field": "imports",
+    "actual_behavior": "Imports are wrapped in try/except ImportError: pass",
+    "required_behavior": "Imports must fail if missing. No try/except around imports.",
+    "minimal_repair": "Remove try/except blocks around imports."
+  },
+  {
+    "requirement": "Code location",
+    "severity": "HIGH",
+    "file": "relation_policy.py, second_order_reasoner.py",
+    "line_or_field": "path",
+    "actual_behavior": "Files are at the project root",
+    "required_behavior": "Files should be inside models/",
+    "minimal_repair": "Move files to models/ and update test imports."
+  },
+  {
+    "requirement": "No hardcoded values for dynamic rules",
+    "severity": "HIGH",
+    "file": "relation_policy.py, second_order_reasoner.py",
+    "line_or_field": "validate_composition, calculate_context_fit",
+    "actual_behavior": "validate_composition uses hardcoded ['CAUSES', 'TREATS']; context_fit returns 0.5",
+    "required_behavior": "Must be policy-driven or injected. No hardcoded logic.",
+    "minimal_repair": "Remove hardcoded pairs, implement actual lookup, pass context_fit as argument."
+  },
+  {
+    "requirement": "Missing interface entities",
+    "severity": "HIGH",
+    "file": "relation_policy.py",
+    "line_or_field": "classes",
+    "actual_behavior": "Missing PathDecision, BlockingReason, ExplanationPayload",
+    "required_behavior": "Must match GATE_B_INTERFACE_CONTRACT.json exactly",
+    "minimal_repair": "Add the missing dataclasses."
+  },
+  {
+    "requirement": "Effective degree and Hub penalty",
+    "severity": "HIGH",
+    "file": "second_order_reasoner.py",
+    "line_or_field": "scoring",
+    "actual_behavior": "Not properly integrated or missing required components per the contract",
+    "required_behavior": "Implement effective degree and hub penalty logic strictly compliant with contract.",
+    "minimal_repair": "Implement the mathematical functions correctly in SecondOrderReasoner."
+  },
+  {
+    "requirement": "No bypassed tests",
+    "severity": "HIGH",
+    "file": "tests/test_gate_b_acceptance.py, tests/test_gate_b_no_write.py",
+    "line_or_field": "test methods",
+    "actual_behavior": "Tests skip or check wrong paths, resulting in false passes.",
+    "required_behavior": "Tests must execute fully on the real models/ paths without skipping.",
+    "minimal_repair": "Remove pytest.skip, update no_write test to check models/."
+  },
+  {
+    "requirement": "40 Test fixtures",
+    "severity": "HIGH",
+    "file": "tests/fixtures/gate_b/",
+    "line_or_field": "files",
+    "actual_behavior": "Only 4 fixtures exist.",
+    "required_behavior": "All 40 required fixtures must exist.",
+    "minimal_repair": "Create the remaining 36 fixture files."
+  }
+]

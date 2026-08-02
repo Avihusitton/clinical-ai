@@ -1,0 +1,133 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "audit_metadata": {
+    "task_id": "W6-Phase3-Audit",
+    "timestamp": "2026-07-22T22:12:00Z",
+    "auditor": "Independent Research Subagent (Strict Read-Only Verification)",
+    "contract_version": "1.0.0",
+    "recomputed_canonical_wave_5_sha256": "527d673ac4ba0b323b4a6d58dc7d66318bad90c442e20d8ba039b57e1d8e9993",
+    "overall_verdict": "PASS",
+    "total_criteria": 10,
+    "passed_criteria": 10,
+    "failed_criteria": 0,
+    "pytest_results": {
+      "collected": 169,
+      "passed": 169,
+      "failed": 0,
+      "skipped": 0,
+      "exit_code": 0
+    },
+    "synthetic_cases_count": 120
+  },
+  "criteria_matrix": [
+    {
+      "criterion_id": "AC-01",
+      "title": "Verify canonical Wave 5 SHA256 hash (527d673ac4ba0b323b4a6d58dc7d66318bad90c442e20d8ba039b57e1d8e9993) is reproducible and correction documented",
+      "status": "PASSED",
+      "evidence": "Deterministic recomputation across all 20 Wave 5 files yields combined hash 527d673ac4ba0b323b4a6d58dc7d66318bad90c442e20d8ba039b57e1d8e9993. Report correction documented with status PASS_WITH_REPORT_CORRECTION in WAVE_5_VERIFICATION.md and WAVE_5_CANONICAL_MANIFEST.json.",
+      "artifacts_checked": [
+        "docs/wave_6_verification/WAVE_5_VERIFICATION.md",
+        "docs/integration_design/frozen/WAVE_5_CANONICAL_MANIFEST.json"
+      ]
+    },
+    {
+      "criterion_id": "AC-02",
+      "title": "Verify all 120 synthetic fixtures are exercised in raw pytest output",
+      "status": "PASSED",
+      "evidence": "All 120 synthetic cases in tests/fixtures/integration_design/integration_cases.jsonl are loaded and asserted across 6 operating modes (20 cases/mode) in tests/test_controlled_integration_acceptance.py.",
+      "artifacts_checked": [
+        "tests/fixtures/integration_design/integration_cases.jsonl",
+        "tests/test_controlled_integration_acceptance.py",
+        "tests/WAVE_6_FINAL_PYTEST_OUTPUT.txt"
+      ]
+    },
+    {
+      "criterion_id": "AC-03",
+      "title": "Verify LEGACY_ONLY is the true default operating mode",
+      "status": "PASSED",
+      "evidence": "FeatureFlagManager defaults to LEGACY_ONLY mode, setting all sub-flags to False except audit_logging_enabled=True. Confirmed in tests/test_controlled_integration_flags.py.",
+      "artifacts_checked": [
+        "controlled_integration/feature_flags/flag_manager.py",
+        "docs/integration_design/control/FEATURE_FLAG_SCHEMA.json",
+        "tests/test_controlled_integration_flags.py"
+      ]
+    },
+    {
+      "criterion_id": "AC-04",
+      "title": "Verify SHADOW_COMPARE never alters primary legacy output",
+      "status": "PASSED",
+      "evidence": "Orchestrator in SHADOW_COMPARE mode returns legacy baseline response as primary return value. Secondary GraphRAG processing is executed in an isolated inner try-except block.",
+      "artifacts_checked": [
+        "controlled_integration/orchestration/__init__.py",
+        "tests/test_controlled_integration.py"
+      ]
+    },
+    {
+      "criterion_id": "AC-05",
+      "title": "Verify unknown flags and invalid modes fail closed",
+      "status": "PASSED",
+      "evidence": "FeatureFlagManager raises FeatureFlagError (ERR_FF_03/ERR_07) on unknown modes/flags; Orchestrator routes caught exceptions to _fail_closed_fallback() with FALLBACK_TRIGGERED verdict.",
+      "artifacts_checked": [
+        "controlled_integration/feature_flags/flag_manager.py",
+        "controlled_integration/orchestration/__init__.py",
+        "tests/test_controlled_integration_flags.py",
+        "tests/test_controlled_integration_orchestrator.py"
+      ]
+    },
+    {
+      "criterion_id": "AC-06",
+      "title": "Verify emergency disable overrides all modes and flags",
+      "status": "PASSED",
+      "evidence": "is_emergency_disabled() checks CLINICAL_AI_EMERGENCY_DISABLE env var, EMERGENCY_DISABLED operating mode, and data/EMERGENCY_DISABLE.sentinel file, immediately forcing all sub-flags False.",
+      "artifacts_checked": [
+        "controlled_integration/feature_flags/flag_manager.py",
+        "tests/test_controlled_integration_flags.py",
+        "tests/test_controlled_integration_orchestrator.py"
+      ]
+    },
+    {
+      "criterion_id": "AC-07",
+      "title": "Verify Gate D cannot consume unreviewed novelty",
+      "status": "PASSED",
+      "evidence": "BoundaryAdapter uses EvidenceEligibilityChecker to block DISCOVERY_ONLY and PENDING_HUMAN_REVIEW candidates. Forced leaks raise UnreviewedNoveltyLeakError, triggering fallback.",
+      "artifacts_checked": [
+        "controlled_integration/adapters/boundary_adapter.py",
+        "tests/test_controlled_integration_security.py",
+        "tests/test_controlled_integration_acceptance.py"
+      ]
+    },
+    {
+      "criterion_id": "AC-08",
+      "title": "Verify 0 protected production imports, 0 Neo4j calls, 0 graph writes, 0 network calls, 0 LLM calls, 0 raw narrative storage",
+      "status": "PASSED",
+      "evidence": "AST analysis verifies 0 forbidden imports. Socket/urllib monkeypatches confirm 0 network/Neo4j/LLM calls. SecurityPolicy denies knowledge_graph_write and raw narrative storage.",
+      "artifacts_checked": [
+        "tests/test_controlled_integration_isolation.py",
+        "controlled_integration/security/security_policy.py"
+      ]
+    },
+    {
+      "criterion_id": "AC-09",
+      "title": "Verify audit trails are cryptographic SHA-256 chained and telemetry identifiers are redacted",
+      "status": "PASSED",
+      "evidence": "AuditLogger embeds _seq, _prev_hash, _hash and verifies full chain integrity. TelemetryCollector hashes user IDs with salted SHA-256 and redacts PII string patterns.",
+      "artifacts_checked": [
+        "controlled_integration/audit/audit_logger.py",
+        "controlled_integration/telemetry/telemetry_collector.py",
+        "tests/test_controlled_integration_audit.py",
+        "tests/test_controlled_integration_telemetry.py"
+      ]
+    },
+    {
+      "criterion_id": "AC-10",
+      "title": "Verify raw pytest output in tests/WAVE_6_FINAL_PYTEST_OUTPUT.txt supports reported totals (169 passed, 0 failed, exit code 0)",
+      "status": "PASSED",
+      "evidence": "Raw pytest output file tests/WAVE_6_FINAL_PYTEST_OUTPUT.txt confirms 169 passed tests across 9 test modules with 0 failures and exit code 0.",
+      "artifacts_checked": [
+        "tests/WAVE_6_FINAL_PYTEST_OUTPUT.txt",
+        "CONTROLLED_INTEGRATION_CHECKPOINT.md",
+        "docs/controlled_integration/WAVE_6_IMPLEMENTATION_REPORT.md"
+      ]
+    }
+  ]
+}

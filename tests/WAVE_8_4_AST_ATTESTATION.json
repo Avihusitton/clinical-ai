@@ -1,0 +1,10 @@
+{
+  "ast_parse_success": true,
+  "scenario_g_comment_count": 1,
+  "scenario_h_comment_count": 1,
+  "synthetic_query_subscript_count": 0,
+  "pii_results_append_call_count": 1,
+  "emergency_env_assignment_count": 1,
+  "emergency_env_cleanup_count": 1,
+  "try_finally_count": 4
+}

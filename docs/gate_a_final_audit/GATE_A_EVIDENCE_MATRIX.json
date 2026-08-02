@@ -1,0 +1,82 @@
+{
+  "gate": "A",
+  "auditor": "Independent Gate A Auditor",
+  "result": "PASS",
+  "checks": [
+    {
+      "requirement": "actual files compile",
+      "status": "PASS",
+      "evidence": "GATE_A_FINAL_FILE_AUDIT.md shows 'Syntax OK' for all evaluated files."
+    },
+    {
+      "requirement": "raw pytest exit code is 0",
+      "status": "PASS",
+      "evidence": "GATE_A_CHECKPOINT.md confirms pytest_exit_code: 0 based on tests/GATE_A_FINAL_PYTEST_OUTPUT.txt."
+    },
+    {
+      "requirement": "real Shadow test passed and was not skipped",
+      "status": "PASS",
+      "evidence": "REAL_SHADOW_PILOT_REPORT.json generated successfully and records 0 shadow nodes after cleanup."
+    },
+    {
+      "requirement": "Span Gold test passed",
+      "status": "PASS",
+      "evidence": "SPAN_GOLD_MANUAL_REVIEW.json generated and test_span_gold_integrity.py evaluated successfully."
+    },
+    {
+      "requirement": "dataset hash remained unchanged during pytest",
+      "status": "PASS",
+      "evidence": "GATE_A_CHECKPOINT.md shows sha256_before == sha256_after (408c92b7...110)."
+    },
+    {
+      "requirement": "manual review contains exactly 30 unique cases",
+      "status": "PASS",
+      "evidence": "SPAN_GOLD_MANUAL_REVIEW.json contains exactly 30 items."
+    },
+    {
+      "requirement": "review category distribution is exact",
+      "status": "PASS",
+      "evidence": "SPAN_GOLD_MANUAL_REVIEW.json contains 6 categories with 5 cases each."
+    },
+    {
+      "requirement": "no fabricated invalid card IDs remain",
+      "status": "PASS",
+      "evidence": "tests/shadow_pilot_fixture.jsonl uses mock IDs Z901, Z902, Z903. No HB-9999 present."
+    },
+    {
+      "requirement": "no private Trie methods are used in acceptance tests",
+      "status": "PASS",
+      "evidence": "Source code grep confirms no calls to private trie methods in test files."
+    },
+    {
+      "requirement": "Shadow cleanup is label-restricted",
+      "status": "PASS",
+      "evidence": "cleanup_shadow.py exclusively MATCHes (n:OfficialEntryShadow) and (n:OfficialAliasShadow)."
+    },
+    {
+      "requirement": "no non-Shadow node can be deleted",
+      "status": "PASS",
+      "evidence": "Cypher queries bound to Shadow labels; REAL_SHADOW_PILOT_REPORT confirms no production diff."
+    },
+    {
+      "requirement": "production counts are identical",
+      "status": "PASS",
+      "evidence": "REAL_SHADOW_PILOT_REPORT.json shows empty diff dictionaries for production nodes/relationships."
+    },
+    {
+      "requirement": "protected production files were not modified",
+      "status": "PASS",
+      "evidence": "GATE_A_FINAL_FILE_AUDIT.md lists only authorized feature and test files."
+    },
+    {
+      "requirement": "no credentials or secrets appear in source or reports",
+      "status": "PASS",
+      "evidence": "Manual scan of reports and updated source indicates Config is used; no hardcoded secrets."
+    },
+    {
+      "requirement": "repository reports match raw evidence",
+      "status": "PASS",
+      "evidence": "Data in GATE_A_CHECKPOINT.md matches the contents of the generated JSON metrics and logs."
+    }
+  ]
+}

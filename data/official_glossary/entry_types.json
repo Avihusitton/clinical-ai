@@ -1,0 +1,25 @@
+{
+  "status": "PROVISIONAL",
+  "source": "LEGACY_GLOSSARY_ONLY",
+  "official_dictionary_cards_analyzed": 0,
+  "legacy_concept_count": 48,
+  "legacy_exercise_count": 0,
+  "entry_types": [
+    {
+      "code": "CONCEPT",
+      "hebrew_name": "מושג",
+      "description": "מושג תיאורטי או פרקטיקה",
+      "bridge_policy": "UNDECIDED",
+      "terminal_policy": "UNDECIDED",
+      "usage_count": 48
+    },
+    {
+      "code": "EXERCISE",
+      "hebrew_name": "תרגיל",
+      "description": "תרגיל מעשי",
+      "bridge_policy": "UNDECIDED",
+      "terminal_policy": "UNDECIDED",
+      "usage_count": 0
+    }
+  ]
+}

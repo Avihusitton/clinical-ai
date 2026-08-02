@@ -1,0 +1,20 @@
+{
+  "strict_json_files_valid": true,
+  "duplicate_key_count": 0,
+  "canonical_tests_collected": 1887,
+  "canonical_tests_passed": 1886,
+  "canonical_tests_failed": 1,
+  "canonical_test_errors": 0,
+  "canonical_tests_skipped": 0,
+  "canonical_tests_unaccounted": 0,
+  "canonical_final_pytest_exit_code": 1,
+  "canonical_failed_test_node_ids": [
+    "tests/test_gate_cd_boundary.py::TestNoProductionImports::test_gate_cd_boundary_does_not_import_neo4j"
+  ],
+  "gate_cd_baseline_match": true,
+  "gate_a_baseline_match": false,
+  "bundle_provenance_classification": "SUPPORTING_BUT_NOT_AUTHORITATIVE",
+  "neo4j_order_dependency_proven": true,
+  "neo4j_repairable_in_allowed_file": false,
+  "provisional_system_status": "BLOCKED_PROTECTED_FILE_CHANGE_REQUIRED"
+}

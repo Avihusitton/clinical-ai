@@ -1,0 +1,59 @@
+{
+  "finalized_at_utc": "2026-07-23T11:48:33.006131+00:00",
+  "total_files_finalized": 13,
+  "file_hashes": {
+    "evaluation/wave9\\__init__.py": {
+      "byte_length": 454,
+      "sha256": "cf416873283563e59907125f12c8c07ce44b41507e7d1844daefe39d25e9b6eb"
+    },
+    "evaluation/wave9\\deterministic_runner.py": {
+      "byte_length": 5523,
+      "sha256": "b806d933542bda14b97cd4650a929002763e2a3991048413d9663f2a91911f59"
+    },
+    "evaluation/wave9\\evaluation_harness.py": {
+      "byte_length": 7905,
+      "sha256": "bd017cb5fb0b54a167957dce7a69b8f451766098ed3bb4c284d94077e45c532f"
+    },
+    "evaluation/wave9\\fixture_loader.py": {
+      "byte_length": 3674,
+      "sha256": "6a7f4376c20716659771b9d5d965bab7667c3bfd64e5d63c81ae1bc226b353b4"
+    },
+    "evaluation/wave9\\metrics.py": {
+      "byte_length": 1981,
+      "sha256": "20817fffe0ccf405ab74c004de572c5ab77e2727096caac70bbb24c62c0bf0ab"
+    },
+    "evaluation/wave9\\report_writer.py": {
+      "byte_length": 2053,
+      "sha256": "c5dfd884715d2ac7feebe76978f0e534f0e18660a6dae15f84c0d26051b9de4e"
+    },
+    "evaluation/wave9\\run_attested_evaluation.py": {
+      "byte_length": 5232,
+      "sha256": "1196c66a01aebb0443933068762b6f4385d36358c8e12427cb411f264ee58a43"
+    },
+    "evaluation/wave9\\schemas.py": {
+      "byte_length": 2396,
+      "sha256": "797c08825dd3f2a55c6a92cb0fddadc9f2220587272a1febf7e3aeb66897c9e5"
+    },
+    "evaluation/wave9\\source_attestation.py": {
+      "byte_length": 10674,
+      "sha256": "fffaaef9e41670d4de911e3c306cd3b6be0bab8cae568bfe444b3fabf7f10ff0"
+    },
+    "evaluation/wave9\\stress_harness.py": {
+      "byte_length": 8322,
+      "sha256": "123a4256014af4f1c043bbc9e010157ebda8417920a5e132d04b4a96e11b5c50"
+    },
+    "evaluation/wave9\\validator.py": {
+      "byte_length": 8205,
+      "sha256": "45f66cd2e5a07f0c63191633d5d77245918029b3bc64edeea6679a4fe326f03a"
+    },
+    "tests/test_wave9_evaluation_validator.py": {
+      "byte_length": 8139,
+      "sha256": "153a35c0c175a78be6828e1ec88c1ebda3adc3d012c337b0f8fae5a0394f2902"
+    },
+    "tests/test_wave9_source_attestation.py": {
+      "byte_length": 8723,
+      "sha256": "e240b96ac73c31aaf9f31bb428a7b7355a6b0afb22b4ad0e833d225ea23c18ef"
+    }
+  },
+  "finalization_locked": true
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Gate C Explainability Contract",
+  "type": "object",
+  "description": "Defines the required explainability constraints to ensure reviewers can understand why a novelty candidate was generated and flagged.",
+  "properties": {
+    "NoveltyExplanation": {
+      "type": "object",
+      "properties": {
+        "reasoning_steps": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Step-by-step logic on how the novelty was identified."
+        },
+        "score_justification": {
+          "type": "object",
+          "description": "Detailed justification for each score in NoveltyScoreComponents, especially highlighting UNKNOWNs."
+        },
+        "highlighted_evidence": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["reasoning_steps", "score_justification"]
+    },
+    "ContradictionRecord": {
+      "type": "object",
+      "properties": {
+        "contradicted_claim": { "type": "string" },
+        "existing_truth": { "type": "string" },
+        "resolution_guidance": { "type": "string", "description": "Guidance for human reviewers on where the conflict lies." }
+      },
+      "required": ["contradicted_claim", "existing_truth"]
+    }
+  }
+}

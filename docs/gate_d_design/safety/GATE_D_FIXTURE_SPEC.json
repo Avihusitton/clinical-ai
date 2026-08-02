@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Gate D Consultation Case Fixture Specification",
+  "type": "object",
+  "required": [
+    "case_id",
+    "request_type",
+    "synthetic_input",
+    "expected_allow_or_block",
+    "expected_safety_boundary",
+    "expected_uncertainty_behavior",
+    "expected_evidence_behavior",
+    "expected_human_action",
+    "expected_audit_event"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "request_type": {
+      "type": "string",
+      "enum": ["ALLOWED", "BLOCKED", "UNCERTAINTY", "AUDIT"]
+    },
+    "synthetic_input": {
+      "type": "string"
+    },
+    "expected_allow_or_block": {
+      "type": "string",
+      "enum": ["ALLOW", "BLOCK"]
+    },
+    "expected_safety_boundary": {
+      "type": "string"
+    },
+    "expected_uncertainty_behavior": {
+      "type": "string"
+    },
+    "expected_evidence_behavior": {
+      "type": "string"
+    },
+    "expected_human_action": {
+      "type": "string"
+    },
+    "expected_audit_event": {
+      "type": "string"
+    }
+  }
+}

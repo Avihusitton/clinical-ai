@@ -1,0 +1,31 @@
+{
+  "gate_c_evidence": {
+    "novelty_discovery_only": true,
+    "human_review_mandatory": true,
+    "no_automatic_promotion": true,
+    "known_knowledge_separated": true,
+    "duplicates_contradictions_handled": true,
+    "provenance_mandatory": true,
+    "unknown_thresholds_fail_closed": true,
+    "no_graph_writes": true,
+    "fixture_count": 60
+  },
+  "gate_d_evidence": {
+    "human_clinical_authority": true,
+    "diagnosis_treatment_prohibited": true,
+    "no_live_patient_data": true,
+    "pii_rejected": true,
+    "evidence_uncertainty_displayed": true,
+    "direct_patient_facing_prohibited": true,
+    "crisis_automation_prohibited": true,
+    "therapist_override_audit_mandatory": true,
+    "fixture_count": 60
+  },
+  "shared_evidence": {
+    "novelty_requires_approval": true,
+    "gate_d_uses_reviewed_evidence": true,
+    "legacy_fallback_rollback_required": true,
+    "pilot_not_production": true
+  },
+  "audit_result": "PASS"
+}

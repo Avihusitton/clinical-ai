@@ -1,0 +1,44 @@
+version: "1.0.0"
+status: "PROVISIONAL_NOT_CLINICALLY_VALIDATED"
+relations:
+  - name: "has_symptom"
+    directionality: "DIRECTED"
+    classification: "INFERENTIAL"
+    is_bridge_eligible: true
+    requires_review_state: 
+      - "APPROVED"
+    requires_provenance: true
+    
+  - name: "is_symptom_of"
+    directionality: "INVERSE_OF"
+    inverse_of: "has_symptom"
+    classification: "INFERENTIAL"
+    is_bridge_eligible: true
+    requires_review_state: 
+      - "APPROVED"
+    requires_provenance: true
+
+  - name: "interacts_with"
+    directionality: "SYMMETRIC"
+    classification: "NAVIGATION"
+    is_bridge_eligible: false
+    requires_review_state: []
+    requires_provenance: false
+
+  - name: "terminal_diagnosis"
+    directionality: "DIRECTED"
+    classification: "TERMINAL"
+    is_bridge_eligible: false
+    requires_review_state: 
+      - "APPROVED"
+    requires_provenance: true
+
+  - name: "caused_by_chain"
+    directionality: "DIRECTED"
+    classification: "INFERENTIAL"
+    is_bridge_eligible: true
+    requires_review_state: []
+    requires_provenance: false
+    ordered_composition:
+      - "has_symptom"
+      - "caused_by"

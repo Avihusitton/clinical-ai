@@ -1,0 +1,40 @@
+{
+  "baseline_effective_from_wave": "WAVE_9_6G",
+  "baseline_type": "FORWARD_CANONICAL_BASELINE",
+  "historical_equivalence_proven": false,
+  "file_count": 4,
+  "files": [
+    {
+      "normalized_path": "tests/test_gate_a_dry_run_and_isolation.py",
+      "byte_length": 988,
+      "sha256": "1ab7de7bda639ab5f12efba853ca949a991cc7d9631fd688e86af883116be467",
+      "baseline_effective_from_wave": "WAVE_9_6G",
+      "baseline_type": "FORWARD_CANONICAL_BASELINE",
+      "historical_equivalence_proven": false
+    },
+    {
+      "normalized_path": "evaluation/wave96/gate_a_driver_runner.py",
+      "byte_length": 9463,
+      "sha256": "adfebb6a3c79de3c8bced2e74b549f4da65f0ae98ef4e88d656b2dde39b4b66f",
+      "baseline_effective_from_wave": "WAVE_9_6G",
+      "baseline_type": "FORWARD_CANONICAL_BASELINE",
+      "historical_equivalence_proven": false
+    },
+    {
+      "normalized_path": "tests/test_wave96_gate_a_isolation.py",
+      "byte_length": 7075,
+      "sha256": "26312416ee9ec2c9ce606504224db90d12b74fe953ef12e18a12a7308132d5b8",
+      "baseline_effective_from_wave": "WAVE_9_6G",
+      "baseline_type": "FORWARD_CANONICAL_BASELINE",
+      "historical_equivalence_proven": false
+    },
+    {
+      "normalized_path": "tests/test_gate_cd_boundary.py",
+      "byte_length": 20914,
+      "sha256": "0510f87714c630505a6de93eeac5de6c8a61915dc379a0b0977d02de36c2e936",
+      "baseline_effective_from_wave": "WAVE_9_6G",
+      "baseline_type": "FORWARD_CANONICAL_BASELINE",
+      "historical_equivalence_proven": false
+    }
+  ]
+}

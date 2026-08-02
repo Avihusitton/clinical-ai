@@ -1,0 +1,13 @@
+{
+  "working_path": "tests/test_gate_a_dry_run_and_isolation.py",
+  "git_tracked": false,
+  "working_tree_modified_before_wave96": false,
+  "head_blob_available": false,
+  "head_blob_sha256": null,
+  "working_file_sha256": "9ddaf3e6e7360bb8ca8a7e5f1d96775c45e35dea4641d9c916b27a0120643b48",
+  "prechange_match_to_head": false,
+  "original_test_count": 2,
+  "original_assertion_count": 17,
+  "original_skip_condition_count": 0,
+  "original_database_safety_check_count": 10
+}

@@ -1,0 +1,1 @@
+{"id": "da_10", "description": "Valid direct edge within scope", "nodes": [{"id": "n1", "scope": "PilotB"}, {"id": "n2", "scope": "PilotB"}], "edges": [{"source": "n1", "target": "n2", "type": "INFER", "status": "APPROVED", "provenance": "src_1", "review_state": "REVIEWED"}], "expected_decision": "ACCEPTED", "blocking_reason": null}

@@ -1,0 +1,134 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "audit_title": "Controlled Quarantine Execution Audit Evidence",
+  "version": "1.0.0",
+  "audit_timestamp": "2026-07-23T09:08:00+03:00",
+  "current_branch": "chore/pre-wave8-repository-quarantine",
+  "verdict": "PASS",
+  "previous_blocked_run_recorded": true,
+  "manifest_move_count": 18,
+  "quarantine_safe_files_moved": 18,
+  "git_mv_moves_executed": 17,
+  "fs_move_moves_executed": 1,
+  "files_deleted": 0,
+  "unknown_files_moved": 0,
+  "test_collection_before": 1653,
+  "test_collection_after": 1653,
+  "test_collection_identical": true,
+  "active_code_imports_archive": false,
+  "protected_files_intact": true,
+  "frozen_contracts_intact": true,
+  "fixtures_intact": true,
+  "deepseek_v4_pro_model_config_intact": true,
+  "concept_dictionary_intact": true,
+  "moved_files": [
+    {
+      "source": "ingestion_pipeline.before_concept_relationship_block.py",
+      "destination": "_archive/historical_patches/ingestion_pipeline.before_concept_relationship_block.py",
+      "method": "git mv",
+      "status": "MOVED_AND_VERIFIED"
+    },
+    {
+      "source": "ingestion_pipeline.before_lexicon_guard.py",
+      "destination": "_archive/historical_patches/ingestion_pipeline.before_lexicon_guard.py",
+      "method": "git mv",
+      "status": "MOVED_AND_VERIFIED"
+    },
+    {
+      "source": "ingestion_pipeline.before_pdf_support.py",
+      "destination": "_archive/historical_patches/ingestion_pipeline.before_pdf_support.py",
+      "method": "git mv",
+      "status": "MOVED_AND_VERIFIED"
+    },
+    {
+      "source": "ingestion_pipeline.before_review_queue.py",
+      "destination": "_archive/historical_patches/ingestion_pipeline.before_review_queue.py",
+      "method": "git mv",
+      "status": "MOVED_AND_VERIFIED"
+    },
+    {
+      "source": "add_review_queue_dump.txt",
+      "destination": "_archive/generated_artifacts/add_review_queue_dump.txt",
+      "method": "git mv",
+      "status": "MOVED_AND_VERIFIED"
+    },
+    {
+      "source": "block_dump.txt",
+      "destination": "_archive/generated_artifacts/block_dump.txt",
+      "method": "git mv",
+      "status": "MOVED_AND_VERIFIED"
+    },
+    {
+      "source": "load_approved_dump.txt",
+      "destination": "_archive/generated_artifacts/load_approved_dump.txt",
+      "method": "git mv",
+      "status": "MOVED_AND_VERIFIED"
+    },
+    {
+      "source": "review_app_dump.txt",
+      "destination": "_archive/generated_artifacts/review_app_dump.txt",
+      "method": "git mv",
+      "status": "MOVED_AND_VERIFIED"
+    },
+    {
+      "source": "temp_log.txt",
+      "destination": "_archive/generated_artifacts/temp_log.txt",
+      "method": "git mv",
+      "status": "MOVED_AND_VERIFIED"
+    },
+    {
+      "source": "output.txt",
+      "destination": "_archive/generated_artifacts/output.txt",
+      "method": "fs move",
+      "status": "MOVED_AND_VERIFIED"
+    },
+    {
+      "source": "error_log.txt",
+      "destination": "_archive/generated_artifacts/error_log.txt",
+      "method": "git mv",
+      "status": "MOVED_AND_VERIFIED"
+    },
+    {
+      "source": "add_lexicon_guard.py",
+      "destination": "_archive/historical_patches/add_lexicon_guard.py",
+      "method": "git mv",
+      "status": "MOVED_AND_VERIFIED"
+    },
+    {
+      "source": "add_missing_synonyms.py",
+      "destination": "_archive/historical_patches/add_missing_synonyms.py",
+      "method": "git mv",
+      "status": "MOVED_AND_VERIFIED"
+    },
+    {
+      "source": "add_pdf_support.py",
+      "destination": "_archive/historical_patches/add_pdf_support.py",
+      "method": "git mv",
+      "status": "MOVED_AND_VERIFIED"
+    },
+    {
+      "source": "add_relationship_guard.py",
+      "destination": "_archive/historical_patches/add_relationship_guard.py",
+      "method": "git mv",
+      "status": "MOVED_AND_VERIFIED"
+    },
+    {
+      "source": "add_review_queue.py",
+      "destination": "_archive/historical_patches/add_review_queue.py",
+      "method": "git mv",
+      "status": "MOVED_AND_VERIFIED"
+    },
+    {
+      "source": "block_concept_relationships.py",
+      "destination": "_archive/historical_patches/block_concept_relationships.py",
+      "method": "git mv",
+      "status": "MOVED_AND_VERIFIED"
+    },
+    {
+      "source": "patch.py",
+      "destination": "_archive/historical_patches/patch.py",
+      "method": "git mv",
+      "status": "MOVED_AND_VERIFIED"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "baseline_source_type": "pre_wave_9_audit_evidence",
+  "baseline_source_reference": "docs/wave_4_audit/WAVE_4_EVIDENCE_MATRIX.json & PROJECT_CODE_BUNDLE.txt",
+  "baseline_lookup_exit_code": 128,
+  "baseline_sha256": "bd1ea387090baa00965a0a58957d7e6bf4d8d89615e071a3054fa94775ec5b69",
+  "working_sha256": "bd1ea387090baa00965a0a58957d7e6bf4d8d89615e071a3054fa94775ec5b69",
+  "exact_byte_match": true,
+  "baseline_independent_of_working_copy": true
+}

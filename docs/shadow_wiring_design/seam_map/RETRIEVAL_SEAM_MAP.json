@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Retrieval Seam Map Specification",
+  "version": "1.0.0",
+  "target_file": "retrieval.py",
+  "seams": [
+    {
+      "seam_id": "SEAM-001-ANSWER-WRAPPER",
+      "file": "retrieval.py",
+      "symbol": "Retriever.answer",
+      "line_range": "93-109",
+      "type": "POST_PROCESSING_WRAPPER",
+      "status": "RECOMMENDED",
+      "input_contract": {
+        "question": "str (required)",
+        "current_case_modality": "Optional[str] (default None)"
+      },
+      "output_contract": "str (legacy answer text)",
+      "allowed_call_direction": "legacy_first_then_shadow_in_try_except",
+      "failure_behavior": "suppress_shadow_error_and_return_legacy",
+      "side_effect_risk": "NONE"
+    },
+    {
+      "seam_id": "SEAM-002-PRE-ENTRY",
+      "file": "retrieval.py",
+      "symbol": "find_entry_concepts",
+      "line_range": "41-43",
+      "type": "PRE_PROCESSING_ENTRY",
+      "status": "REJECTED",
+      "reason": "Risk of blocking legacy execution prior to retrieval start"
+    },
+    {
+      "seam_id": "SEAM-003-COMPOSE-MUTATION",
+      "file": "retrieval.py",
+      "symbol": "Retriever._compose",
+      "line_range": "111-146",
+      "type": "INTERNAL_PROMPT_MUTATION",
+      "status": "REJECTED_UNSAFE",
+      "reason": "Directly alters prompt formatting and LLM payload construction"
+    }
+  ]
+}

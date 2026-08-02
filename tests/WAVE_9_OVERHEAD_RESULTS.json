@@ -1,0 +1,54 @@
+[
+  {
+    "mode_name": "LEGACY_ONLY baseline",
+    "iterations": 1000,
+    "absolute_min_ns": 37700,
+    "absolute_median_ns": 42500.0,
+    "absolute_p90_ns": 55010.0,
+    "absolute_p95_ns": 65819.99999999999,
+    "absolute_p99_ns": 205728.99999999997,
+    "absolute_max_ns": 44815600,
+    "incremental_median_ns": 0.0,
+    "incremental_p95_ns": 0.0,
+    "incremental_p99_ns": 0.0
+  },
+  {
+    "mode_name": "SHADOW_COMPARE with fast synthetic runner",
+    "iterations": 1000,
+    "absolute_min_ns": 47500,
+    "absolute_median_ns": 54500.0,
+    "absolute_p90_ns": 65410.00000000001,
+    "absolute_p95_ns": 70005.0,
+    "absolute_p99_ns": 194187.99999999994,
+    "absolute_max_ns": 1240000,
+    "incremental_median_ns": 12100.0,
+    "incremental_p95_ns": 27304.999999999993,
+    "incremental_p99_ns": 152096.9999999999
+  },
+  {
+    "mode_name": "SHADOW_COMPARE with pre-blocked worker",
+    "iterations": 1000,
+    "absolute_min_ns": 49200,
+    "absolute_median_ns": 55800.0,
+    "absolute_p90_ns": 67000.0,
+    "absolute_p95_ns": 71900.0,
+    "absolute_p99_ns": 204406.0,
+    "absolute_max_ns": 49901300,
+    "incremental_median_ns": 13500.0,
+    "incremental_p95_ns": 28800.0,
+    "incremental_p99_ns": 164611.99999999997
+  },
+  {
+    "mode_name": "SHADOW_COMPARE with full queue",
+    "iterations": 1000,
+    "absolute_min_ns": 50000,
+    "absolute_median_ns": 55100.0,
+    "absolute_p90_ns": 65320.00000000001,
+    "absolute_p95_ns": 71824.99999999997,
+    "absolute_p99_ns": 205152.99999999994,
+    "absolute_max_ns": 575800,
+    "incremental_median_ns": 12700.0,
+    "incremental_p95_ns": 29039.999999999964,
+    "incremental_p99_ns": 157843.99999999994
+  }
+]

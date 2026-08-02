@@ -1,0 +1,90 @@
+{
+  "analysis_date": "2026-07-28",
+  "owner_authorization": {
+    "editorial_approval_granted": true,
+    "technical_preflight_completed": false,
+    "canonical_source_resolved": false,
+    "neo4j_staging_write_conditionally_authorized": true,
+    "neo4j_production_write_authorized": false,
+    "live_clinical_traffic_authorized": false,
+    "patient_data_authorized": false,
+    "runtime_alignment_in_scope": false
+  },
+  "rule_conflict_count_before": 7,
+  "rule_conflict_count_after": 0,
+  "conflicts": [
+    {
+      "file": "PROJECT_STATE.md",
+      "line_or_section": "content_readiness.glossary_status",
+      "current_statement": "CONCEPT_DICTIONARY_IN_PROGRESS",
+      "scope": "content readiness",
+      "outdated_under_owner_authorization": true,
+      "editable": true,
+      "required_replacement": "EDITORIAL_STATUS: APPROVED"
+    },
+    {
+      "file": "PROJECT_STATE.md",
+      "line_or_section": "content_readiness.official_glossary_ready",
+      "current_statement": "official_glossary_ready: false",
+      "scope": "content readiness",
+      "outdated_under_owner_authorization": true,
+      "editable": true,
+      "required_replacement": "TECHNICAL_PREFLIGHT_STATUS: NOT_RUN; CANONICAL_SOURCE_STATUS: UNRESOLVED"
+    },
+    {
+      "file": "PROJECT_STATE.md",
+      "line_or_section": "security_restrictions.neo4j_mutation_allowed",
+      "current_statement": "neo4j_mutation_allowed: false",
+      "scope": "database authorization",
+      "outdated_under_owner_authorization": true,
+      "editable": true,
+      "required_replacement": "NEO4J_STAGING_WRITE_STATUS: CONDITIONALLY_AUTHORIZED; NEO4J_PRODUCTION_WRITE_STATUS: FORBIDDEN"
+    },
+    {
+      "file": "PROJECT_STATE.md",
+      "line_or_section": "Description of Baseline Facts, item 1",
+      "current_statement": "Editorial approval has not yet been granted.",
+      "scope": "content readiness narrative",
+      "outdated_under_owner_authorization": true,
+      "editable": true,
+      "required_replacement": "Editorial approval granted; technical validation not run."
+    },
+    {
+      "file": ".agents/skills/clinical-ai-governor/SKILL.md",
+      "line_or_section": "Core Rules / Content Readiness",
+      "current_statement": "Concept dictionary is currently CONCEPT_DICTIONARY_IN_PROGRESS.",
+      "scope": "active governance rule",
+      "outdated_under_owner_authorization": true,
+      "editable": true,
+      "required_replacement": "Editorial approval granted; technical preflight NOT_RUN; canonical source UNRESOLVED."
+    },
+    {
+      "file": "handoff_dictionary_integration/SYSTEM_HANDOFF.md",
+      "line_or_section": "Introduction",
+      "current_statement": "The system handoff is frozen read-only.",
+      "scope": "handoff governance state",
+      "outdated_under_owner_authorization": true,
+      "editable": true,
+      "required_replacement": "Governance documentation may be reconciled without authorizing ingestion."
+    },
+    {
+      "file": "handoff_dictionary_integration/SYSTEM_SNAPSHOT.json",
+      "line_or_section": "state",
+      "current_statement": "Read-Only Snapshot",
+      "scope": "handoff snapshot state",
+      "outdated_under_owner_authorization": true,
+      "editable": true,
+      "required_replacement": "Governance Reconciled - Technical Preflight Pending"
+    }
+  ],
+  "reconciled_status": {
+    "EDITORIAL_STATUS": "APPROVED",
+    "TECHNICAL_PREFLIGHT_STATUS": "NOT_RUN",
+    "CANONICAL_SOURCE_STATUS": "UNRESOLVED",
+    "NEO4J_STAGING_WRITE_STATUS": "CONDITIONALLY_AUTHORIZED",
+    "NEO4J_PRODUCTION_WRITE_STATUS": "FORBIDDEN",
+    "LIVE_CLINICAL_TRAFFIC_STATUS": "FORBIDDEN",
+    "PATIENT_DATA_STATUS": "FORBIDDEN",
+    "RUNTIME_ALIGNMENT_STATUS": "DEFERRED"
+  }
+}

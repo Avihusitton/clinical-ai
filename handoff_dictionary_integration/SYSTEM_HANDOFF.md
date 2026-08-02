@@ -1,7 +1,24 @@
+<div dir="rtl">
+
 # System Handoff Report - Clinical GraphRAG (המוח המערכתי)
 
 ## מבוא
-מסמך זה נועד לספק תמונת מצב מלאה ומקיפה על מערכת ה-Clinical GraphRAG עבור מודל או מפתח עתידי, במטרה לאפשר שילוב חלק של מילון המושגים החדש ("Official Glossary") מבלי לפגוע בלוגיקה הקיימת. המערכת נמצאת כרגע במצב קפוא (Read-Only) לצורך תיעוד.
+מסמך זה נועד לספק תמונת מצב מלאה ומקיפה על מערכת ה-Clinical GraphRAG עבור מודל או מפתח עתידי, במטרה לאפשר שילוב חלק של מילון המושגים החדש ("Official Glossary") מבלי לפגוע בלוגיקה הקיימת. מסמך המסירה ניתן לעדכון לצורכי ממשל, אך משימת ההתאמה הנוכחית אינה מאשרת ingestion או כתיבה למסד.
+
+## 0. סטטוס ממשל מעודכן — 28/07/2026
+
+```text
+EDITORIAL_STATUS: APPROVED
+TECHNICAL_PREFLIGHT_STATUS: NOT_RUN
+CANONICAL_SOURCE_STATUS: UNRESOLVED
+NEO4J_STAGING_WRITE_STATUS: CONDITIONALLY_AUTHORIZED
+NEO4J_PRODUCTION_WRITE_STATUS: FORBIDDEN
+LIVE_CLINICAL_TRAFFIC_STATUS: FORBIDDEN
+PATIENT_DATA_STATUS: FORBIDDEN
+RUNTIME_ALIGNMENT_STATUS: DEFERRED
+```
+
+בעל הפרויקט אישר עריכתית את מילון המושגים ואת ה־Official Glossary. אישור זה אינו מהווה validation טכני ואינו מתיר כתיבה מיידית. טעינה עתידית ל־Neo4j staging מותרת רק לאחר זיהוי מקורות קנוניים, preflight מלא, סריקת מידע מזהה, dry run, אימות יעד לא־production, rollback לפי `ingestion_batch_id` ואפס blocking errors. אין הרשאה ל־production, ל־live clinical traffic או למידע מזהה של מטופלים.
 
 ## 1. חומרי המקור שהוכנסו למערכת
 המערכת יונקת את המידע שלה מתיקיות שונות:
@@ -59,3 +76,5 @@
 1. **עקיפת/החלפת `build_glossary.py`:** הזרקת קובץ המילון הרשמי ישירות לסכמה כך ש-`CandidateGenerator` ב-`ingestion_pipeline.py` יטען את המושגים, ההגדרות, והמילים הנרדפות ממנו.
 2. **התאמת מנגנון האיתור:** מכיוון שהאיתור מבוסס טקסט (substring), עבור מילון גדול יש לוודא שה-`HebrewNormalizer` מהיר מספיק ושאין False Positives (בגלל מילים קצרות מדי). אפשר להוסיף רף חיתוך.
 3. **טעינת נתוני הקשר מוכנים (Relationships):** מילון רשמי כולל לרוב היררכיות - יש לייבא אותן ישירות ל-Neo4j דרך Cypher (`IS_A`, `PART_OF`) טרם העיבוד, כדי שה-Retrieval ייהנה מהקשרים מיד.
+
+</div>

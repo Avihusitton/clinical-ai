@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Clinical AI source registry record",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "source_document_id": {"type": "string", "pattern": "^SRC-[A-F0-9]{16}$"},
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "file_name": {"type": "string", "minLength": 1},
+    "source_authority": {
+      "type": "string",
+      "enum": ["METHOD_PRIMARY", "SECONDARY_INTERPRETIVE", "UNVERIFIED"]
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "METHOD_BOOK",
+        "METHOD_HANDOUT",
+        "METHOD_TRANSCRIPT",
+        "STUDENT_SUMMARY",
+        "PRACTITIONER_NOTE",
+        "OTHER"
+      ]
+    },
+    "source_authority_basis": {
+      "type": "string",
+      "enum": [
+        "OWNER_DECLARATION",
+        "SIGNED_PRODUCER_MANIFEST",
+        "APPROVED_COLLECTION_RULE",
+        "PATH_DECLARATION",
+        "UNVERIFIED"
+      ]
+    },
+    "declared_by": {"type": "string", "minLength": 1},
+    "registered_at": {"type": "string", "format": "date-time"},
+    "pii_status": {"type": "string", "enum": ["NOT_SCANNED", "CLEAR", "BLOCKED"]},
+    "rights_status": {"type": "string", "enum": ["UNVERIFIED", "CLEARED", "BLOCKED"]},
+    "pipeline_status": {
+      "type": "string",
+      "enum": [
+        "REGISTERED",
+        "QUARANTINED",
+        "READY_FOR_CLINICAL_PIPELINE",
+        "CLINICAL_PIPELINE_COMPLETE",
+        "CANDIDATES_EXPORTED"
+      ]
+    }
+  },
+  "required": [
+    "source_document_id",
+    "sha256",
+    "file_name",
+    "source_authority",
+    "source_type",
+    "source_authority_basis",
+    "declared_by",
+    "registered_at",
+    "pii_status",
+    "rights_status",
+    "pipeline_status"
+  ]
+}

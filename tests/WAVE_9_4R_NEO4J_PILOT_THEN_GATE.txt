@@ -1,0 +1,40 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\avihu\AppData\Local\Programs\Python\Python312\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Avihusitton\clinical_ai
+plugins: anyio-4.13.0
+collecting ... collected 2 items
+
+tests/test_real_shadow_pilot.py::test_real_shadow_pilot PASSED
+tests/test_gate_cd_boundary.py::TestNoProductionImports::test_gate_cd_boundary_does_not_import_neo4j FAILED
+
+================================== FAILURES ===================================
+_____ TestNoProductionImports.test_gate_cd_boundary_does_not_import_neo4j _____
+
+self = <tests.test_gate_cd_boundary.TestNoProductionImports object at 0x00000216B6B047A0>
+
+    def test_gate_cd_boundary_does_not_import_neo4j(self):
+        import gate_cd_boundary
+        import gate_cd_boundary.models
+        import gate_cd_boundary.evidence_eligibility
+        import sys
+        for mod_name in sys.modules:
+>           assert "neo4j" not in mod_name.lower(), (
+                f"neo4j imported via {mod_name}"
+            )
+E           AssertionError: neo4j imported via neo4j._typing
+E           assert 'neo4j' not in 'neo4j._typing'
+E             
+E             'neo4j' is contained here:
+E               neo4j._typing
+E             ? +++++
+
+tests\test_gate_cd_boundary.py:480: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_gate_cd_boundary.py::TestNoProductionImports::test_gate_cd_boundary_does_not_import_neo4j - AssertionError: neo4j imported via neo4j._typing
+assert 'neo4j' not in 'neo4j._typing'
+  
+  'neo4j' is contained here:
+    neo4j._typing
+  ? +++++
+========================= 1 failed, 1 passed in 0.73s =========================

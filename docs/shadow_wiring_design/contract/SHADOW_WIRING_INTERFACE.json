@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Shadow Wiring Interface Specification",
+  "version": "1.0.0",
+  "entities": {
+    "ShadowWiringRequest": {
+      "type": "object",
+      "required": ["request_id", "question", "context"],
+      "properties": {
+        "request_id": { "type": "string" },
+        "question": { "type": "string" },
+        "modality": { "type": ["string", "null"] },
+        "context": { "type": "object" }
+      }
+    },
+    "LegacyExecutionResult": {
+      "type": "object",
+      "required": ["raw_output", "execution_time_ms"],
+      "properties": {
+        "raw_output": { "type": "string" },
+        "execution_time_ms": { "type": "number" }
+      }
+    },
+    "ShadowExecutionResult": {
+      "type": "object",
+      "required": ["verdict", "execution_time_ms"],
+      "properties": {
+        "verdict": { "type": "string" },
+        "execution_time_ms": { "type": "number" },
+        "error": { "type": ["string", "null"] }
+      }
+    },
+    "ShadowComparison": {
+      "type": "object",
+      "required": ["comparison_id", "difference_class", "timestamp"],
+      "properties": {
+        "comparison_id": { "type": "string" },
+        "difference_class": {
+          "type": "string",
+          "enum": [
+            "AGREEMENT",
+            "LEGACY_ONLY_EVIDENCE",
+            "SHADOW_ONLY_REVIEWED_EVIDENCE",
+            "RANKING_DIFFERENCE",
+            "UNCERTAINTY_DIFFERENCE",
+            "SAFETY_BLOCK_DIFFERENCE",
+            "FALLBACK_TRIGGERED",
+            "SHADOW_ERROR",
+            "SHADOW_TIMEOUT"
+          ]
+        },
+        "timestamp": { "type": "string" }
+      }
+    }
+  }
+}

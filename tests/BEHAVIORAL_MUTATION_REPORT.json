@@ -1,0 +1,8 @@
+{
+  "test_backend": "DETERMINISTIC_MOCK_DRIVER",
+  "production_nodes_created": 0,
+  "production_nodes_updated": 0,
+  "production_nodes_deleted": 0,
+  "production_relationships_created": 0,
+  "production_relationships_deleted": 0
+}

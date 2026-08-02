@@ -1,0 +1,86 @@
+........................................................................ [  3%]
+........................................................................ [  7%]
+........................................................................ [ 11%]
+........................................................................ [ 15%]
+........................................................................ [ 19%]
+........................................................................ [ 23%]
+........................................................................ [ 27%]
+........................................................................ [ 31%]
+........................................................................ [ 35%]
+........................................................................ [ 39%]
+........................................................................ [ 43%]
+........................................................................ [ 47%]
+........................................................................ [ 51%]
+........................................................................ [ 55%]
+........................................................................ [ 58%]
+........................................................................ [ 62%]
+........................................................................ [ 66%]
+........................................................................ [ 70%]
+........................................................................ [ 74%]
+........................................................................ [ 78%]
+........................................................................ [ 82%]
+.......................................F................................ [ 86%]
+........................................................................ [ 90%]
+........................................................................ [ 94%]
+........................................................................ [ 98%]
+...............................                                          [100%]
+================================== FAILURES ===================================
+_____ TestNoProductionImports.test_gate_cd_boundary_does_not_import_neo4j _____
+
+self = <tests.test_gate_cd_boundary.TestNoProductionImports object at 0x0000014D8D4F8440>
+
+    def test_gate_cd_boundary_does_not_import_neo4j(self):
+        import gate_cd_boundary
+        import gate_cd_boundary.models
+        import gate_cd_boundary.evidence_eligibility
+        import sys
+        for mod_name in sys.modules:
+>           assert "neo4j" not in mod_name.lower(), (
+                f"neo4j imported via {mod_name}"
+            )
+E           AssertionError: neo4j imported via neo4j._typing
+E           assert 'neo4j' not in 'neo4j._typing'
+E             
+E             'neo4j' is contained here:
+E               neo4j._typing
+E             ? +++++
+
+tests\test_gate_cd_boundary.py:480: AssertionError
+============================== warnings summary ===============================
+tests/test_controlled_integration.py: 17 warnings
+tests/test_controlled_integration_acceptance.py: 120 warnings
+tests/test_controlled_integration_audit.py: 5 warnings
+tests/test_controlled_integration_isolation.py: 12 warnings
+tests/test_controlled_integration_orchestrator.py: 18 warnings
+tests/test_controls_and_security.py: 7 warnings
+  C:\Avihusitton\clinical_ai\controlled_integration\audit\audit_logger.py:50: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    ts = datetime.utcnow().isoformat()
+
+tests/test_controlled_integration.py: 2 warnings
+tests/test_controlled_integration_acceptance.py: 20 warnings
+tests/test_controlled_integration_isolation.py: 4 warnings
+tests/test_controlled_integration_orchestrator.py: 1 warning
+  <string>:6: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+
+tests/test_controlled_integration.py: 4 warnings
+tests/test_controlled_integration_acceptance.py: 40 warnings
+tests/test_controlled_integration_isolation.py: 8 warnings
+tests/test_controlled_integration_orchestrator.py: 2 warnings
+  C:\Avihusitton\clinical_ai\gate_d\audit_trail.py:17: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    timestamp=datetime.utcnow()
+
+tests/test_controlled_integration.py: 2 warnings
+tests/test_controlled_integration_acceptance.py: 20 warnings
+tests/test_controlled_integration_isolation.py: 4 warnings
+tests/test_controlled_integration_orchestrator.py: 1 warning
+  C:\Avihusitton\clinical_ai\gate_d\consultation_engine.py:76: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "processed_at": datetime.utcnow().isoformat(),
+
+tests/test_controls_and_security.py::test_telemetry_collector_schema_compliance_and_hashing
+  C:\Avihusitton\clinical_ai\controlled_integration\telemetry\telemetry_collector.py:80: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "timestamp": datetime.utcnow().isoformat(),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_gate_cd_boundary.py::TestNoProductionImports::test_gate_cd_boundary_does_not_import_neo4j
+1 failed, 1830 passed, 288 warnings in 3.46s

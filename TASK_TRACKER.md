@@ -2,3 +2,53 @@
 
 - [x] Acknowledge system prompt and initialize project files.
 - [x] Fix LLMClient crash when OpenRouter API returns null content field.
+- [x] Reconcile owner-approved dictionary and Official Glossary editorial readiness with active governance sources.
+- [x] Create the governed project completion plan: `docs/orchestration/PROJECT_COMPLETION_PLAN.md`.
+- [x] Define and implement the fail-closed new-material intake and dictionary-feedback contract for primary, secondary, and unverified sources.
+- [x] Establish unified dual-workspace management for Clinical AI and Derech Dictionary while preserving the dictionary as a special protected content zone.
+- [x] Accept and validate dictionary Preview `PREVIEW-4564A9FD1D2B8DE2` without network access or Neo4j writes.
+- [x] Build the manifest-bound `card_id` write-free graph-plan adapter and verify it with 13 passing tests.
+- [x] Complete a Preview staging dry run with zero rejected records, zero identifier-screening findings, deterministic batch/rollback metadata, and zero Neo4j connections or writes.
+- [x] Audit the existing chunk-context inventory, quarantine all 32 pending relationship candidates, and define the required dictionary-first load order.
+- [x] Implement and test the durable de-identified chunk release contract and the `card_id`-based chunk graph-plan builder.
+- [x] Verify the configured Neo4j target is statically classified as explicit non-production without emitting secrets or making a connection.
+- [x] Implement a fail-closed canonical Neo4j Staging loader with preload snapshot, post-load validation, exact-batch rollback, and no Legacy default paths.
+- [x] Implement a separate dictionary-first chunk Staging loader that requires matching dictionary load evidence and verifies every `card_id` endpoint before writing.
+- [x] Verify 52 focused acceptance, adapter, staging-dry-run, identifier-screening, chunk-migration, unified-preflight, durable-chunk, quarantine-package, target, dictionary-loader, chunk-loader, and quarantine-loader tests.
+- [x] Keep the Preview adapter independent of the rejected 48-concept Legacy glossary; no compatibility mapping is produced.
+- [x] Remove Legacy default paths from the final protected staging integration after canonical release acceptance and formal approval.
+- [ ] Wire source-authority metadata through the protected ingestion pipeline after formal design approval.
+- [x] Complete producer dictionary Gate 5 and publish signed canonical release `D4-99F53565A7BCC45E` with 22/22 checks passing.
+- [x] Resolve canonical-source identity from the producer release manifest and verified file hashes.
+- [x] Complete technical preflight with zero blocking errors before any Neo4j staging write.
+- [x] Re-run the proven write-free dry run against the final canonical release and verify zero rejected records plus batch rollback metadata.
+- [x] Build a durable quarantine package for all 32 legacy context candidates and 20 preserved de-identified evidence excerpts; map 9 pairs fully to canonical `card_id` and retain 23 partial mappings without promotion.
+- [x] Scan 343 local sources without LLM/API use to attempt exact durable chunk reconstruction; document the fail-closed result of 11 matches, 9 missing IDs, and 5 excerpt mismatches without emitting raw text.
+- [ ] Produce a complete durable chunk export and revalidate historical `LINKED_TO` relationships before canonical chunk loading.
+- [x] Start the explicitly non-production Neo4j service and pass read-only runtime verification.
+- [x] Load canonical dictionary release `D4-99F53565A7BCC45E` to Neo4j staging as batch `DICTBATCH-E9C8ECB4A7372979BA57` and pass exact post-load validation.
+- [x] Load the context-candidate quarantine layer after the dictionary as batch `CONTEXTBATCH-39118BDE64AEDA51FB43`, with 52 nodes, 73 quarantine-only relationships, zero canonical semantic edges, and exact post-load validation.
+- [x] Preserve preload snapshots and exact-batch rollback procedures for both staging loads.
+- [x] Obtain explicit owner approval for protected ingestion/retrieval changes with backup, tests, and rollback.
+- [x] Reconcile Neo4j Desktop tracking with the verified live launcher after backing up the stale tracking file.
+- [x] Implement a loopback-only deterministic D4 Q&A engine with no LLM or OpenRouter dependency.
+- [x] Add a local RTL/right-aligned browser UI with explicit no-patient-data confirmation and direct-identifier blocking.
+- [x] Complete local method-knowledge end-to-end acceptance for A002 and A008; verify graph counts remain 1,125 nodes and 8,093 relationships before and after.
+- [x] Leave the tested local Q&A interface running at `http://127.0.0.1:8765`.
+- [x] Add an opt-in AI answer path that uses a compact D4 graph context, excludes quarantine, caps token use, and fails safely to the local deterministic answer.
+- [x] Move cards and graph relations behind a collapsed evidence section so the primary user-facing output is the answer itself.
+- [x] Add a dedicated Git-ignored OpenRouter secret file that is auto-detected without source-code edits and ignores the exposed legacy key.
+- [x] Enable and live-test the AI checkbox after the owner configured the dedicated secret file; verify a complete DeepSeek V4 Pro response without exposing the credential.
+- [x] Add local workspace profiles and persistent, user-isolated conversations without treating the profile picker as an authentication boundary.
+- [x] Add compact longitudinal context, clarification-first AI responses, and visible-answer redaction of internal dictionary card IDs.
+- [x] Capture provider-reported usage cost, convert it to ILS using an explicitly dated exchange rate, and attach generation time to each answer.
+- [x] Complete HTTP and browser acceptance for the redesigned conversation workspace, including ILS-only visible cost and multi-turn continuity.
+- [x] Replace the three-card keyword path with balanced rich retrieval over up to ten approved D4 cards, approved relations, and `METHOD_PRIMARY` source locators.
+- [x] Add a two-stage answer-quality pipeline that separates facts, missing information, tensions, lenses, and hypotheses, then internally reviews and corrects the draft without exposing scores or card IDs.
+- [x] Remove quarantine queries and quarantine display from the active runtime and conversation evidence.
+- [x] Complete 41-test focused runtime regression acceptance plus a live synthetic DeepSeek V4 Pro two-stage clarification response with visible ILS cost, total time, and the quality-review badge.
+- [x] Ground short follow-up turns in recent user-authored history, prevent repeated clarification loops after a concrete update, and fail over from Pro to Flash on model/connection failures.
+- [~] ~~Add a production access gate limited to the two approved identities before any Internet deployment or live clinical use.~~ — נדחה: לא נדרש כרגע, המערכת לא חשופה לאינטרנט (2026-07-31).
+- [~] ~~Implement guarded synthetic-only integration into the protected Legacy retrieval path if that path is retained.~~ — לא רלוונטי: המערכת כבר עובדת רק עם המנוע החדש, ה-Legacy לא בשימוש (2026-07-31).
+- [x] Complete local method-knowledge synthetic end-to-end acceptance and issue a local operational-readiness report.
+- [~] ~~Rotate or revoke exposed credentials with the relevant providers and remove their local values.~~ — נדחה: המפתח מוגן ב-.gitignore, סיסמאות נשארות כמות שהן (2026-07-31).

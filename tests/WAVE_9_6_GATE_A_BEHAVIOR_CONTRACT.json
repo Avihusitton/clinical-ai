@@ -1,0 +1,55 @@
+{
+  "test_node_ids": [
+    "tests/test_gate_a_dry_run_and_isolation.py::test_dry_run_no_writes",
+    "tests/test_gate_a_dry_run_and_isolation.py::test_shadow_isolation"
+  ],
+  "assertion_expressions": [
+    "assert write_query_count == 0, f\"Found write queries: {write_queries_detected}\"",
+    "assert k in result, f\"Missing key in dry_run result: {k}\"",
+    "assert shadow_entries_after_load == 3",
+    "assert shadow_aliases_after_load > 0",
+    "assert shadow_alias_of_after_load > 0",
+    "assert cross_boundary == 0",
+    "assert orphan_aliases == 0",
+    "assert entries_no_pilot == 0",
+    "assert aliases_no_pilot == 0",
+    "assert aliases_wrong_pilot == 0",
+    "assert second_load_new_entries == 0",
+    "assert second_load_updated_entries == 0",
+    "assert second_load_unchanged_entries == 3",
+    "assert shadow_entries_after_cleanup == 0",
+    "assert shadow_aliases_after_cleanup == 0",
+    "assert prod_labels_before == prod_labels_after",
+    "assert prod_rels_before == prod_rels_after"
+  ],
+  "skip_conditions": [
+    "ServiceUnavailable exception when connecting to Neo4j database",
+    "AuthError exception when authenticating with Neo4j database",
+    "Neo4jError exception when executing initialization queries",
+    "DriverError exception during database connection setup",
+    "ConnectionRefusedError during socket connection to Neo4j uri"
+  ],
+  "environment_checks": [
+    "Config().neo4j_uri",
+    "Config().neo4j_user",
+    "Config().neo4j_password"
+  ],
+  "database_checks": [
+    "write_query_count == 0",
+    "cross_boundary == 0",
+    "orphan_aliases == 0",
+    "entries_no_pilot == 0",
+    "aliases_no_pilot == 0",
+    "aliases_wrong_pilot == 0",
+    "second_load_new_entries == 0",
+    "second_load_updated_entries == 0",
+    "second_load_unchanged_entries == 3",
+    "prod_labels_before == prod_labels_after",
+    "prod_rels_before == prod_rels_after"
+  ],
+  "cleanup_expectations": [
+    "MATCH (n {pilot_id: $pid}) DETACH DELETE n",
+    "shadow_entries_after_cleanup == 0",
+    "shadow_aliases_after_cleanup == 0"
+  ]
+}

@@ -1,0 +1,1 @@
+{"id": "dr_1", "description": "Pending edge", "nodes": [{"id": "n1"}, {"id": "n2"}], "edges": [{"source": "n1", "target": "n2", "type": "INFER", "status": "PENDING", "provenance": "src", "review_state": "REVIEWED"}], "expected_decision": "REJECTED", "blocking_reason": "Edge status is PENDING"}

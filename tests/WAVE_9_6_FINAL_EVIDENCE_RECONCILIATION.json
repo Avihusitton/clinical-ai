@@ -1,0 +1,14 @@
+{
+  "collect_only_count": 1904,
+  "JUnit_test_count": 1904,
+  "JUnit_failure_count": 0,
+  "JUnit_error_count": 0,
+  "raw_pytest_passed_count": 1904,
+  "raw_pytest_failed_count": 0,
+  "accounting_collected_count": 1904,
+  "accounting_passed_count": 1904,
+  "accounting_failed_count": 0,
+  "accounting_error_count": 0,
+  "final_pytest_exit_code": 0,
+  "all_sources_match": true
+}

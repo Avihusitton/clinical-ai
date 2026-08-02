@@ -20,6 +20,10 @@ from pathlib import Path
 
 try:
     from dotenv import load_dotenv
+    secret_dir = Path(__file__).parent / ".secrets"
+    if secret_dir.exists():
+        for env_file in secret_dir.glob("*.env"):
+            load_dotenv(env_file)
     load_dotenv()
 except ImportError:
     pass  # python-dotenv הוא נוחות, לא חובה - אפשר גם export ידני של משתני סביבה

@@ -1,0 +1,43 @@
+{
+  "synchronous_execution": true,
+  "background_tool_used": false,
+  "attestations": [
+    {
+      "command": "python -m pytest tests/test_wave96_gate_a_isolation.py -vv -ra",
+      "start_timestamp_utc": "2026-07-24T10:21:43.678196+00:00",
+      "end_timestamp_utc": "2026-07-24T10:21:48.528546+00:00",
+      "actual_exit_code": 0,
+      "stdout_file": "tests/WAVE_9_6_TARGETED_ISOLATION_OUTPUT.txt",
+      "stdout_sha256": "7938881b2edecfe2ce28404327d5764f28d6960e37d659bcb18ce298d2b34c4f",
+      "background_tool_used": false
+    },
+    {
+      "command": "python -m pytest tests/test_gate_a_dry_run_and_isolation.py tests/test_gate_cd_boundary.py::TestNoProductionImports::test_gate_cd_boundary_does_not_import_neo4j -vv -s",
+      "start_timestamp_utc": "2026-07-24T10:21:48.529548+00:00",
+      "end_timestamp_utc": "2026-07-24T10:21:50.038375+00:00",
+      "actual_exit_code": 0,
+      "stdout_file": "tests/WAVE_9_6_GATE_A_THEN_GATE_CD_OUTPUT.txt",
+      "stdout_sha256": "2b5901be5aeecace08b156766eeb88787b6f9da8ddd78ab0126c52f3f2fa825a",
+      "background_tool_used": false
+    },
+    {
+      "command": "python -m pytest tests/ --collect-only -q",
+      "start_timestamp_utc": "2026-07-24T10:21:50.038375+00:00",
+      "end_timestamp_utc": "2026-07-24T10:21:50.817052+00:00",
+      "actual_exit_code": 0,
+      "stdout_file": "tests/WAVE_9_6_FINAL_COLLECT_ONLY.txt",
+      "stdout_sha256": "f84c28934920f28f2a35fcd49ce3f767f2a52ea6f4cb14462bb113fbc37318dc",
+      "background_tool_used": false
+    },
+    {
+      "command": "python -m pytest tests/ -q -ra --junitxml=tests/WAVE_9_6_FINAL_JUNIT.xml",
+      "start_timestamp_utc": "2026-07-24T10:21:50.818061+00:00",
+      "end_timestamp_utc": "2026-07-24T10:22:04.915097+00:00",
+      "actual_exit_code": 0,
+      "stdout_file": "tests/WAVE_9_6_FINAL_FULL_PYTEST_OUTPUT.txt",
+      "stdout_sha256": "2cf5ba0798a634575bd916602922a2c37164b1263285bda67f7c6bea3c2be5c1",
+      "background_tool_used": false,
+      "junit_sha256": "24555dcec147584359ba1955f0e5016ed6cafc311491007d5386b0ebb438e4db"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "name": "Gate B Fixtures",
+  "version": "1.0",
+  "description": "Specification for synthetic, non-clinical fixtures used in Gate B testing.",
+  "fixture_directories": [
+    "tests/fixtures/gate_b"
+  ],
+  "schemas": {
+    "fixture": {
+      "type": "object",
+      "properties": {
+        "id": {"type": "string"},
+        "description": {"type": "string"},
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {"type": "string"},
+              "label": {"type": "string"},
+              "scope": {"type": "string"},
+              "degree": {"type": "integer"},
+              "is_terminal": {"type": "boolean"},
+              "type": {"type": "string"}
+            }
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source": {"type": "string"},
+              "target": {"type": "string"},
+              "type": {"type": "string"},
+              "status": {"type": "string"},
+              "provenance": {"type": "string"},
+              "review_state": {"type": "string"}
+            }
+          }
+        },
+        "expected_decision": {"type": "string", "enum": ["ACCEPTED", "REJECTED"]},
+        "blocking_reason": {"type": ["string", "null"]},
+        "virtual_path": {"type": "boolean"},
+        "duplicate_exists": {"type": "boolean"}
+      }
+    }
+  }
+}

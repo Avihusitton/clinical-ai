@@ -1,0 +1,68 @@
+{
+  "legacy_class": "CandidateGenerator",
+  "legacy_public_method": "find_entry_concepts",
+  "known_positive_cases_total": 5,
+  "known_negative_cases_total": 5,
+  "cases": [
+    {
+      "input_example": "This is a sentence containing מבנה הנפש in the middle.",
+      "raw_output_example": [
+        "מבנה הנפש"
+      ],
+      "normalized_adapter_output": [
+        "מבנה הנפש"
+      ],
+      "is_positive_passed": true
+    },
+    {
+      "input_example": "This is a sentence containing מהות in the middle.",
+      "raw_output_example": [
+        "מהות"
+      ],
+      "normalized_adapter_output": [
+        "מהות"
+      ],
+      "is_positive_passed": true
+    },
+    {
+      "input_example": "This is a sentence containing פגיעות in the middle.",
+      "raw_output_example": [
+        "פגיעות"
+      ],
+      "normalized_adapter_output": [
+        "פגיעות"
+      ],
+      "is_positive_passed": true
+    },
+    {
+      "input_example": "This is a sentence containing מנהלים in the middle.",
+      "raw_output_example": [
+        "מנהלים"
+      ],
+      "normalized_adapter_output": [
+        "מנהלים"
+      ],
+      "is_positive_passed": true
+    },
+    {
+      "input_example": "This is a sentence containing פיצויים in the middle.",
+      "raw_output_example": [
+        "פיצויים"
+      ],
+      "normalized_adapter_output": [
+        "פיצויים"
+      ],
+      "is_positive_passed": true
+    }
+  ],
+  "known_collision": {
+    "input_form": "הגנות",
+    "expected_legacy_resolution": "מנהלים",
+    "actual_legacy_resolution": "מנהלים",
+    "collision_status": "CHARACTERIZED"
+  },
+  "known_positive_cases_passed": 5,
+  "known_negative_cases_passed": 5,
+  "known_collisions_characterized": 1,
+  "adapter_status": "LEGACY_ADAPTER_VALIDATED"
+}

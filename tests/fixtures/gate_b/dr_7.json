@@ -1,0 +1,1 @@
+{"id": "dr_7", "description": "Self-loop", "nodes": [{"id": "n1"}], "edges": [{"source": "n1", "target": "n1", "type": "INFER", "status": "APPROVED", "provenance": "src", "review_state": "REVIEWED"}], "expected_decision": "REJECTED", "blocking_reason": "Self-loops are not allowed"}

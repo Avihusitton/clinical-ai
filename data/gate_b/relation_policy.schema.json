@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["version", "status", "relations"],
+  "properties": {
+    "version": { "type": "string" },
+    "status": { "type": "string" },
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "directionality", "classification"],
+        "properties": {
+          "name": { "type": "string" },
+          "directionality": { 
+            "type": "string",
+            "enum": ["DIRECTED", "SYMMETRIC", "INVERSE_OF"]
+          },
+          "inverse_of": { "type": "string" },
+          "classification": { 
+            "type": "string",
+            "enum": ["NAVIGATION", "INFERENTIAL", "TERMINAL", "BRIDGE"]
+          },
+          "is_bridge_eligible": { "type": "boolean" },
+          "requires_review_state": { 
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "requires_provenance": { "type": "boolean" },
+          "ordered_composition": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

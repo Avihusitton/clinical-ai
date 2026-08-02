@@ -1,0 +1,30 @@
+{
+  "tests/wave_8_evidence_harness.py": {
+    "sha256": "97e32063490b95a7de504e7748c746933a80b551e1c5faf68980f842ab167c84",
+    "byte_length": 25669
+  },
+  "tests/WAVE_8_6_HARNESS_OUTPUT.txt": {
+    "sha256": "472eb1425096e1df3b00443889269655b0235683f8a4094a15f91ba7f958f9ff",
+    "byte_length": 36
+  },
+  "tests/WAVE_8_6_EXECUTION_ATTESTATION.json": {
+    "sha256": "32cb3e4abcfb1ceb9fe58770cf2a0158bba0e7c264d341390725c3df7ce99776",
+    "byte_length": 403
+  },
+  "tests/WAVE_8_4_AST_ATTESTATION.json": {
+    "sha256": "9e0389df1d14190dc56f1f134f9d7a5bfc4b8aee9cf67a0ced49b2bf231ba3c1",
+    "byte_length": 285
+  },
+  "tests/WAVE_8_LEGACY_INVARIANCE_REPORT.json": {
+    "sha256": "8d08912c6c11d25ace05004fba6814aec56d99bbb6802aa6f7c677e810273938",
+    "byte_length": 3215
+  },
+  "tests/WAVE_8_SHADOW_BEHAVIOR_REPORT.json": {
+    "sha256": "32e956a1f4c88e70389cd98ded269d967d2c0cd061557b36f817464df4b7a775",
+    "byte_length": 1766
+  },
+  "tests/WAVE_8_4_REDACTION_BENCHMARK.json": {
+    "sha256": "20cfcce7918f89e3a031526b62ff0a4e0e835861141a5c1971fc1a52166e79f3",
+    "byte_length": 315
+  }
+}

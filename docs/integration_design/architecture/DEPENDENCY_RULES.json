@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DependencyRulesSpecification",
+  "description": "Formal specification of allowed, restricted, and forbidden architectural dependencies within controlled_integration and external subsystems.",
+  "version": "1.0.0",
+  "allowed_dependency_paths": [
+    {
+      "source_module": "retrieval.py (Legacy Baseline)",
+      "target_module": "controlled_integration.adapters.legacy_adapter",
+      "direction": "Legacy retrieval -> Adapter boundary ONLY",
+      "is_read_only": true,
+      "purpose": "Legacy baseline retrieval fallback execution"
+    },
+    {
+      "source_module": "controlled_integration.adapters.gate_b_adapter",
+      "target_module": "models.second_order_reasoner",
+      "direction": "Adapter -> Gate B interface",
+      "is_read_only": true,
+      "purpose": "Extract reviewed reasoning evidence"
+    },
+    {
+      "source_module": "controlled_integration.adapters.gate_c_adapter",
+      "target_module": "gate_c.novelty_engine",
+      "direction": "Adapter -> Gate C interface",
+      "is_read_only": true,
+      "purpose": "Generate discovery-only novelty candidates"
+    },
+    {
+      "source_module": "controlled_integration.adapters.boundary_adapter",
+      "target_module": "gate_cd_boundary.evidence_eligibility",
+      "direction": "Adapter -> Gate C/D boundary interface",
+      "is_read_only": true,
+      "purpose": "Evaluate evidence eligibility decisions"
+    },
+    {
+      "source_module": "controlled_integration.adapters.gate_d_adapter",
+      "target_module": "gate_d.consultation_engine",
+      "direction": "Adapter -> Gate D interface",
+      "is_read_only": true,
+      "purpose": "Generate therapist consultation responses"
+    }
+  ],
+  "forbidden_dependencies": [
+    {
+      "rule_id": "ERR_DEP_01",
+      "source": "gate_d (Consultation Engine)",
+      "target": "gate_c (Novelty Engine)",
+      "violation_type": "DIRECT_UNREVIEWED_NOVELTY_CONSUMPTION",
+      "description": "Gate D must NEVER directly import or consume raw unreviewed Gate C novelty candidates.",
+      "severity": "CRITICAL",
+      "action": "Immediate exception, fail-closed to LEGACY_ONLY."
+    },
+    {
+      "rule_id": "ERR_DEP_02",
+      "source": "gate_c (Novelty Engine)",
+      "target": "data/glossary.json or Neo4j Knowledge Graph",
+      "violation_type": "OFFICIAL_KNOWLEDGE_MUTATION",
+      "description": "Gate C must NEVER write, modify, or auto-promote candidates to official knowledge.",
+      "severity": "CRITICAL",
+      "action": "Block operation, log security audit event."
+    },
+    {
+      "rule_id": "ERR_DEP_03",
+      "source": "controlled_integration (Any Submodule)",
+      "target": "Neo4j / Network / External LLM API",
+      "violation_type": "EXTERNAL_IO_VIOLATION",
+      "description": "Integration layer must operate deterministically without live Neo4j, LLM, or network I/O calls.",
+      "severity": "CRITICAL",
+      "action": "Reject call, trigger legacy fallback."
+    },
+    {
+      "rule_id": "ERR_DEP_04",
+      "source": "controlled_integration (Any Submodule)",
+      "target": "Production code write operations",
+      "violation_type": "PRODUCTION_CODE_MUTATION",
+      "description": "Integration layer must NEVER modify retrieval.py, ingestion_pipeline.py, build_glossary.py, etc.",
+      "severity": "CRITICAL",
+      "action": "Enforce strict read-only file lock."
+    },
+    {
+      "rule_id": "ERR_DEP_05",
+      "source": "models.second_order_reasoner (Gate B) or gate_c",
+      "target": "Persistent Storage",
+      "violation_type": "INFERRED_RELATIONSHIP_WRITE",
+      "description": "No component writes inferred second-order or novelty relationships to disk or database.",
+      "severity": "CRITICAL",
+      "action": "Block write attempt."
+    }
+  ],
+  "isolation_guarantees": {
+    "legacy_retrieval_unmodified": true,
+    "gate_c_d_boundary_strictly_enforced": true,
+    "zero_side_effect_execution": true,
+    "fail_closed_on_violation": true
+  }
+}

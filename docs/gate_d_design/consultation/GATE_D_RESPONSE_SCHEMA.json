@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Gate D Consultation Response Schema",
+  "description": "Defines the required structure of the response returned to the therapist.",
+  "type": "object",
+  "properties": {
+    "request_summary": {
+      "type": "string",
+      "description": "A brief summary of the therapist's consultation request."
+    },
+    "relevant_official_entries": {
+      "type": "array",
+      "description": "Established, official clinical concepts related to the context.",
+      "items": { "type": "string" }
+    },
+    "retrieved_evidence": {
+      "type": "array",
+      "description": "Evidence from verified knowledge bases supporting the possibilities.",
+      "items": { "type": "string" }
+    },
+    "possible_interpretations": {
+      "type": "array",
+      "description": "Potential ways to view the context (must be presented as possibilities).",
+      "items": { "type": "string" }
+    },
+    "alternative_interpretations": {
+      "type": "array",
+      "description": "Contrasting or alternate possibilities to consider.",
+      "items": { "type": "string" }
+    },
+    "uncertainties": {
+      "type": "array",
+      "description": "Explicit statements about what is uncertain or unknown.",
+      "items": { "type": "string" }
+    },
+    "missing_information": {
+      "type": "array",
+      "description": "Gaps in the context that would be helpful to fill.",
+      "items": { "type": "string" }
+    },
+    "safety_boundaries": {
+      "type": "array",
+      "description": "Safety warnings or out-of-bounds indications.",
+      "items": { "type": "string" }
+    },
+    "optional_reflection_questions": {
+      "type": "array",
+      "description": "Questions the therapist might ask themselves or the patient.",
+      "items": { "type": "string" }
+    },
+    "optional_reviewed_exercises": {
+      "type": "array",
+      "description": "Pre-reviewed exercises that might be relevant.",
+      "items": { "type": "string" }
+    },
+    "therapist_decision_required": {
+      "type": "boolean",
+      "description": "Indicates that the therapist must actively acknowledge or decide on the generated insights."
+    },
+    "audit_metadata": {
+      "type": "object",
+      "description": "Metadata for tracking and auditing this response.",
+      "properties": {
+        "generation_id": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "system_version": { "type": "string" }
+      },
+      "required": ["generation_id", "timestamp"]
+    }
+  },
+  "required": [
+    "request_summary",
+    "relevant_official_entries",
+    "retrieved_evidence",
+    "possible_interpretations",
+    "alternative_interpretations",
+    "uncertainties",
+    "missing_information",
+    "safety_boundaries",
+    "optional_reflection_questions",
+    "optional_reviewed_exercises",
+    "therapist_decision_required",
+    "audit_metadata"
+  ]
+}

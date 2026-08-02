@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "contract_version": "1.0.1",
+  "status": "FROZEN_FOR_SHADOW_WIRING_IMPLEMENTATION",
+  "execution_strategy": "OFF_CRITICAL_PATH_SHADOW",
+  "queue_saturation_policy": "DROP_SHADOW_TASK_AND_AUDIT",
+  "implementation_authorized": true,
+  "invariants": {
+    "default_mode": "LEGACY_ONLY",
+    "shadow_default_enabled": false,
+    "user_visible_shadow_output": false,
+    "protected_files_modified": 0,
+    "production_wiring_started": false,
+    "live_patient_data_used": false,
+    "neo4j_connections_designed": 0,
+    "graph_writes_designed": 0,
+    "external_network_calls_designed": 0,
+    "llm_calls_designed": 0
+  },
+  "fixture_count": 140
+}

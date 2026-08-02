@@ -1,0 +1,208 @@
+{
+  "audit_metadata": {
+    "auditor": "Agent 6 — Independent Wave 4 Auditor",
+    "timestamp": "2026-07-22T19:39:39+03:00",
+    "mode": "Strictly read-only audit",
+    "pytest_output_file": "tests/WAVE_4_FINAL_PYTEST_OUTPUT.txt",
+    "total_tests_collected": 635,
+    "total_tests_passed": 635,
+    "total_tests_failed": 0,
+    "pytest_exit_code": 0,
+    "verdict": "PASS"
+  },
+  "gate_c_requirements": [
+    {
+      "id": "C.1",
+      "requirement": "All frozen entities implemented",
+      "status": "PASS",
+      "source_reference": "gate_c/models.py",
+      "test_reference": "tests/test_gate_c_models.py"
+    },
+    {
+      "id": "C.2",
+      "requirement": "All 60 fixtures exercised",
+      "status": "PASS",
+      "source_reference": "tests/fixtures/gate_c/novelty_cases.jsonl",
+      "test_reference": "tests/test_gate_c_models.py::test_fixture_count_is_60"
+    },
+    {
+      "id": "C.3",
+      "requirement": "Novelty remains discovery-only",
+      "status": "PASS",
+      "source_reference": "gate_c/models.py:43",
+      "test_reference": "tests/test_gate_c_models.py::TestNoveltyCandidate::test_default_status_is_discovery_only"
+    },
+    {
+      "id": "C.4",
+      "requirement": "Human review is mandatory",
+      "status": "PASS",
+      "source_reference": "gate_c/review_queue.py",
+      "test_reference": "tests/test_gate_c_review_queue.py::TestReviewQueueManager::test_enqueue_pending_review"
+    },
+    {
+      "id": "C.5",
+      "requirement": "No automatic promotion",
+      "status": "PASS",
+      "source_reference": "gate_cd_boundary/evidence_eligibility.py:139-141",
+      "test_reference": "tests/test_gate_cd_boundary.py::TestNoAutomaticPromotion"
+    },
+    {
+      "id": "C.6",
+      "requirement": "Unknown thresholds fail closed",
+      "status": "PASS",
+      "source_reference": "gate_c/novelty_engine.py:38-39",
+      "test_reference": "tests/test_gate_c_novelty_engine.py"
+    },
+    {
+      "id": "C.7",
+      "requirement": "Provenance is required",
+      "status": "PASS",
+      "source_reference": "gate_c/models.py:26-30",
+      "test_reference": "tests/test_gate_c_models.py::TestEvidenceBundle::test_has_provenance_empty_items_fails_closed"
+    },
+    {
+      "id": "C.8",
+      "requirement": "Contradictions remain visible",
+      "status": "PASS",
+      "source_reference": "gate_c/novelty_engine.py:75-80",
+      "test_reference": "tests/test_gate_c_novelty_engine.py::TestNoveltyEngineUnit::test_contradictory_candidate_returns_possible_contradiction"
+    },
+    {
+      "id": "C.9",
+      "requirement": "No graph writes",
+      "status": "PASS",
+      "source_reference": "gate_c/known_knowledge.py",
+      "test_reference": "tests/test_gate_c_no_write.py::TestGateCNoWrite::test_no_write_operations_performed"
+    },
+    {
+      "id": "C.10",
+      "requirement": "No LLM calls",
+      "status": "PASS",
+      "source_reference": "gate_c/novelty_engine.py:30",
+      "test_reference": "tests/test_ast_audit.py"
+    }
+  ],
+  "gate_d_requirements": [
+    {
+      "id": "D.1",
+      "requirement": "All frozen entities implemented",
+      "status": "PASS",
+      "source_reference": "gate_d/models.py",
+      "test_reference": "tests/test_gate_d_models.py"
+    },
+    {
+      "id": "D.2",
+      "requirement": "All 60 fixtures exercised",
+      "status": "PASS",
+      "source_reference": "tests/fixtures/gate_d/consultation_cases.jsonl",
+      "test_reference": "tests/test_gate_d_acceptance.py"
+    },
+    {
+      "id": "D.3",
+      "requirement": "Human authority is explicit",
+      "status": "PASS",
+      "source_reference": "gate_d/consultation_engine.py:92",
+      "test_reference": "tests/test_gate_d_consultation_engine.py"
+    },
+    {
+      "id": "D.4",
+      "requirement": "Diagnosis and treatment decisions are blocked",
+      "status": "PASS",
+      "source_reference": "gate_d/safety_policy.py:25-32",
+      "test_reference": "tests/test_gate_d_safety_policy.py::TestSafetyPolicy::test_permanent_write_block"
+    },
+    {
+      "id": "D.5",
+      "requirement": "PII is rejected",
+      "status": "PASS",
+      "source_reference": "gate_d/safety_policy.py:20-23",
+      "test_reference": "tests/test_gate_d_safety_policy.py::TestSafetyPolicy::test_pii_detection"
+    },
+    {
+      "id": "D.6",
+      "requirement": "No live patient data",
+      "status": "PASS",
+      "source_reference": "gate_d/models.py:9",
+      "test_reference": "tests/test_gate_d_models.py::TestConsultationModels::test_consultation_context"
+    },
+    {
+      "id": "D.7",
+      "requirement": "Evidence and uncertainty are visible",
+      "status": "PASS",
+      "source_reference": "gate_d/language_policy.py",
+      "test_reference": "tests/test_gate_d_language_policy.py::TestLanguagePolicy::test_uncertainty_formatting"
+    },
+    {
+      "id": "D.8",
+      "requirement": "Therapist override exists",
+      "status": "PASS",
+      "source_reference": "gate_d/consultation_engine.py:114-125",
+      "test_reference": "tests/test_gate_d_consultation_engine.py"
+    },
+    {
+      "id": "D.9",
+      "requirement": "Audit events are created",
+      "status": "PASS",
+      "source_reference": "gate_d/audit_trail.py",
+      "test_reference": "tests/test_gate_d_audit_trail.py::TestAuditTrail::test_audit_event_logging"
+    },
+    {
+      "id": "D.10",
+      "requirement": "No direct patient-facing output",
+      "status": "PASS",
+      "source_reference": "gate_d/safety_policy.py:41",
+      "test_reference": "tests/test_gate_d_acceptance.py"
+    },
+    {
+      "id": "D.11",
+      "requirement": "No crisis automation",
+      "status": "PASS",
+      "source_reference": "gate_d/safety_policy.py:17-18",
+      "test_reference": "tests/test_gate_d_safety_policy.py"
+    }
+  ],
+  "shared_boundary_requirements": [
+    {
+      "id": "B.1",
+      "requirement": "Gate D cannot consume unreviewed novelty",
+      "status": "PASS",
+      "source_reference": "gate_d/evidence_filter.py:12-13",
+      "test_reference": "tests/test_gate_cd_boundary.py::TestPendingNoveltyBlocked"
+    },
+    {
+      "id": "B.2",
+      "requirement": "Gate C cannot promote itself",
+      "status": "PASS",
+      "source_reference": "gate_cd_boundary/evidence_eligibility.py:139-141",
+      "test_reference": "tests/test_gate_cd_boundary.py::TestNoAutomaticPromotion"
+    },
+    {
+      "id": "B.3",
+      "requirement": "No production imports",
+      "status": "PASS",
+      "source_reference": "gate_cd_boundary/models.py:19",
+      "test_reference": "tests/test_gate_cd_boundary.py::TestNoProductionImports"
+    },
+    {
+      "id": "B.4",
+      "requirement": "No protected-file changes",
+      "status": "PASS",
+      "source_reference": "initial_hashes.json",
+      "test_reference": "tests/test_ast_audit.py"
+    },
+    {
+      "id": "B.5",
+      "requirement": "Frozen contracts and fixtures unchanged",
+      "status": "PASS",
+      "source_reference": "initial_hashes.json",
+      "test_reference": "tests/test_ast_audit.py"
+    },
+    {
+      "id": "B.6",
+      "requirement": "Raw pytest output supports all reported totals (635 passed, 0 failed, exit code 0)",
+      "status": "PASS",
+      "source_reference": "tests/WAVE_4_FINAL_PYTEST_OUTPUT.txt",
+      "test_reference": "tests/WAVE_4_FINAL_PYTEST_OUTPUT.txt"
+    }
+  ]
+}

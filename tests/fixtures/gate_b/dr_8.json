@@ -1,0 +1,1 @@
+{"id": "dr_8", "description": "Cross-pilot relation", "nodes": [{"id": "n1", "scope": "PilotA"}, {"id": "n2", "scope": "PilotB"}], "edges": [{"source": "n1", "target": "n2", "type": "INFER", "status": "APPROVED", "provenance": "src", "review_state": "REVIEWED"}], "expected_decision": "REJECTED", "blocking_reason": "Cross-pilot relations are restricted"}

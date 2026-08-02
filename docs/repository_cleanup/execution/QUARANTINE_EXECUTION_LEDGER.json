@@ -1,0 +1,187 @@
+{
+  "execution_title": "Quarantine Execution Ledger",
+  "version": "1.0.0",
+  "total_moves_executed": 18,
+  "entries": [
+    {
+      "source": "ingestion_pipeline.before_concept_relationship_block.py",
+      "destination": "_archive/historical_patches/ingestion_pipeline.before_concept_relationship_block.py",
+      "tracked_status": "TRACKED",
+      "move_command": "git mv ingestion_pipeline.before_concept_relationship_block.py _archive/historical_patches/ingestion_pipeline.before_concept_relationship_block.py",
+      "move_result": "SUCCESS",
+      "source_absent_after_move": true,
+      "destination_present_after_move": true,
+      "rollback_command": "git mv _archive/historical_patches/ingestion_pipeline.before_concept_relationship_block.py ingestion_pipeline.before_concept_relationship_block.py"
+    },
+    {
+      "source": "ingestion_pipeline.before_lexicon_guard.py",
+      "destination": "_archive/historical_patches/ingestion_pipeline.before_lexicon_guard.py",
+      "tracked_status": "TRACKED",
+      "move_command": "git mv ingestion_pipeline.before_lexicon_guard.py _archive/historical_patches/ingestion_pipeline.before_lexicon_guard.py",
+      "move_result": "SUCCESS",
+      "source_absent_after_move": true,
+      "destination_present_after_move": true,
+      "rollback_command": "git mv _archive/historical_patches/ingestion_pipeline.before_lexicon_guard.py ingestion_pipeline.before_lexicon_guard.py"
+    },
+    {
+      "source": "ingestion_pipeline.before_pdf_support.py",
+      "destination": "_archive/historical_patches/ingestion_pipeline.before_pdf_support.py",
+      "tracked_status": "TRACKED",
+      "move_command": "git mv ingestion_pipeline.before_pdf_support.py _archive/historical_patches/ingestion_pipeline.before_pdf_support.py",
+      "move_result": "SUCCESS",
+      "source_absent_after_move": true,
+      "destination_present_after_move": true,
+      "rollback_command": "git mv _archive/historical_patches/ingestion_pipeline.before_pdf_support.py ingestion_pipeline.before_pdf_support.py"
+    },
+    {
+      "source": "ingestion_pipeline.before_review_queue.py",
+      "destination": "_archive/historical_patches/ingestion_pipeline.before_review_queue.py",
+      "tracked_status": "TRACKED",
+      "move_command": "git mv ingestion_pipeline.before_review_queue.py _archive/historical_patches/ingestion_pipeline.before_review_queue.py",
+      "move_result": "SUCCESS",
+      "source_absent_after_move": true,
+      "destination_present_after_move": true,
+      "rollback_command": "git mv _archive/historical_patches/ingestion_pipeline.before_review_queue.py ingestion_pipeline.before_review_queue.py"
+    },
+    {
+      "source": "add_review_queue_dump.txt",
+      "destination": "_archive/generated_artifacts/add_review_queue_dump.txt",
+      "tracked_status": "TRACKED",
+      "move_command": "git mv add_review_queue_dump.txt _archive/generated_artifacts/add_review_queue_dump.txt",
+      "move_result": "SUCCESS",
+      "source_absent_after_move": true,
+      "destination_present_after_move": true,
+      "rollback_command": "git mv _archive/generated_artifacts/add_review_queue_dump.txt add_review_queue_dump.txt"
+    },
+    {
+      "source": "block_dump.txt",
+      "destination": "_archive/generated_artifacts/block_dump.txt",
+      "tracked_status": "TRACKED",
+      "move_command": "git mv block_dump.txt _archive/generated_artifacts/block_dump.txt",
+      "move_result": "SUCCESS",
+      "source_absent_after_move": true,
+      "destination_present_after_move": true,
+      "rollback_command": "git mv _archive/generated_artifacts/block_dump.txt block_dump.txt"
+    },
+    {
+      "source": "load_approved_dump.txt",
+      "destination": "_archive/generated_artifacts/load_approved_dump.txt",
+      "tracked_status": "TRACKED",
+      "move_command": "git mv load_approved_dump.txt _archive/generated_artifacts/load_approved_dump.txt",
+      "move_result": "SUCCESS",
+      "source_absent_after_move": true,
+      "destination_present_after_move": true,
+      "rollback_command": "git mv _archive/generated_artifacts/load_approved_dump.txt load_approved_dump.txt"
+    },
+    {
+      "source": "review_app_dump.txt",
+      "destination": "_archive/generated_artifacts/review_app_dump.txt",
+      "tracked_status": "TRACKED",
+      "move_command": "git mv review_app_dump.txt _archive/generated_artifacts/review_app_dump.txt",
+      "move_result": "SUCCESS",
+      "source_absent_after_move": true,
+      "destination_present_after_move": true,
+      "rollback_command": "git mv _archive/generated_artifacts/review_app_dump.txt review_app_dump.txt"
+    },
+    {
+      "source": "temp_log.txt",
+      "destination": "_archive/generated_artifacts/temp_log.txt",
+      "tracked_status": "TRACKED",
+      "move_command": "git mv temp_log.txt _archive/generated_artifacts/temp_log.txt",
+      "move_result": "SUCCESS",
+      "source_absent_after_move": true,
+      "destination_present_after_move": true,
+      "rollback_command": "git mv _archive/generated_artifacts/temp_log.txt temp_log.txt"
+    },
+    {
+      "source": "output.txt",
+      "destination": "_archive/generated_artifacts/output.txt",
+      "tracked_status": "UNTRACKED",
+      "move_command": "fs move output.txt _archive/generated_artifacts/output.txt",
+      "move_result": "SUCCESS",
+      "source_absent_after_move": true,
+      "destination_present_after_move": true,
+      "rollback_command": "fs move _archive/generated_artifacts/output.txt output.txt"
+    },
+    {
+      "source": "error_log.txt",
+      "destination": "_archive/generated_artifacts/error_log.txt",
+      "tracked_status": "TRACKED",
+      "move_command": "git mv error_log.txt _archive/generated_artifacts/error_log.txt",
+      "move_result": "SUCCESS",
+      "source_absent_after_move": true,
+      "destination_present_after_move": true,
+      "rollback_command": "git mv _archive/generated_artifacts/error_log.txt error_log.txt"
+    },
+    {
+      "source": "add_lexicon_guard.py",
+      "destination": "_archive/historical_patches/add_lexicon_guard.py",
+      "tracked_status": "TRACKED",
+      "move_command": "git mv add_lexicon_guard.py _archive/historical_patches/add_lexicon_guard.py",
+      "move_result": "SUCCESS",
+      "source_absent_after_move": true,
+      "destination_present_after_move": true,
+      "rollback_command": "git mv _archive/historical_patches/add_lexicon_guard.py add_lexicon_guard.py"
+    },
+    {
+      "source": "add_missing_synonyms.py",
+      "destination": "_archive/historical_patches/add_missing_synonyms.py",
+      "tracked_status": "TRACKED",
+      "move_command": "git mv add_missing_synonyms.py _archive/historical_patches/add_missing_synonyms.py",
+      "move_result": "SUCCESS",
+      "source_absent_after_move": true,
+      "destination_present_after_move": true,
+      "rollback_command": "git mv _archive/historical_patches/add_missing_synonyms.py add_missing_synonyms.py"
+    },
+    {
+      "source": "add_pdf_support.py",
+      "destination": "_archive/historical_patches/add_pdf_support.py",
+      "tracked_status": "TRACKED",
+      "move_command": "git mv add_pdf_support.py _archive/historical_patches/add_pdf_support.py",
+      "move_result": "SUCCESS",
+      "source_absent_after_move": true,
+      "destination_present_after_move": true,
+      "rollback_command": "git mv _archive/historical_patches/add_pdf_support.py add_pdf_support.py"
+    },
+    {
+      "source": "add_relationship_guard.py",
+      "destination": "_archive/historical_patches/add_relationship_guard.py",
+      "tracked_status": "TRACKED",
+      "move_command": "git mv add_relationship_guard.py _archive/historical_patches/add_relationship_guard.py",
+      "move_result": "SUCCESS",
+      "source_absent_after_move": true,
+      "destination_present_after_move": true,
+      "rollback_command": "git mv _archive/historical_patches/add_relationship_guard.py add_relationship_guard.py"
+    },
+    {
+      "source": "add_review_queue.py",
+      "destination": "_archive/historical_patches/add_review_queue.py",
+      "tracked_status": "TRACKED",
+      "move_command": "git mv add_review_queue.py _archive/historical_patches/add_review_queue.py",
+      "move_result": "SUCCESS",
+      "source_absent_after_move": true,
+      "destination_present_after_move": true,
+      "rollback_command": "git mv _archive/historical_patches/add_review_queue.py add_review_queue.py"
+    },
+    {
+      "source": "block_concept_relationships.py",
+      "destination": "_archive/historical_patches/block_concept_relationships.py",
+      "tracked_status": "TRACKED",
+      "move_command": "git mv block_concept_relationships.py _archive/historical_patches/block_concept_relationships.py",
+      "move_result": "SUCCESS",
+      "source_absent_after_move": true,
+      "destination_present_after_move": true,
+      "rollback_command": "git mv _archive/historical_patches/block_concept_relationships.py block_concept_relationships.py"
+    },
+    {
+      "source": "patch.py",
+      "destination": "_archive/historical_patches/patch.py",
+      "tracked_status": "TRACKED",
+      "move_command": "git mv patch.py _archive/historical_patches/patch.py",
+      "move_result": "SUCCESS",
+      "source_absent_after_move": true,
+      "destination_present_after_move": true,
+      "rollback_command": "git mv _archive/historical_patches/patch.py patch.py"
+    }
+  ]
+}

@@ -1,0 +1,194 @@
+{
+  "overall": {
+    "legacy": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "F1": 0.0,
+      "exact_case_accuracy": 0.0,
+      "span_precision": "NOT_SUPPORTED_BY_LEGACY",
+      "span_recall": "NOT_SUPPORTED_BY_LEGACY",
+      "span_F1": "NOT_SUPPORTED_BY_LEGACY",
+      "false_positive_count": 0,
+      "false_negative_count": 170
+    },
+    "trie": {
+      "precision": 1.0,
+      "recall": 0.8235294117647058,
+      "F1": 0.9032258064516129,
+      "exact_case_accuracy": 0.8333333333333334,
+      "span_precision": 1.0,
+      "span_recall": 0.8235294117647058,
+      "span_F1": 0.9032258064516129,
+      "false_positive_count": 0,
+      "false_negative_count": 30
+    }
+  },
+  "per_category": {
+    "legacy": {
+      "LONGEST_MATCH": {
+        "case_count": 25,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0,
+        "exact_case_accuracy": 0.0,
+        "false_positive_count": 0,
+        "false_negative_count": 25
+      },
+      "WORD_BOUNDARY": {
+        "case_count": 25,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0,
+        "exact_case_accuracy": 0.0,
+        "false_positive_count": 0,
+        "false_negative_count": 25
+      },
+      "NIQQUD": {
+        "case_count": 20,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0,
+        "exact_case_accuracy": 0.0,
+        "false_positive_count": 0,
+        "false_negative_count": 20
+      },
+      "PUNCTUATION": {
+        "case_count": 20,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0,
+        "exact_case_accuracy": 0.0,
+        "false_positive_count": 0,
+        "false_negative_count": 20
+      },
+      "MIXED_RTL_LTR": {
+        "case_count": 20,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0,
+        "exact_case_accuracy": 0.0,
+        "false_positive_count": 0,
+        "false_negative_count": 20
+      },
+      "OVERLAPPING_TERMS": {
+        "case_count": 20,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0,
+        "exact_case_accuracy": 0.0,
+        "false_positive_count": 0,
+        "false_negative_count": 40
+      },
+      "UNSAFE_SHORT_ALIAS": {
+        "case_count": 20,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0,
+        "exact_case_accuracy": 0.0,
+        "false_positive_count": 0,
+        "false_negative_count": 0
+      },
+      "NEGATIVE_FALSE_POSITIVE": {
+        "case_count": 20,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0,
+        "exact_case_accuracy": 0.0,
+        "false_positive_count": 0,
+        "false_negative_count": 0
+      },
+      "ALIAS_COLLISION": {
+        "case_count": 10,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0,
+        "exact_case_accuracy": 0.0,
+        "false_positive_count": 0,
+        "false_negative_count": 20
+      }
+    },
+    "trie": {
+      "LONGEST_MATCH": {
+        "case_count": 25,
+        "precision": 1.0,
+        "recall": 1.0,
+        "F1": 1.0,
+        "exact_case_accuracy": 1.0,
+        "false_positive_count": 0,
+        "false_negative_count": 0
+      },
+      "WORD_BOUNDARY": {
+        "case_count": 25,
+        "precision": 1.0,
+        "recall": 1.0,
+        "F1": 1.0,
+        "exact_case_accuracy": 1.0,
+        "false_positive_count": 0,
+        "false_negative_count": 0
+      },
+      "NIQQUD": {
+        "case_count": 20,
+        "precision": 1.0,
+        "recall": 1.0,
+        "F1": 1.0,
+        "exact_case_accuracy": 1.0,
+        "false_positive_count": 0,
+        "false_negative_count": 0
+      },
+      "PUNCTUATION": {
+        "case_count": 20,
+        "precision": 1.0,
+        "recall": 1.0,
+        "F1": 1.0,
+        "exact_case_accuracy": 1.0,
+        "false_positive_count": 0,
+        "false_negative_count": 0
+      },
+      "MIXED_RTL_LTR": {
+        "case_count": 20,
+        "precision": 1.0,
+        "recall": 1.0,
+        "F1": 1.0,
+        "exact_case_accuracy": 1.0,
+        "false_positive_count": 0,
+        "false_negative_count": 0
+      },
+      "OVERLAPPING_TERMS": {
+        "case_count": 20,
+        "precision": 1.0,
+        "recall": 0.5,
+        "F1": 0.6666666666666666,
+        "exact_case_accuracy": 0.0,
+        "false_positive_count": 0,
+        "false_negative_count": 20
+      },
+      "UNSAFE_SHORT_ALIAS": {
+        "case_count": 20,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0,
+        "exact_case_accuracy": 1.0,
+        "false_positive_count": 0,
+        "false_negative_count": 0
+      },
+      "NEGATIVE_FALSE_POSITIVE": {
+        "case_count": 20,
+        "precision": 0.0,
+        "recall": 0.0,
+        "F1": 0.0,
+        "exact_case_accuracy": 1.0,
+        "false_positive_count": 0,
+        "false_negative_count": 0
+      },
+      "ALIAS_COLLISION": {
+        "case_count": 10,
+        "precision": 1.0,
+        "recall": 0.5,
+        "F1": 0.6666666666666666,
+        "exact_case_accuracy": 0.0,
+        "false_positive_count": 0,
+        "false_negative_count": 10
+      }
+    }
+  }
+}

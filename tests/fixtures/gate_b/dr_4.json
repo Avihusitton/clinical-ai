@@ -1,0 +1,1 @@
+{"id": "dr_4", "description": "Navigation-only relation", "nodes": [{"id": "n1"}, {"id": "n2"}], "edges": [{"source": "n1", "target": "n2", "type": "NAVIGATE", "status": "APPROVED", "provenance": "src", "review_state": "REVIEWED"}], "expected_decision": "REJECTED", "blocking_reason": "Navigation-only relations cannot be used for inference"}

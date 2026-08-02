@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Shadow Comparison Result Schema",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [
+    "comparison_id",
+    "request_id",
+    "difference_class",
+    "legacy_latency_ms",
+    "shadow_latency_ms",
+    "shadow_verdict",
+    "is_fallback",
+    "telemetry_record"
+  ],
+  "properties": {
+    "comparison_id": { "type": "string" },
+    "request_id": { "type": "string" },
+    "difference_class": {
+      "type": "string",
+      "enum": [
+        "AGREEMENT",
+        "LEGACY_ONLY_EVIDENCE",
+        "SHADOW_ONLY_REVIEWED_EVIDENCE",
+        "RANKING_DIFFERENCE",
+        "UNCERTAINTY_DIFFERENCE",
+        "SAFETY_BLOCK_DIFFERENCE",
+        "FALLBACK_TRIGGERED",
+        "SHADOW_ERROR",
+        "SHADOW_TIMEOUT"
+      ]
+    },
+    "legacy_latency_ms": { "type": "number" },
+    "shadow_latency_ms": { "type": "number" },
+    "shadow_verdict": { "type": "string" },
+    "is_fallback": { "type": "boolean" },
+    "telemetry_record": { "type": "object" }
+  }
+}

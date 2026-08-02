@@ -1,0 +1,143 @@
+{
+  "validator_source_sha256": "44eccfea709187e1b15d88024fecb4100a509cb81b84606814e5589b0973cba8",
+  "validation_input_hashes": {
+    "harness_source": "97e32063490b95a7de504e7748c746933a80b551e1c5faf68980f842ab167c84",
+    "harness_output": "472eb1425096e1df3b00443889269655b0235683f8a4094a15f91ba7f958f9ff",
+    "execution_attestation": "32cb3e4abcfb1ceb9fe58770cf2a0158bba0e7c264d341390725c3df7ce99776",
+    "ast_attestation": "9e0389df1d14190dc56f1f134f9d7a5bfc4b8aee9cf67a0ced49b2bf231ba3c1"
+  },
+  "input_hashes_match": true,
+  "legacy_exception_validation": {
+    "result": "PASS",
+    "observed": {
+      "legacy_exception_record_count": 3,
+      "legacy_exception_distinct_ids": [
+        "EXC-CANDIDATE-MATCH",
+        "EXC-LEGACY-COMPOSE",
+        "EXC-GRAPH-RETRIEVAL"
+      ],
+      "legacy_exception_distinct_sources": [
+        "_compose",
+        "find_entry_concepts",
+        "_run_reasoning"
+      ],
+      "records_valid": true
+    },
+    "expected": ">= 3 distinct exception records with matching classes/messages and shadow_submit_count == 0",
+    "calculation": "exc_count >= 3 and len(distinct_ids) >= 3 and all(classes_match and messages_match and sub_count == 0)",
+    "evidence_file": "tests\\WAVE_8_LEGACY_INVARIANCE_REPORT.json"
+  },
+  "queue_saturation_validation": {
+    "result": "PASS",
+    "observed": {
+      "submit_3_returned_ns": 452020181701300,
+      "worker_release_ns": 452020181701400,
+      "sub3_accepted": false,
+      "queue_saturation_event_count": 1,
+      "saturated_submit_returned_before_release": true
+    },
+    "expected": "submit_3_returned_ns < worker_release_ns and sub3_accepted == False and queue_saturation_event_count >= 1",
+    "calculation": "submit_3_returned_ns < worker_release_ns and sub3_accepted == False and q_sat_count >= 1",
+    "evidence_file": "tests\\WAVE_8_6_HARNESS_OUTPUT.txt"
+  },
+  "scenario_f1_validation": {
+    "result": "PASS",
+    "classification": "REQUEST_RETURNED_BEFORE_WORKER_SCHEDULED",
+    "observed": {
+      "answer_returned_ns": 452020182368000,
+      "runner_entered_ns": 452020182386200,
+      "runner_release_requested_ns": 452020182405900,
+      "answer_returned_before_worker_entered": true
+    },
+    "expected": "answer_returned_ns < runner_entered_ns",
+    "calculation": "ans_ret_f1 < run_ent_f1",
+    "evidence_file": "tests\\WAVE_8_6_HARNESS_OUTPUT.txt"
+  },
+  "scenario_f2_validation": {
+    "result": "PASS",
+    "observed": {
+      "priming_submit_started_ns": 452020182536700,
+      "runner_entered_ns": 452020182687100,
+      "answer_started_ns": 452020182823400,
+      "answer_returned_ns": 452020183207700,
+      "runner_release_requested_ns": 452020183208100,
+      "runner_exited_ns": 452020183264100,
+      "runner_exited_event_set_before_release": false
+    },
+    "recalculated_values": {
+      "runner_preblocked_before_answer_started": true,
+      "runner_still_blocked_when_answer_returned": true,
+      "answer_returned_before_runner_release": true,
+      "runner_exited_after_release": true
+    },
+    "expected": "runner_entered_ns <= answer_started_ns and runner_entered_ns <= answer_returned_ns < runner_release_requested_ns and runner_release_requested_ns <= runner_exited_ns",
+    "calculation": "run_ent_f2 <= ans_started_f2 and run_ent_f2 <= ans_ret_f2 < rel_req_f2 and rel_req_f2 <= run_exit_f2",
+    "evidence_file": "tests\\WAVE_8_6_HARNESS_OUTPUT.txt"
+  },
+  "emergency_disable_validation": {
+    "result": "PASS",
+    "observed": {
+      "emergency_disable_active": true,
+      "task_submitted": false,
+      "worker_created": false
+    },
+    "expected": "emergency_disable_active is True and task_submitted is False and worker_created is False",
+    "calculation": "em_active is True and task_sub is False and worker_created is False",
+    "evidence_file": "tests\\WAVE_8_6_HARNESS_OUTPUT.txt"
+  },
+  "pii_record_validation": {
+    "result": "PASS",
+    "observed": {
+      "record_count": 20,
+      "expected_pii_case_ids_count": 20,
+      "all_pii_detected": true,
+      "all_tasks_rejected": true,
+      "all_audit_clean": true
+    },
+    "expected": "record_count == 20 and distinct case_ids == 20 and all PII detected/rejected/clean",
+    "calculation": "cases_tested_count == 20 and len(expected_case_ids) == 20 and all_pii_detected and all_tasks_rejected and all_audit_clean",
+    "evidence_file": "tests\\WAVE_8_6_HARNESS_OUTPUT.txt"
+  },
+  "ast_source_validation": {
+    "result": "PASS",
+    "observed": {
+      "ast_parse_success": true,
+      "synthetic_query_subscript_count": 0,
+      "pii_results_append_call_count": 1,
+      "emergency_env_cleanup_count": 1,
+      "try_finally_count": 4
+    },
+    "expected": "ast_parse_success == True and synthetic_query_subscript_count == 0 and pii_append >= 1 and try_finally >= 1",
+    "calculation": "ast_success is True and syn_subscript_count == 0 and pii_append_count >= 1 and try_finally_count >= 1",
+    "evidence_file": "tests\\WAVE_8_4_AST_ATTESTATION.json"
+  },
+  "execution_source_binding": {
+    "result": "PASS",
+    "observed": {
+      "current_harness_src_hash": "97e32063490b95a7de504e7748c746933a80b551e1c5faf68980f842ab167c84",
+      "exec_hash_before": "97e32063490b95a7de504e7748c746933a80b551e1c5faf68980f842ab167c84",
+      "exec_hash_after": "97e32063490b95a7de504e7748c746933a80b551e1c5faf68980f842ab167c84",
+      "stored_source_identity_hash": "ce797be3c8b7fc3134a49624f882b7cf8c39e46183e88e4d4c5cacc00df0c1e9",
+      "source_unchanged_during_execution": true,
+      "exec_exit_code": 0
+    },
+    "expected": "current_harness_src_hash == exec_hash_before == exec_hash_after and source_unchanged == True and exit_code == 0",
+    "calculation": "current_harness_src_hash == exec_hash_before == exec_hash_after and source_unchanged is True and exec_exit_code == 0",
+    "evidence_file": "tests\\WAVE_8_6_EXECUTION_ATTESTATION.json"
+  },
+  "redaction_benchmark_validation": {
+    "result": "PASS",
+    "observed": {
+      "positive_cases_detected": "20/20",
+      "negative_cases_flagged": "0/60",
+      "approved_wording": "Observed recall on the supplied synthetic positive set: 20/20. Observed false-positive count on the supplied synthetic negative set: 0/60. These results do not establish general production precision or recall.",
+      "wording_has_disclaimer": true,
+      "wording_has_overclaim": false
+    },
+    "expected": "pos_detected == '20/20' and neg_flagged == '0/60' and contains disclaimer without overclaim",
+    "calculation": "pos_detected == '20/20' and neg_flagged == '0/60' and wording_has_disclaimer and not wording_has_overclaim",
+    "evidence_file": "tests\\WAVE_8_4_REDACTION_BENCHMARK.json"
+  },
+  "failed_checks": [],
+  "validator_result": "PASS"
+}

@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Gate C Interface Contract",
+  "type": "object",
+  "definitions": {
+    "NoveltyType": {
+      "type": "string",
+      "enum": [
+        "NEW_RELATION_CANDIDATE",
+        "MISSING_OFFICIAL_ENTRY",
+        "MISSING_ALIAS",
+        "POSSIBLE_CONTRADICTION",
+        "POSSIBLE_DUPLICATE",
+        "INSUFFICIENT_EVIDENCE",
+        "KNOWN_KNOWLEDGE",
+        "OUT_OF_SCOPE"
+      ]
+    },
+    "EvidenceItem": {
+      "type": "object",
+      "properties": {
+        "source_id": { "type": "string" },
+        "excerpt": { "type": "string" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "required": ["source_id", "excerpt", "confidence"]
+    },
+    "EvidenceBundle": {
+      "type": "object",
+      "properties": {
+        "items": { "type": "array", "items": { "$ref": "#/definitions/EvidenceItem" } },
+        "overall_consistency_score": { "type": "number" }
+      },
+      "required": ["items"]
+    },
+    "KnownKnowledgeCheck": {
+      "type": "object",
+      "properties": {
+        "closest_matches": { "type": "array", "items": { "type": "string" } },
+        "semantic_distance": { "type": "number" }
+      }
+    },
+    "ContradictionRecord": {
+      "type": "object",
+      "properties": {
+        "conflicting_knowledge_id": { "type": "string" },
+        "description": { "type": "string" },
+        "severity": { "type": "string" }
+      }
+    },
+    "NoveltyScoreComponents": {
+      "type": "object",
+      "properties": {
+        "source_confidence": { "type": ["number", "null"] },
+        "evidence_consistency": { "type": ["number", "null"] },
+        "provenance_quality": { "type": ["number", "null"] },
+        "semantic_distance_from_known_knowledge": { "type": ["number", "null"] },
+        "duplicate_risk": { "type": ["number", "null"] },
+        "contradiction_risk": { "type": ["number", "null"] },
+        "scope_fit": { "type": ["number", "null"] }
+      }
+    },
+    "NoveltyExplanation": {
+      "type": "object",
+      "properties": {
+        "reasoning": { "type": "string" },
+        "evidence_summary": { "type": "string" }
+      }
+    },
+    "ReviewDecision": {
+      "type": "object",
+      "properties": {
+        "reviewer_id": { "type": "string" },
+        "decision": { "type": "string", "enum": ["APPROVED", "REJECTED", "NEEDS_MORE_EVIDENCE"] },
+        "comments": { "type": "string" }
+      }
+    },
+    "NoveltyDecision": {
+      "type": "object",
+      "properties": {
+        "decision_status": { "type": "string", "const": "PENDING_HUMAN_REVIEW" },
+        "safety_mode": { "type": "string", "const": "DISCOVERY_ONLY" }
+      }
+    },
+    "NoveltyCandidate": {
+      "type": "object",
+      "properties": {
+        "candidate_id": { "type": "string" },
+        "novelty_type": { "$ref": "#/definitions/NoveltyType" },
+        "evidence_bundle": { "$ref": "#/definitions/EvidenceBundle" },
+        "known_knowledge_check": { "$ref": "#/definitions/KnownKnowledgeCheck" },
+        "contradiction_records": { "type": "array", "items": { "$ref": "#/definitions/ContradictionRecord" } },
+        "scores": { "$ref": "#/definitions/NoveltyScoreComponents" },
+        "explanation": { "$ref": "#/definitions/NoveltyExplanation" },
+        "decision": { "$ref": "#/definitions/NoveltyDecision" },
+        "review": { "$ref": "#/definitions/ReviewDecision" }
+      },
+      "required": ["candidate_id", "novelty_type", "evidence_bundle", "scores", "decision"]
+    }
+  }
+}

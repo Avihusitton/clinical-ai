@@ -1,0 +1,52 @@
+{
+  "backend_type": "DEDICATED_NEO4J_TEST_DATABASE",
+  "environment_marker": "test",
+  "database_name": "neo4j",
+  "configured_test_database": "neo4j",
+  "database_identity_verified": true,
+  "database_is_not_production": true,
+  "pilot_id": "GATE_A_REAL_SHADOW_47F3D04B",
+  "fixture_card_count": 3,
+  "dry_run_read_query_count": 10,
+  "dry_run_write_query_count": 0,
+  "shadow_entries_after_load": 3,
+  "shadow_aliases_after_load": 3,
+  "shadow_alias_of_after_load": 3,
+  "cross_boundary_relationships": 0,
+  "orphan_shadow_aliases": 0,
+  "shadow_entries_missing_pilot_id": 0,
+  "shadow_aliases_missing_pilot_id": 0,
+  "shadow_aliases_linked_to_wrong_pilot": 0,
+  "second_load_new_entries": 0,
+  "second_load_updated_entries": 0,
+  "second_load_unchanged_entries": 3,
+  "shadow_entries_after_cleanup": 0,
+  "shadow_aliases_after_cleanup": 0,
+  "non_shadow_nodes_with_pilot_id": 0,
+  "production_counts_before_by_label": {
+    "Chunk": 1005,
+    "Concept": 33,
+    "Exercise": 2
+  },
+  "production_counts_after_by_label": {
+    "Chunk": 1005,
+    "Concept": 33,
+    "Exercise": 2
+  },
+  "production_relationships_before_by_type": {
+    "HAS_CANDIDATE": 1779,
+    "IS_RECOMMENDED_FOR": 1,
+    "IS_SYMPTOM_OF": 1,
+    "LEADS_TO": 2,
+    "LINKED_TO": 638,
+    "WORKS_ON": 37
+  },
+  "production_relationships_after_by_type": {
+    "HAS_CANDIDATE": 1779,
+    "IS_RECOMMENDED_FOR": 1,
+    "IS_SYMPTOM_OF": 1,
+    "LEADS_TO": 2,
+    "LINKED_TO": 638,
+    "WORKS_ON": 37
+  }
+}

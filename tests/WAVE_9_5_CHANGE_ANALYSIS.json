@@ -1,0 +1,13 @@
+{
+  "file_path": "tests/test_real_shadow_pilot.py",
+  "lines_added": 40,
+  "lines_removed": 233,
+  "original_assertion_count": 21,
+  "current_parent_assertion_count": 5,
+  "runner_assertion_count": 21,
+  "original_skip_conditions_preserved": true,
+  "original_failure_behavior_preserved": true,
+  "original_cleanup_behavior_preserved": true,
+  "original_database_safety_checks_preserved": true,
+  "functional_behavior_changed": false
+}

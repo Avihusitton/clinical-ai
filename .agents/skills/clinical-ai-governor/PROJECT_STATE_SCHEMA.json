@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Clinical AI Project State Schema",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [
+    "gates_status",
+    "content_readiness",
+    "engineering_readiness",
+    "runtime_configuration",
+    "security_restrictions"
+  ],
+  "properties": {
+    "gates_status": {
+      "type": "object",
+      "required": ["gate_a", "gate_b", "gate_c", "gate_d"],
+      "properties": {
+        "gate_a": { "type": "string" },
+        "gate_b": { "type": "string" },
+        "gate_c": { "type": "string" },
+        "gate_d": { "type": "string" }
+      }
+    },
+    "content_readiness": {
+      "type": "object",
+      "required": ["glossary_status"],
+      "properties": {
+        "glossary_status": { "type": "string", "enum": ["CONCEPT_DICTIONARY_IN_PROGRESS", "OFFICIAL_GLOSSARY_READY"] }
+      }
+    },
+    "engineering_readiness": {
+      "type": "object",
+      "required": ["controlled_integration", "wave_7_status", "production_shadow_wiring", "internal_clinical_pilot"],
+      "properties": {
+        "controlled_integration": { "type": "string" },
+        "wave_7_status": { "type": "string" },
+        "production_shadow_wiring": { "type": "string" },
+        "internal_clinical_pilot": { "type": "string" }
+      }
+    },
+    "runtime_configuration": {
+      "type": "object",
+      "required": ["agent_model_family", "runtime_provider", "intended_runtime_model"],
+      "properties": {
+        "agent_model_family": { "type": "string" },
+        "runtime_provider": { "type": "string" },
+        "intended_runtime_model": { "type": "string" }
+      }
+    },
+    "security_restrictions": {
+      "type": "object",
+      "required": ["live_patient_data_allowed", "neo4j_mutation_allowed", "external_network_allowed"],
+      "properties": {
+        "live_patient_data_allowed": { "type": "boolean" },
+        "neo4j_mutation_allowed": { "type": "boolean" },
+        "external_network_allowed": { "type": "boolean" }
+      }
+    }
+  }
+}

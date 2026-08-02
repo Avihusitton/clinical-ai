@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1",
+  "status": "PASS_PREVIEW_ACCEPTED_FOR_WRITE_FREE_ADAPTER",
+  "manifest_status": "PREVIEW_NOT_A_CANONICAL_RELEASE",
+  "release_id": "PREVIEW-4564A9FD1D2B8DE2",
+  "dictionary_version": "0.3.0-preview.1",
+  "package_dir": "C:\\Avihusitton\\dherech-dictionery\\Derech_Dictionary_Project\\07_UPDATED_DICTIONARY\\CLINICAL_AI_PREVIEW",
+  "manifest_path": "C:\\Avihusitton\\dherech-dictionery\\Derech_Dictionary_Project\\07_UPDATED_DICTIONARY\\CLINICAL_AI_PREVIEW\\dictionary_release_manifest.preview.json",
+  "manifest_actual_sha256": "eb865470958ba63aad4ae9f2a4de0de8966641ac4bedc2bbf85229afab6e5620",
+  "manifest_canonical_self_sha256": "3f6982f7e8279053ca1e46a88f13e7dfddabe135b96d2054e96ab09996ccde97",
+  "schema_sha256": "5c2d5b3d21eb144d03fa928e41f593074b34c82589546b1025492ebc09d1e671",
+  "counts": {
+    "glossary_records": 17,
+    "active_ids": 16,
+    "redirects": 1,
+    "cross_references": 15,
+    "source_map_rows": 17,
+    "relation_candidates": 2
+  },
+  "errors": [],
+  "warnings": [],
+  "canonical_source_resolved": false,
+  "eligible_for_write_free_adapter": true,
+  "eligible_for_neo4j_write": false,
+  "automatic_promotions": 0,
+  "neo4j_writes": 0
+}

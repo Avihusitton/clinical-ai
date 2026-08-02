@@ -2,11 +2,39 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "card_id": {"type": "string"},
-    "canonical_name": {"type": "string"},
-    "aliases": {"type": "array", "items": {"type": "string"}},
-    "definition": {"type": "string"},
-    "status": {"type": "string", "enum": ["APPROVED", "DRAFT", "ARCHIVED"]}
+    "card_id": {"type": "string", "pattern": "^[A-Z][0-9]{3}$"},
+    "status": {"type": "string", "enum": ["APPROVED", "DRAFT", "ARCHIVED", "DEPRECATED"]},
+    "dictionary_version": {"type": "string"},
+    "card_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "entry_name": {"type": "string"},
+    "entry_type": {"type": "string", "enum": ["CONCEPT", "PRINCIPLE", "MODEL", "TECHNIQUE", "EXERCISE", "PRACTICE", "PROCESS", "STAGE", "DISTINCTION", "METAPHOR", "THERAPEUTIC_CONTEXT", "RELATIONSHIP_PATTERN", "EDITORIAL_ENTRY"]},
+    "aliases_and_spellings": {"type": "array", "items": {"type": "string"}},
+    "source_based_definition": {"type": "string"},
+    "unified_definition": {"type": "string"},
+    "parent_terms": {"type": "array", "items": {"type": "string"}},
+    "child_terms": {"type": "array", "items": {"type": "string"}},
+    "parallel_terms": {"type": "array", "items": {"type": "string"}},
+    "distinguish_from": {"type": "array", "items": {"type": "string"}},
+    "causal_or_developmental_relations": {"type": "array", "items": {"type": "string"}},
+    "related_techniques": {"type": "array", "items": {"type": "string"}},
+    "related_exercises": {"type": "array", "items": {"type": "string"}},
+    "therapeutic_contexts": {"type": "array", "items": {"type": "string"}},
+    "short_example": {"type": "string"},
+    "common_mistakes": {"type": "string"},
+    "exact_source": {"type": "string"},
+    "certainty": {"type": "string", "enum": ["HIGH", "MEDIUM", "LOW", "PROVISIONAL"]},
+    "editorial_note": {"type": "string"},
+    "see_also": {"type": "array", "items": {"type": "string"}}
   },
-  "required": ["card_id", "canonical_name", "aliases", "definition", "status"]
+  "required": [
+    "card_id", "status", "dictionary_version", "card_hash", "created_at", "updated_at",
+    "entry_name", "entry_type", "aliases_and_spellings", "source_based_definition",
+    "unified_definition", "parent_terms", "child_terms", "parallel_terms",
+    "distinguish_from", "causal_or_developmental_relations", "related_techniques",
+    "related_exercises", "therapeutic_contexts", "short_example", "common_mistakes",
+    "exact_source", "certainty", "editorial_note", "see_also"
+  ],
+  "additionalProperties": false
 }

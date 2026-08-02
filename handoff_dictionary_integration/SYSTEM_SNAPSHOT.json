@@ -1,6 +1,16 @@
 {
   "system_name": "Clinical GraphRAG (המוח המערכתי)",
-  "state": "Read-Only Snapshot",
+  "state": "Governance Reconciled - Technical Preflight Pending",
+  "governance_status": {
+    "EDITORIAL_STATUS": "APPROVED",
+    "TECHNICAL_PREFLIGHT_STATUS": "NOT_RUN",
+    "CANONICAL_SOURCE_STATUS": "UNRESOLVED",
+    "NEO4J_STAGING_WRITE_STATUS": "CONDITIONALLY_AUTHORIZED",
+    "NEO4J_PRODUCTION_WRITE_STATUS": "FORBIDDEN",
+    "LIVE_CLINICAL_TRAFFIC_STATUS": "FORBIDDEN",
+    "PATIENT_DATA_STATUS": "FORBIDDEN",
+    "RUNTIME_ALIGNMENT_STATUS": "DEFERRED"
+  },
   "pipeline": {
     "stages": [
       "De-identification (Hard Gate)",

@@ -1,0 +1,5 @@
+{
+  "positive_cases_detected": "20/20",
+  "negative_cases_flagged": "0/60",
+  "approved_wording": "Observed recall on the supplied synthetic positive set: 20/20. Observed false-positive count on the supplied synthetic negative set: 0/60. These results do not establish general production precision or recall."
+}

@@ -1,0 +1,60 @@
+{
+  "audit_timestamp_utc": "2026-07-24T07:10:00+00:00",
+  "wave": "9.4R",
+  "evidence_prefix": "WAVE_9_4R_",
+  "dummy_value_occurrences": 0,
+  "duplicate_baseline_keys": 0,
+  "driver_exit_code": 1,
+  "evaluation_exit_code": 0,
+  "stress_exit_code": 0,
+  "validator_exit_code": 0,
+  "attestation_validator_exit_code": 1,
+  "targeted_pytest_exit_code": 0,
+  "gate_only_exit_code": 0,
+  "pilot_then_gate_exit_code": 1,
+  "gate_then_pilot_exit_code": 0,
+  "final_collect_exit_code": 0,
+  "final_pytest_exit_code": 1,
+  "pytest_accounting_exit_code": 0,
+  "tests_collected": 1887,
+  "tests_passed": 1886,
+  "tests_failed": 1,
+  "test_errors": 0,
+  "tests_skipped": 0,
+  "tests_unaccounted": 0,
+  "final_failed_test_node_ids": [
+    "tests/test_gate_cd_boundary.py::TestNoProductionImports::test_gate_cd_boundary_does_not_import_neo4j"
+  ],
+  "gate_cd_baseline_match": true,
+  "gate_a_baseline_match": false,
+  "gate_a_total_differing_lines": 3,
+  "raw_output_hash_mismatch_count": 0,
+  "clean_fixture_uses_live_evidence": false,
+  "unreachable_assertions_remain": false,
+  "bundle_provenance": {
+    "normalized_path": "PROJECT_CODE_BUNDLE.txt",
+    "byte_length": 3947894,
+    "sha256": "1893549b053d8e8e0432eb3e4d4c752274ac0ecd8444a735c587425f1b54abbc",
+    "git_tracked": false,
+    "matching_section_count_for_gate_cd": 1,
+    "matching_section_count_for_gate_a": 1,
+    "independent_baseline_authoritative": true
+  },
+  "working_file_provenance": {
+    "working_file_currently_modified": false,
+    "working_file_currently_staged": false,
+    "commit_where_file_first_appeared": null,
+    "commit_where_module_level_neo4j_import_changed": null,
+    "change_occurred_before_wave9": true
+  },
+  "neo4j_import_analysis": {
+    "location": "inside the test function (tests/test_real_shadow_pilot.py line 15)",
+    "first_importing_node": "tests/test_real_shadow_pilot.py::test_real_shadow_pilot",
+    "first_importing_module": "tests/test_real_shadow_pilot.py",
+    "wave9_file_imports_neo4j": false,
+    "repairable_in_allowed_file": false,
+    "protected_file_change_required": true
+  },
+  "audit_verdict": "PASS",
+  "system_final_status": "BLOCKED_PROTECTED_FILE_CHANGE_REQUIRED"
+}

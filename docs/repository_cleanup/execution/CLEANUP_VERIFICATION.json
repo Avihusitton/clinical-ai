@@ -1,0 +1,187 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "verification_title": "Cleanup Candidates Verification Matrix",
+  "version": "1.0.0",
+  "current_branch": "master",
+  "candidates_audited": [
+    {
+      "path": "gate_d",
+      "classification": "ACTIVE_PRODUCTION",
+      "import_references": [
+        "controlled_integration/adapters/gate_d_adapter.py",
+        "controlled_integration/orchestration/__init__.py"
+      ],
+      "quarantine_safe": false,
+      "reason": "Active implementation of Gate D Consultation Engine used in controlled integration orchestrator"
+    },
+    {
+      "path": "models/gate_d",
+      "classification": "ACTIVE_TEST",
+      "import_references": [
+        "tests/test_gate_d_acceptance.py",
+        "tests/test_gate_d_audit_trail.py",
+        "tests/test_gate_d_consultation_engine.py",
+        "tests/test_gate_d_evidence_filter.py",
+        "tests/test_gate_d_language_policy.py",
+        "tests/test_gate_d_models.py",
+        "tests/test_gate_d_safety_policy.py"
+      ],
+      "quarantine_safe": false,
+      "reason": "Directly imported by test_gate_d_*.py suite. Moving to _archive would break tests."
+    },
+    {
+      "path": "relation_policy.py",
+      "classification": "ACTIVE_PRODUCTION",
+      "import_references": ["controlled_integration/adapters/gate_b_adapter.py"],
+      "quarantine_safe": false,
+      "reason": "Protected root file imported by controlled_integration adapters"
+    },
+    {
+      "path": "second_order_reasoner.py",
+      "classification": "ACTIVE_PRODUCTION",
+      "import_references": ["controlled_integration/adapters/gate_b_adapter.py"],
+      "quarantine_safe": false,
+      "reason": "Protected root file imported by controlled_integration adapters"
+    },
+    {
+      "path": "models/relation_policy.py",
+      "classification": "ACTIVE_PRODUCTION",
+      "import_references": ["controlled_integration/adapters/gate_b_adapter.py"],
+      "quarantine_safe": false,
+      "reason": "Imported by Gate B adapter"
+    },
+    {
+      "path": "models/second_order_reasoner.py",
+      "classification": "ACTIVE_PRODUCTION",
+      "import_references": ["controlled_integration/adapters/gate_b_adapter.py"],
+      "quarantine_safe": false,
+      "reason": "Imported by Gate B adapter"
+    },
+    {
+      "path": "ingestion_pipeline.before_concept_relationship_block.py",
+      "classification": "QUARANTINE_SAFE",
+      "import_references": [],
+      "quarantine_safe": true,
+      "reason": "Historical backup file created during manual patch. No runtime or test imports."
+    },
+    {
+      "path": "ingestion_pipeline.before_lexicon_guard.py",
+      "classification": "QUARANTINE_SAFE",
+      "import_references": [],
+      "quarantine_safe": true,
+      "reason": "Historical backup file created during manual patch. No runtime or test imports."
+    },
+    {
+      "path": "ingestion_pipeline.before_pdf_support.py",
+      "classification": "QUARANTINE_SAFE",
+      "import_references": [],
+      "quarantine_safe": true,
+      "reason": "Historical backup file created during manual patch. No runtime or test imports."
+    },
+    {
+      "path": "ingestion_pipeline.before_review_queue.py",
+      "classification": "QUARANTINE_SAFE",
+      "import_references": [],
+      "quarantine_safe": true,
+      "reason": "Historical backup file created during manual patch. No runtime or test imports."
+    },
+    {
+      "path": "add_review_queue_dump.txt",
+      "classification": "QUARANTINE_SAFE",
+      "import_references": [],
+      "quarantine_safe": true,
+      "reason": "Disposable execution log"
+    },
+    {
+      "path": "block_dump.txt",
+      "classification": "QUARANTINE_SAFE",
+      "import_references": [],
+      "quarantine_safe": true,
+      "reason": "Disposable execution log"
+    },
+    {
+      "path": "load_approved_dump.txt",
+      "classification": "QUARANTINE_SAFE",
+      "import_references": [],
+      "quarantine_safe": true,
+      "reason": "Disposable execution log"
+    },
+    {
+      "path": "review_app_dump.txt",
+      "classification": "QUARANTINE_SAFE",
+      "import_references": [],
+      "quarantine_safe": true,
+      "reason": "Disposable execution log"
+    },
+    {
+      "path": "temp_log.txt",
+      "classification": "QUARANTINE_SAFE",
+      "import_references": [],
+      "quarantine_safe": true,
+      "reason": "Disposable temporary log"
+    },
+    {
+      "path": "output.txt",
+      "classification": "QUARANTINE_SAFE",
+      "import_references": [],
+      "quarantine_safe": true,
+      "reason": "Disposable execution stdout output"
+    },
+    {
+      "path": "error_log.txt",
+      "classification": "QUARANTINE_SAFE",
+      "import_references": [],
+      "quarantine_safe": true,
+      "reason": "Disposable execution error log"
+    },
+    {
+      "path": "add_lexicon_guard.py",
+      "classification": "QUARANTINE_SAFE",
+      "import_references": [],
+      "quarantine_safe": true,
+      "reason": "Historical one-off patch script"
+    },
+    {
+      "path": "add_missing_synonyms.py",
+      "classification": "QUARANTINE_SAFE",
+      "import_references": [],
+      "quarantine_safe": true,
+      "reason": "Historical one-off patch script"
+    },
+    {
+      "path": "add_pdf_support.py",
+      "classification": "QUARANTINE_SAFE",
+      "import_references": [],
+      "quarantine_safe": true,
+      "reason": "Historical one-off patch script"
+    },
+    {
+      "path": "add_relationship_guard.py",
+      "classification": "QUARANTINE_SAFE",
+      "import_references": [],
+      "quarantine_safe": true,
+      "reason": "Historical one-off patch script"
+    },
+    {
+      "path": "add_review_queue.py",
+      "classification": "QUARANTINE_SAFE",
+      "import_references": [],
+      "quarantine_safe": true,
+      "reason": "Historical one-off patch script"
+    },
+    {
+      "path": "block_concept_relationships.py",
+      "classification": "QUARANTINE_SAFE",
+      "import_references": [],
+      "quarantine_safe": true,
+      "reason": "Historical one-off patch script"
+    },
+    {
+      "path": "patch.py",
+      "classification": "QUARANTINE_SAFE",
+      "import_references": [],
+      "quarantine_safe": true,
+      "reason": "Historical patch script"
+    }
+  ]
+}

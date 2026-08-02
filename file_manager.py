@@ -58,3 +58,15 @@ def _avoid_collision(dest: Path) -> Path:
         if not candidate.exists():
             return candidate
         i += 1
+
+
+def cleanup_empty_dirs(directory: Path) -> None:
+    if not directory.exists() or not directory.is_dir():
+        return
+    for d in sorted(directory.rglob("*"), reverse=True):
+        if d.is_dir():
+            try:
+                d.rmdir()
+                log.info("Empty directory removed: %s", d.name)
+            except OSError:
+                pass

@@ -1,0 +1,142 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Gate D Interface Contract",
+  "description": "Defines the entities required for the therapist-facing consultation experience.",
+  "type": "object",
+  "definitions": {
+    "ConsultationRequest": {
+      "type": "object",
+      "properties": {
+        "requestId": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "therapistId": { "type": "string" },
+        "context": { "$ref": "#/definitions/ConsultationContext" },
+        "question": { "$ref": "#/definitions/ConsultationQuestion" }
+      },
+      "required": ["requestId", "timestamp", "therapistId", "context", "question"]
+    },
+    "ConsultationContext": {
+      "type": "object",
+      "properties": {
+        "deidentifiedPatientSummary": { "type": "string" },
+        "relevantHistory": { "type": "string" },
+        "currentObservations": { "type": "string" }
+      },
+      "required": ["deidentifiedPatientSummary"]
+    },
+    "ConsultationQuestion": {
+      "type": "object",
+      "properties": {
+        "questionId": { "type": "string" },
+        "inquiryText": { "type": "string" },
+        "focusArea": { "type": "string" }
+      },
+      "required": ["questionId", "inquiryText"]
+    },
+    "ConsultationResponse": {
+      "type": "object",
+      "properties": {
+        "responseId": { "type": "string" },
+        "requestId": { "type": "string" },
+        "generatedAt": { "type": "string", "format": "date-time" },
+        "possibilities": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/ClinicalPossibility" }
+        },
+        "uncertainties": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/UncertaintyStatement" }
+        },
+        "safetyBoundaries": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/SafetyBoundary" }
+        }
+      },
+      "required": ["responseId", "requestId", "generatedAt"]
+    },
+    "ClinicalPossibility": {
+      "type": "object",
+      "properties": {
+        "possibilityId": { "type": "string" },
+        "description": { "type": "string" },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/EvidenceReference" }
+        },
+        "alternativeInterpretations": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/AlternativeInterpretation" }
+        }
+      },
+      "required": ["possibilityId", "description", "evidence"]
+    },
+    "EvidenceReference": {
+      "type": "object",
+      "properties": {
+        "referenceId": { "type": "string" },
+        "sourceTitle": { "type": "string" },
+        "excerpt": { "type": "string" },
+        "confidenceLevel": { "type": "string" }
+      },
+      "required": ["referenceId", "sourceTitle"]
+    },
+    "UncertaintyStatement": {
+      "type": "object",
+      "properties": {
+        "statementId": { "type": "string" },
+        "description": { "type": "string" },
+        "missingInformation": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["statementId", "description"]
+    },
+    "AlternativeInterpretation": {
+      "type": "object",
+      "properties": {
+        "interpretationId": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "required": ["interpretationId", "description"]
+    },
+    "SafetyBoundary": {
+      "type": "object",
+      "properties": {
+        "boundaryId": { "type": "string" },
+        "condition": { "type": "string" },
+        "warningMessage": { "type": "string" }
+      },
+      "required": ["boundaryId", "condition", "warningMessage"]
+    },
+    "TherapistDecision": {
+      "type": "object",
+      "properties": {
+        "decisionId": { "type": "string" },
+        "responseId": { "type": "string" },
+        "acceptedElements": { "type": "array", "items": { "type": "string" } },
+        "rejectedElements": { "type": "array", "items": { "type": "string" } },
+        "therapistNotes": { "type": "string" }
+      },
+      "required": ["decisionId", "responseId"]
+    },
+    "TherapistFeedback": {
+      "type": "object",
+      "properties": {
+        "feedbackId": { "type": "string" },
+        "responseId": { "type": "string" },
+        "rating": { "type": "integer" },
+        "comments": { "type": "string" }
+      },
+      "required": ["feedbackId", "responseId"]
+    },
+    "ConsultationAuditEvent": {
+      "type": "object",
+      "properties": {
+        "eventId": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "eventType": { "type": "string" },
+        "actorId": { "type": "string" },
+        "targetEntityId": { "type": "string" }
+      },
+      "required": ["eventId", "timestamp", "eventType", "actorId"]
+    }
+  }
+}
