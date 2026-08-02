@@ -10,6 +10,11 @@ import urllib.error
 import urllib.request
 from typing import Any, Protocol
 
+try:
+    import neo4j
+except ImportError:
+    neo4j = None
+
 
 DICTIONARY_RELEASE_ID = "D4-99F53565A7BCC45E"
 MODE = "D4_CANONICAL_LOCAL_READ_ONLY"
@@ -237,6 +242,50 @@ class Neo4jUnavailable(RuntimeError):
 class QueryExecutor(Protocol):
     def run(self, cypher: str, parameters: dict[str, Any] | None = None) -> list[dict[str, Any]]:
         ...
+
+
+class BoltQueryExecutor:
+    """Uses the official Neo4j Python driver (Bolt protocol) for queries. Required for Neo4j Aura."""
+
+    def __init__(
+        self,
+        uri: str,
+        username: str,
+        password: str,
+        database: str = "neo4j",
+        timeout_seconds: float = 8.0,
+    ):
+        if not password:
+            raise ValueError("Neo4j password is required")
+        if neo4j is None:
+            raise ImportError("neo4j package is required for BoltQueryExecutor")
+        
+        # Aura URIs are typically neo4j+s://...
+        self.driver = neo4j.GraphDatabase.driver(
+            uri, 
+            auth=(username, password), 
+            connection_timeout=timeout_seconds,
+            max_connection_lifetime=3600
+        )
+        self.database = database
+
+    @staticmethod
+    def validate_read_only(cypher: str) -> None:
+        if _MUTATION_PATTERN.search(cypher):
+            raise ValueError("Mutating Cypher is forbidden in local Q&A mode")
+
+    def run(
+        self,
+        cypher: str,
+        parameters: dict[str, Any] | None = None,
+    ) -> list[dict[str, Any]]:
+        self.validate_read_only(cypher)
+        try:
+            with self.driver.session(database=self.database, default_access_mode=neo4j.READ_ACCESS) as session:
+                result = session.run(cypher, parameters or {})
+                return [dict(record) for record in result]
+        except Exception as exc:
+            raise Neo4jUnavailable(f"Bolt query failed: {exc}") from exc
 
 
 class ReadOnlyNeo4jHttpClient:

@@ -20,6 +20,7 @@ from ai_assisted_answer import (
 from canonical_local_retrieval import (
     CanonicalLocalRetriever,
     ReadOnlyNeo4jHttpClient,
+    BoltQueryExecutor,
 )
 from clinical_workspace_ui import render_workspace_html
 from conversation_store import (
@@ -175,24 +176,40 @@ def build_retriever_from_environment() -> CanonicalLocalRetriever:
         or "neo4j"
     )
     password = os.getenv("NEO4J_PASSWORD") or file_settings.get("NEO4J_PASSWORD", "")
-    http_uri = (
-        os.getenv("NEO4J_HTTP_URI")
-        or file_settings.get("NEO4J_HTTP_URI")
-        or "http://127.0.0.1:7474"
+    
+    # If a Bolt/neo4j+s URI is provided, use the BoltQueryExecutor (required for Aura)
+    bolt_uri = (
+        os.getenv("NEO4J_URI") 
+        or file_settings.get("NEO4J_URI")
     )
+    
     database = (
         os.getenv("NEO4J_DATABASE")
         or file_settings.get("NEO4J_DATABASE")
         or "neo4j"
     )
-    return CanonicalLocalRetriever(
-        ReadOnlyNeo4jHttpClient(
+    
+    if bolt_uri and (bolt_uri.startswith("bolt://") or bolt_uri.startswith("neo4j://") or bolt_uri.startswith("neo4j+s://")):
+        executor = BoltQueryExecutor(
+            uri=bolt_uri,
+            username=username,
+            password=password,
+            database=database,
+        )
+    else:
+        http_uri = (
+            os.getenv("NEO4J_HTTP_URI")
+            or file_settings.get("NEO4J_HTTP_URI")
+            or "http://127.0.0.1:7474"
+        )
+        executor = ReadOnlyNeo4jHttpClient(
             username=username,
             password=password,
             http_uri=http_uri,
             database=database,
         )
-    )
+        
+    return CanonicalLocalRetriever(executor)
 
 
 def build_workspace_store() -> LocalConversationStore:
