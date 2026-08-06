@@ -1403,7 +1403,17 @@ def render_workspace_html() -> str:
         const el = byId("temporaryLoadingMessage");
         if (el) el.remove();
       }
-      
+      function escapeHtml(unsafe) {
+        if (!unsafe) return "";
+        return unsafe
+             .replace(/&/g, "&amp;")
+             .replace(/</g, "&lt;")
+             .replace(/>/g, "&gt;")
+             .replace(/"/g, "&quot;")
+             .replace(/'/g, "&#039;")
+             .replace(/\n/g, "<br>");
+      }
+
       function appendOptimisticMessage(content) {
         const msgDiv = document.createElement("div");
         msgDiv.className = "message user optimistic";
