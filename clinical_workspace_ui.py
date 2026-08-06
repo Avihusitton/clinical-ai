@@ -1099,7 +1099,7 @@ def render_workspace_html() -> str:
           <span>אין להזין שמות, פרטי קשר או כל פרט מזהה. סביבת הפיתוח המקומית אינה מיועדת לתיעוד קליני חי.</span>
         </div>
         <div class="composer">
-          <textarea id="question" maxlength="1500"
+          <textarea id="question" maxlength="100000"
                     placeholder="כתבו שאלה או עדכון להמשך התהליך…"
                     aria-label="השאלה או העדכון"></textarea>
           <div class="composer-toolbar">
