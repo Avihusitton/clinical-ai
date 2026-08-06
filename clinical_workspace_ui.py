@@ -1386,11 +1386,11 @@ def render_workspace_html() -> str:
         loadingDiv.id = "temporaryLoadingMessage";
         loadingDiv.innerHTML = `
           <div class="message-meta">מערכת</div>
-          <div class="message-body">
-            <div class="typing-indicator">
+          <div class="message-body" style="text-align: right; direction: rtl;">
+            <div class="typing-indicator" style="display: inline-block;">
               <span></span><span></span><span></span>
             </div>
-            <span style="margin-right: 8px; font-size: 0.9em; color: var(--muted);">הסוכן מנתח את הבקשה ומעבד את התשובה...</span>
+            <span id="loadingProgressText" style="margin-right: 8px; font-size: 0.9em; color: var(--muted);">הסוכן מנתח את הבקשה ומעבד את התשובה...</span>
           </div>
         `;
         timeline.append(loadingDiv);
@@ -1962,8 +1962,12 @@ def render_workspace_html() -> str:
         
         try {
           const conversationId = await ensureConversation();
-          const payload = await api("/api/ask", {
+          
+          const res = await fetch("/api/ask", {
             method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
             body: JSON.stringify({
               therapist_id: state.activeTherapistId,
               patient_id: state.activePatientId,
@@ -1975,6 +1979,52 @@ def render_workspace_html() -> str:
               confirmed_no_patient_data: true
             })
           });
+
+          if (res.status === 401) {
+            showAuthScreen();
+            throw new Error("פג תוקף החיבור.");
+          }
+
+          const reader = res.body.getReader();
+          const decoder = new TextDecoder("utf-8");
+          let buffer = "";
+          let finalPayload = null;
+
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            buffer += decoder.decode(value, { stream: true });
+            
+            let newlineIndex;
+            while ((newlineIndex = buffer.indexOf("\n")) !== -1) {
+              const line = buffer.slice(0, newlineIndex).trim();
+              buffer = buffer.slice(newlineIndex + 1);
+              if (!line) continue;
+              
+              try {
+                const data = JSON.parse(line);
+                if (data.progress) {
+                  const textSpan = document.getElementById("loadingProgressText");
+                  if (textSpan) {
+                    textSpan.textContent = data.progress;
+                  }
+                } else if (data.status) {
+                  finalPayload = data;
+                }
+              } catch (e) {
+                console.error("Parse error", e);
+              }
+            }
+          }
+          
+          if (!finalPayload) {
+            throw new Error("לא התקבלה תשובה תקינה מהשרת.");
+          }
+          const payload = finalPayload;
+
+          if (payload.status_code && payload.status_code !== 200) {
+             throw new Error(payload.answer_text || "שגיאה בשרת.");
+          }
           if (payload.status && !["answered", "ok"].includes(payload.status)) {
             throw new Error(payload.answer_text || "לא ניתן להשלים את המענה.");
           }

@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 - [2026-08-06 15:26] - Implemented dynamic OpenRouter model routing to optimize for Fast/Pro capabilities, automatically selecting cost-effective models while maintaining quality - Gemini 3.5 Pro
 - [2026-08-06 22:21] - Expanded model whitelist to include kimi and grok, fixed UI model dropdown population bug, and corrected RTL text alignment for chat messages - Antigravity
 - [2026-08-06 22:26] - Refined model routing logic to strictly prioritize price over context length. The absolute cheapest models are now selected for both Fast and Pro tiers (assuming they meet the capability threshold) - Antigravity
+- [2026-08-06 23:47] - Removed the 1500 character limitation on the main chat text area (expanded to 100k) to allow pasting large case studies and long prompts - Antigravity
 
 ## [2026-08-06] Initialized knowledge base protocols.
 [2026-07-30 20:59] - Migrated data model and UI to a patient-centric WhatsApp-style sidebar with hierarchical conversations. Replaced user select dropdowns with patient sidebars and updated API routes accordingly - Gemini 3.1 Pro
@@ -25,4 +26,4 @@ All notable changes to this project will be documented in this file.
 [2026-08-06 13:53] - Fixed persistent conversation loading bug in clinical_workspace_ui.py to fetch full messages, and added visual feedback (optimistic message & typing indicator) during slow API calls. - Gemini 3.1 Pro
 [2026-08-06 14:04] - Added functionality to delete therapists and conversations, integrated AI for automatic conversation title generation - Gemini 3.1 Pro  
 [2026-08-06 15:01] - Migrated conversation storage from local JSON file to Neo4j to support ephemeral cloud environments like Render - Gemini 3.1 Pro
- 
+ [2026-08-06 23:55] - Removed backend 1500 character limit on questions and added streaming progress indicators for the frontend to prevent users feeling stuck during long retrievals or generation. - Antigravity (Gemini)

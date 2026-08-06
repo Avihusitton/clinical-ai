@@ -102,6 +102,7 @@ def handle_ask(
     ai_service: AiAssistedAnswerService | None = None,
     conversation_history: list[dict[str, Any]] | None = None,
     conversation_summary: str = "",
+    progress_callback: Callable[[str], None] | None = None,
 ) -> tuple[int, dict[str, Any]]:
     started_at = time.perf_counter()
     if payload.get("confirmed_no_patient_data") is not True:
@@ -121,18 +122,21 @@ def handle_ask(
                 "יש להסיר פרטים על אנשים ולשאול רק על מושגי השיטה."
             ),
         }
-    if len(question) > 1500:
-        return HTTPStatus.BAD_REQUEST, {
-            "status": "question_too_long",
-            "answer_text": "השאלה ארוכה מדי. יש לנסח שאלת ידע קצרה על השיטה.",
-        }
     retrieval_question = (
         _build_retrieval_question(question, conversation_history)
         if payload.get("use_ai") is True
         else question
     )
+    
+    if progress_callback:
+        progress_callback("שולף ידע רלוונטי מהמאגר (ייתכן עיכוב קל לטובת חיבור)...")
+        
     result = retriever.answer(retrieval_question)
+    
     if payload.get("use_ai") is True:
+        if progress_callback:
+            progress_callback("מנתח את ההקשר ומייצר תשובה (מודל ה-AI עובד)...")
+            
         service = ai_service or AiAssistedAnswerService()
         result = service.enhance(
             question,
@@ -747,22 +751,41 @@ class LocalQaRequestHandler(BaseHTTPRequestHandler):
                     auto_category = "fast"
                 payload["ai_model"] = self.model_router.get_model_id(auto_category)
                 
-        status, response = handle_ask(
-            self.retriever,
-            payload,
-            ai_service=self.ai_service,
-            conversation_history=(
-                list(conversation.get("messages") or [])
-                if conversation is not None
-                else None
-            ),
-            conversation_summary=(
-                str(conversation.get("summary") or "")
-                if conversation is not None
-                else ""
-            ),
-        )
-        if status == HTTPStatus.OK and conversation is not None:
+        if parsed.path == "/api/ask":
+            self.send_response(HTTPStatus.OK)
+            self.send_header("Content-Type", "application/x-ndjson; charset=utf-8")
+            self.send_header("Cache-Control", "no-cache")
+            if "Origin" in self.headers:
+                self.send_header("Access-Control-Allow-Origin", self.headers["Origin"])
+                self.send_header("Access-Control-Allow-Credentials", "true")
+            self.end_headers()
+
+            def progress_callback(msg: str) -> None:
+                try:
+                    line = json.dumps({"progress": msg}, ensure_ascii=False) + "\n"
+                    self.wfile.write(line.encode("utf-8"))
+                    self.wfile.flush()
+                except Exception:
+                    pass
+
+            status, response = handle_ask(
+                self.retriever,
+                payload,
+                ai_service=self.ai_service,
+                conversation_history=(
+                    list(conversation.get("messages") or [])
+                    if conversation is not None
+                    else None
+                ),
+                conversation_summary=(
+                    str(conversation.get("summary") or "")
+                    if conversation is not None
+                    else ""
+                ),
+                progress_callback=progress_callback,
+            )
+            
+            if status == HTTPStatus.OK and conversation is not None:
             question = str(payload.get("question") or "").strip()
             self.workspace_store.append_message(
                 therapist_id=therapist_id,
@@ -824,7 +847,21 @@ class LocalQaRequestHandler(BaseHTTPRequestHandler):
                         question=question,
                     )
             response["conversation_id"] = conversation_id
-        self._send_json(status, response)
+            
+            # Send the final payload as the last NDJSON line
+            try:
+                # If there was an error in handle_ask, status might be 400. We pass it in response.
+                if status != HTTPStatus.OK:
+                    response["status_code"] = int(status)
+                line = json.dumps(response, ensure_ascii=False) + "\n"
+                self.wfile.write(line.encode("utf-8"))
+                self.wfile.flush()
+            except Exception:
+                pass
+            return
+            
+        # Fallback for any unknown paths that somehow reached here
+        self._send_json(HTTPStatus.NOT_FOUND, {"status": "not_found"})
 
     def do_DELETE(self) -> None:
         parsed = urlparse(self.path)
