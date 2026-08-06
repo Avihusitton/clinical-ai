@@ -183,25 +183,69 @@ class LocalConversationStore:
 
     def create_conversation(
         self,
+        *,
         therapist_id: str,
         patient_id: str,
         title: str = "שיחה חדשה",
     ) -> dict[str, Any]:
-        clean_title = _clean_text(title, max_length=100, field="title")
         with self._lock:
             payload = self._read()
             self._find_patient(payload, therapist_id, patient_id)
+            conversation_id = f"cnv-{uuid.uuid4().hex}"
             now = _now()
             conversation = {
-                "id": f"cnv-{uuid.uuid4().hex}",
+                "id": conversation_id,
                 "patient_id": patient_id,
-                "title": clean_title,
+                "title": str(title or "שיחה חדשה")[:200],
                 "summary": "",
                 "messages": [],
                 "created_at": now,
                 "updated_at": now,
             }
             payload["conversations"].append(conversation)
+            self._write(payload)
+            return deepcopy(conversation)
+
+    def delete_therapist(self, therapist_id: str) -> None:
+        with self._lock:
+            payload = self._read()
+            self._find_therapist(payload, therapist_id)
+            payload["therapists"] = [t for t in payload["therapists"] if t.get("id") != therapist_id]
+            # Delete associated patients
+            patients_to_delete = {p.get("id") for p in payload["patients"] if p.get("therapist_id") == therapist_id}
+            payload["patients"] = [p for p in payload["patients"] if p.get("therapist_id") != therapist_id]
+            # Delete associated conversations
+            payload["conversations"] = [c for c in payload["conversations"] if c.get("patient_id") not in patients_to_delete]
+            self._write(payload)
+
+    def delete_conversation(self, therapist_id: str, patient_id: str, conversation_id: str) -> None:
+        with self._lock:
+            payload = self._read()
+            self._find_conversation(payload, therapist_id, patient_id, conversation_id)
+            payload["conversations"] = [c for c in payload["conversations"] if c.get("id") != conversation_id]
+            self._write(payload)
+
+    def update_title(
+        self,
+        *,
+        therapist_id: str,
+        patient_id: str,
+        conversation_id: str,
+        title: str,
+    ) -> dict[str, Any]:
+        clean_title = " ".join(str(title or "").split())[:200]
+        if not clean_title:
+            raise ValueError("title cannot be empty")
+        with self._lock:
+            payload = self._read()
+            conversation = self._find_conversation(
+                payload,
+                therapist_id,
+                patient_id,
+                conversation_id,
+            )
+            conversation["title"] = clean_title
+            conversation["updated_at"] = _now()
             self._write(payload)
             return deepcopy(conversation)
 

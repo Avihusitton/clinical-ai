@@ -252,7 +252,7 @@ class BoltQueryExecutor:
         uri: str,
         username: str,
         password: str,
-        database: str = "neo4j",
+        database: str | None = None,
         timeout_seconds: float = 8.0,
     ):
         if not password:
@@ -281,7 +281,10 @@ class BoltQueryExecutor:
     ) -> list[dict[str, Any]]:
         self.validate_read_only(cypher)
         try:
-            with self.driver.session(database=self.database, default_access_mode=neo4j.READ_ACCESS) as session:
+            session_kwargs: dict[str, Any] = {"default_access_mode": neo4j.READ_ACCESS}
+            if self.database:
+                session_kwargs["database"] = self.database
+            with self.driver.session(**session_kwargs) as session:
                 result = session.run(cypher, parameters or {})
                 return [dict(record) for record in result]
         except Exception as exc:

@@ -604,6 +604,33 @@ def render_workspace_html() -> str:
       font-size: .78rem;
     }
 
+    .message.optimistic {
+      opacity: 0.6;
+    }
+    
+    .typing-indicator {
+      display: inline-flex;
+      gap: 4px;
+      align-items: center;
+      padding: 6px 4px;
+    }
+    
+    .typing-indicator span {
+      width: 6px;
+      height: 6px;
+      background: var(--muted);
+      border-radius: 50%;
+      animation: typing 1.4s infinite ease-in-out both;
+    }
+    
+    .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+    .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+    
+    @keyframes typing {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+
     .evidence summary {
       padding: 10px 13px;
       cursor: pointer;
@@ -985,6 +1012,7 @@ def render_workspace_html() -> str:
         <div style="display: flex; gap: 5px; align-items: stretch; margin-bottom: 10px;">
           <select id="therapistSelect" class="model-select" style="flex: 1; font-size: 0.9rem; padding: 8px;"></select>
           <button id="editTherapistButton" class="icon-button" style="min-width: 42px; min-height: 42px; padding: 0; font-size: 1rem; display: flex; align-items: center; justify-content: center;" type="button" title="עריכת שם מטפל" aria-label="עריכת שם מטפל">✏️</button>
+          <button id="deleteTherapistButton" class="icon-button" style="min-width: 42px; min-height: 42px; padding: 0; font-size: 1rem; display: flex; align-items: center; justify-content: center; color: var(--danger);" type="button" title="מחיקת מטפל" aria-label="מחיקת מטפל">🗑️</button>
         </div>
         <div class="add-user hidden" id="addTherapistForm">
           <input id="newTherapistName" type="text" maxlength="60" autocomplete="off"
@@ -1350,6 +1378,49 @@ def render_workspace_html() -> str:
         byId("addPatientButton").disabled = busy;
         askButton.querySelector("span").textContent = busy ? "בונה מענה…" : "שליחה";
       }
+      
+      function showLoadingMessage() {
+        const loadingDiv = document.createElement("div");
+        loadingDiv.className = "message system";
+        loadingDiv.id = "temporaryLoadingMessage";
+        loadingDiv.innerHTML = `
+          <div class="message-meta">מערכת</div>
+          <div class="message-body">
+            <div class="typing-indicator">
+              <span></span><span></span><span></span>
+            </div>
+            <span style="margin-right: 8px; font-size: 0.9em; color: var(--muted);">הסוכן מנתח את הבקשה ומעבד את התשובה...</span>
+          </div>
+        `;
+        timeline.append(loadingDiv);
+        requestAnimationFrame(() => {
+          timeline.scrollTop = timeline.scrollHeight;
+        });
+      }
+
+      function removeLoadingMessage() {
+        const el = byId("temporaryLoadingMessage");
+        if (el) el.remove();
+      }
+      
+      function appendOptimisticMessage(content) {
+        const msgDiv = document.createElement("div");
+        msgDiv.className = "message user optimistic";
+        msgDiv.id = "temporaryUserMessage";
+        msgDiv.innerHTML = `
+          <div class="message-meta">אני</div>
+          <div class="message-body">${escapeHtml(content)}</div>
+        `;
+        timeline.append(msgDiv);
+        requestAnimationFrame(() => {
+          timeline.scrollTop = timeline.scrollHeight;
+        });
+      }
+
+      function removeOptimisticMessage() {
+        const el = byId("temporaryUserMessage");
+        if (el) el.remove();
+      }
 
       async function renderPatients() {
         patientList.replaceChildren();
@@ -1419,18 +1490,59 @@ def render_workspace_html() -> str:
             const convBtn = document.createElement("button");
             convBtn.type = "button";
             convBtn.className = "conversation-item";
+            convBtn.style.display = "flex";
+            convBtn.style.justifyContent = "space-between";
+            convBtn.style.alignItems = "center";
+            convBtn.style.textAlign = "right";
+
             if (String(conv.id) === state.activeConversationId && patientId === state.activePatientId) {
               convBtn.classList.add("active");
               header.classList.add("expanded");
               convContainer.classList.add("open");
             }
+            
+            const infoDiv = document.createElement("div");
+            infoDiv.style.flex = "1";
+            
             const title = document.createElement("strong");
             title.textContent = String(conv.title || "שיחה");
             const meta = document.createElement("span");
             const count = Number(conv.message_count ?? safeArray(conv.messages).length);
             const date = formatDate(conv.updated_at);
             meta.textContent = `${count} הודעות${date ? ` · ${date}` : ""}`;
-            convBtn.append(title, meta);
+            meta.style.display = "block";
+            
+            infoDiv.append(title, meta);
+
+            const deleteConvBtn = document.createElement("div");
+            deleteConvBtn.innerHTML = "🗑️";
+            deleteConvBtn.style.fontSize = "1.2rem";
+            deleteConvBtn.style.padding = "4px";
+            deleteConvBtn.style.color = "var(--danger)";
+            deleteConvBtn.style.cursor = "pointer";
+            deleteConvBtn.title = "מחיקת שיחה";
+            
+            deleteConvBtn.addEventListener("click", async (e) => {
+              e.stopPropagation();
+              if (confirm(`האם למחוק את השיחה "${title.textContent}"?`)) {
+                setBusy(true);
+                try {
+                  await api(`/api/conversation?therapist_id=${encodeURIComponent(state.activeTherapistId)}&patient_id=${encodeURIComponent(patientId)}&conversation_id=${encodeURIComponent(conv.id)}`, { method: "DELETE" });
+                  if (state.activeConversationId === String(conv.id)) {
+                    state.activeConversationId = "";
+                    window.localStorage.removeItem("derech.activeConversationId");
+                    timeline.replaceChildren();
+                  }
+                  await updateState();
+                } catch (err) {
+                  alert("שגיאה במחיקת שיחה");
+                } finally {
+                  setBusy(false);
+                }
+              }
+            });
+
+            convBtn.append(infoDiv, deleteConvBtn);
             
             convBtn.addEventListener("click", (e) => {
               e.stopPropagation();
@@ -1704,11 +1816,9 @@ def render_workspace_html() -> str:
       async function loadConversation(patientId, conversationId) {
         if (!state.activeTherapistId || !patientId || !conversationId) return;
         try {
-          const payload = await api(`/api/therapists/${encodeURIComponent(state.activeTherapistId)}/patients/${encodeURIComponent(patientId)}/conversations`);
-          const convs = safeArray(payload.conversations || payload);
-          const match = convs.find(c => String(c.id) === String(conversationId));
-          if (match) {
-             state.activeConversation = match;
+          const payload = await api(`/api/conversation?therapist_id=${encodeURIComponent(state.activeTherapistId)}&patient_id=${encodeURIComponent(patientId)}&conversation_id=${encodeURIComponent(conversationId)}`);
+          if (payload.conversation) {
+             state.activeConversation = payload.conversation;
              state.activeConversationId = String(conversationId);
              window.localStorage.setItem(`derech.activeConversationId.${patientId}`, state.activeConversationId);
              renderPatients();
@@ -1818,6 +1928,9 @@ def render_workspace_html() -> str:
         }
 
         setBusy(true);
+        appendOptimisticMessage(question);
+        showLoadingMessage();
+        
         try {
           const conversationId = await ensureConversation();
           const payload = await api("/api/ask", {
@@ -1836,10 +1949,14 @@ def render_workspace_html() -> str:
             throw new Error(payload.answer_text || "לא ניתן להשלים את המענה.");
           }
           questionInput.value = "";
+          removeOptimisticMessage();
+          removeLoadingMessage();
           await loadWorkspace();
           await selectConversation(state.activePatientId, conversationId);
         } catch (error) {
           showComposerError(error.message);
+          removeOptimisticMessage();
+          removeLoadingMessage();
         } finally {
           setBusy(false);
         }
@@ -1892,6 +2009,33 @@ def render_workspace_html() -> str:
           }
         }
       });
+
+      const deleteTherapistBtn = byId("deleteTherapistButton");
+      if (deleteTherapistBtn) {
+        deleteTherapistBtn.addEventListener("click", async () => {
+          if (!state.activeTherapistId || state.busy) return;
+          const currentTherapist = state.therapists.find(t => String(t.id) === state.activeTherapistId);
+          if (!currentTherapist) return;
+          
+          if (confirm(`האם אתה בטוח שברצונך למחוק את המטפל "${currentTherapist.name}"? פעולה זו תמחק גם את כל המטופלים והשיחות המשויכים אליו.`)) {
+            setBusy(true);
+            try {
+              await api(`/api/therapists/${encodeURIComponent(state.activeTherapistId)}`, {
+                method: "DELETE"
+              });
+              state.activeTherapistId = "";
+              window.localStorage.removeItem("derech.activeTherapistId");
+              state.activePatientId = "";
+              state.activeConversationId = "";
+              await loadWorkspace();
+            } catch(err) {
+              showToast(err.message);
+            } finally {
+              setBusy(false);
+            }
+          }
+        });
+      }
 
       showAddTherapistButton.addEventListener("click", () => {
         addTherapistForm.classList.toggle("hidden");

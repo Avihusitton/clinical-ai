@@ -519,6 +519,37 @@ class AiAssistedAnswerService:
     def model(self) -> str | None:
         return self._provider.model if self._provider else None
 
+    def generate_title(
+        self,
+        question: str,
+        *,
+        requested_model: str | None = None,
+    ) -> str:
+        if not self._provider:
+            return "שיחה חדשה"
+        
+        system_prompt = "אתה עוזר וירטואלי שמייצר כותרת קצרה מאוד (עד 4 מילים) לשאלה של משתמש. ענה אך ורק עם הכותרת המוצעת, ללא גרשיים או הקדמות."
+        selected_model = (
+            requested_model
+            if requested_model in ALLOWED_MODELS
+            else self._provider.model
+        )
+        
+        try:
+            generation, _ = _generate_with_model_fallback(
+                self._provider,
+                system_prompt=system_prompt,
+                user_prompt=f"יצר כותרת עניינית קצרה לשאלה זו:\n{question}",
+                max_completion_tokens=20,
+                primary_model=selected_model,
+            )
+            title = generation.text.strip().strip('"').strip("'")
+            if len(title) > 57:
+                title = title[:57] + "…"
+            return title
+        except Exception:
+            return "שיחה חדשה"
+
     def enhance(
         self,
         question: str,

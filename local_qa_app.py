@@ -41,6 +41,7 @@ _ALLOWED_NEO4J_SETTINGS = {
     "NEO4J_USER",
     "NEO4J_PASSWORD",
     "NEO4J_HTTP_URI",
+    "NEO4J_URI",
     "NEO4J_DATABASE",
 }
 DEFAULT_WORKSPACE_PATH = (
@@ -186,10 +187,16 @@ def build_retriever_from_environment() -> CanonicalLocalRetriever:
     database = (
         os.getenv("NEO4J_DATABASE")
         or file_settings.get("NEO4J_DATABASE")
-        or "neo4j"
+        or None
     )
     
-    if bolt_uri and (bolt_uri.startswith("bolt://") or bolt_uri.startswith("neo4j://") or bolt_uri.startswith("neo4j+s://")):
+    if bolt_uri and (
+        bolt_uri.startswith("bolt://") 
+        or bolt_uri.startswith("neo4j://") 
+        or bolt_uri.startswith("neo4j+s://")
+        or bolt_uri.startswith("neo4j+ssc://")
+        or bolt_uri.startswith("bolt+ssc://")
+    ):
         executor = BoltQueryExecutor(
             uri=bolt_uri,
             username=username,
@@ -744,14 +751,55 @@ class LocalQaRequestHandler(BaseHTTPRequestHandler):
                     conversation_id=conversation_id,
                     summary=str(response.get("conversation_summary") or ""),
                 )
-            self.workspace_store.set_title_from_first_question(
-                therapist_id=therapist_id,
-                patient_id=patient_id,
-                conversation_id=conversation_id,
-                question=question,
-            )
+            if conversation.get("title") == "שיחה חדשה":
+                if self.ai_service and self.ai_service.available:
+                    new_title = self.ai_service.generate_title(question, requested_model=payload.get("ai_model"))
+                    if new_title and new_title != "שיחה חדשה":
+                        self.workspace_store.update_title(
+                            therapist_id=therapist_id,
+                            patient_id=patient_id,
+                            conversation_id=conversation_id,
+                            title=new_title
+                        )
+                else:
+                    self.workspace_store.set_title_from_first_question(
+                        therapist_id=therapist_id,
+                        patient_id=patient_id,
+                        conversation_id=conversation_id,
+                        question=question,
+                    )
             response["conversation_id"] = conversation_id
         self._send_json(status, response)
+
+    def do_DELETE(self) -> None:
+        parsed = urlparse(self.path)
+        delete_therapist_match = re.match(r"^/api/therapists/([^/]+)$", parsed.path)
+        
+        if delete_therapist_match:
+            therapist_id = delete_therapist_match.group(1)
+            try:
+                self.workspace_store.delete_therapist(therapist_id)
+                self._send_json(HTTPStatus.OK, {"status": "ok"})
+            except KeyError:
+                self._send_json(HTTPStatus.NOT_FOUND, {"status": "not_found"})
+            return
+
+        if parsed.path == "/api/conversation":
+            query = parse_qs(parsed.query)
+            therapist_id = query.get("therapist_id", [""])[0]
+            patient_id = query.get("patient_id", [""])[0]
+            conversation_id = query.get("conversation_id", [""])[0]
+            if not therapist_id or not patient_id or not conversation_id:
+                self._send_json(HTTPStatus.BAD_REQUEST, {"status": "missing_parameters"})
+                return
+            try:
+                self.workspace_store.delete_conversation(therapist_id, patient_id, conversation_id)
+                self._send_json(HTTPStatus.OK, {"status": "ok"})
+            except KeyError:
+                self._send_json(HTTPStatus.NOT_FOUND, {"status": "not_found"})
+            return
+
+        self._send_json(HTTPStatus.NOT_FOUND, {"status": "not_found"})
 
     def do_PUT(self) -> None:
         parsed = urlparse(self.path)
@@ -817,6 +865,9 @@ def main() -> None:
     LocalQaRequestHandler.ai_service = build_ai_service_from_environment()
     LocalQaRequestHandler.workspace_store = build_workspace_store()
     server = ThreadingHTTPServer((host, port), LocalQaRequestHandler)
+    print(f"🚀 שרת Clinical AI הופעל בהצלחה!")
+    print(f"👉 היכנס לדפדפן בכתובת: http://{host if host != '0.0.0.0' else 'localhost'}:{port}/")
+    print(f"לחץ על Ctrl+C כדי לכבות את השרת.")
     server.serve_forever()
 
 
