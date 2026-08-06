@@ -3,7 +3,11 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-- Initialized knowledge base protocols.
+- [2026-08-06 15:26] - Implemented dynamic OpenRouter model routing to optimize for Fast/Pro capabilities, automatically selecting cost-effective models while maintaining quality - Gemini 3.5 Pro
+- [2026-08-06 22:21] - Expanded model whitelist to include kimi and grok, fixed UI model dropdown population bug, and corrected RTL text alignment for chat messages - Antigravity
+- [2026-08-06 22:26] - Refined model routing logic to strictly prioritize price over context length. The absolute cheapest models are now selected for both Fast and Pro tiers (assuming they meet the capability threshold) - Antigravity
+
+## [2026-08-06] Initialized knowledge base protocols.
 [2026-07-30 20:59] - Migrated data model and UI to a patient-centric WhatsApp-style sidebar with hierarchical conversations. Replaced user select dropdowns with patient sidebars and updated API routes accordingly - Gemini 3.1 Pro
 [2026-07-31 09:07] - Refactored clinical_workspace_ui_fixed.py to use the patient-centric WhatsApp-style sidebar, fully integrated with new API routes - Antigravity
 [2026-07-31 14:50] - Restored therapist workspace selector and integrated the 3-level UI hierarchy (Therapist -> Patient -> Conversation) - Antigravity

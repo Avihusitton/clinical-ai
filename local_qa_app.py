@@ -29,6 +29,7 @@ from conversation_store import (
     Neo4jConversationStore,
     PatientNotFound,
 )
+from model_router import ModelRouter
 
 
 _EMAIL_PATTERN = re.compile(r"\b[^@\s]+@[^@\s]+\.[^@\s]+\b")
@@ -263,6 +264,7 @@ class LocalQaRequestHandler(BaseHTTPRequestHandler):
     retriever: CanonicalLocalRetriever
     ai_service: AiAssistedAnswerService
     workspace_store: LocalConversationStore | Neo4jConversationStore
+    model_router: ModelRouter
     server_version = "ClinicalAiLocalQa/1.0"
 
     def _send_json(self, status: int, payload: dict[str, Any]) -> None:
@@ -360,6 +362,16 @@ class LocalQaRequestHandler(BaseHTTPRequestHandler):
                 {
                     "status": "ok",
                     "therapists": self.workspace_store.list_therapists(),
+                },
+            )
+            return
+            
+        if parsed.path == "/api/models":
+            self._send_json(
+                HTTPStatus.OK,
+                {
+                    "status": "ok",
+                    "models": self.model_router.get_current_models(),
                 },
             )
             return
@@ -725,6 +737,16 @@ class LocalQaRequestHandler(BaseHTTPRequestHandler):
                 return
         if payload.get("use_ai") is True:
             type(self).ai_service = build_ai_service_from_environment()
+            
+            if payload.get("auto_route") is True:
+                auto_category = "pro"
+                # Route to fast only if there is a short question and very little history
+                question_text = str(payload.get("question") or "").strip()
+                history = list(conversation.get("messages") or []) if conversation else []
+                if len(question_text) < 150 and len(history) < 2:
+                    auto_category = "fast"
+                payload["ai_model"] = self.model_router.get_model_id(auto_category)
+                
         status, response = handle_ask(
             self.retriever,
             payload,
@@ -897,9 +919,14 @@ def main() -> None:
     LocalQaRequestHandler.retriever = build_retriever_from_environment()
     LocalQaRequestHandler.ai_service = build_ai_service_from_environment()
     LocalQaRequestHandler.workspace_store = build_workspace_store()
+    
+    router = ModelRouter()
+    router.start_background_refresh()
+    LocalQaRequestHandler.model_router = router
+    
     server = ThreadingHTTPServer((host, port), LocalQaRequestHandler)
-    print(f"🚀 שרת Clinical AI הופעל בהצלחה!")
-    print(f"👉 היכנס לדפדפן בכתובת: http://{host if host != '0.0.0.0' else 'localhost'}:{port}/")
+    print(f"שרת Clinical AI הופעל בהצלחה!")
+    print(f"היכנס לדפדפן בכתובת: http://{host if host != '0.0.0.0' else 'localhost'}:{port}/")
     print(f"לחץ על Ctrl+C כדי לכבות את השרת.")
     server.serve_forever()
 

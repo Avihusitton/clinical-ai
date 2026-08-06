@@ -543,6 +543,8 @@ def render_workspace_html() -> str:
       overflow-wrap: anywhere;
       line-height: 1.78;
       background: rgba(255, 255, 255, .48);
+      text-align: right;
+      direction: rtl;
     }
 
     .message.user .message-body {
@@ -1107,8 +1109,7 @@ def render_workspace_html() -> str:
                 <span>ניסוח מקצועי בעזרת AI</span>
               </label>
               <select id="aiModel" class="model-select" aria-label="בחירת מודל">
-                <option value="deepseek/deepseek-v4-pro" selected>DeepSeek Pro · מעמיק</option>
-                <option value="deepseek/deepseek-v4-flash">DeepSeek Flash · מהיר</option>
+                <option value="auto" selected>בחירה אוטומטית (מומלץ)</option>
               </select>
               <label class="check-option" for="confirmNoPatientData">
                 <input id="confirmNoPatientData" type="checkbox">
@@ -1745,7 +1746,35 @@ def render_workspace_html() -> str:
         });
       }
 
+      async function fetchModels() {
+        console.log("Fetching models...");
+        try {
+          const mPayload = await api("/api/models");
+          console.log("Models payload:", mPayload);
+          if (mPayload.models) {
+            const select = byId("aiModel");
+            // Keep the 'auto' option, remove others
+            select.innerHTML = '<option value="auto" selected>בחירה אוטומטית (מומלץ)</option>';
+            if (mPayload.models.pro) {
+              const opt = document.createElement("option");
+              opt.value = mPayload.models.pro.id;
+              opt.textContent = `${mPayload.models.pro.name} · מעמיק`;
+              select.appendChild(opt);
+            }
+            if (mPayload.models.fast) {
+              const opt = document.createElement("option");
+              opt.value = mPayload.models.fast.id;
+              opt.textContent = `${mPayload.models.fast.name} · מהיר`;
+              select.appendChild(opt);
+            }
+          }
+        } catch (e) {
+          console.error("Failed to load models", e);
+        }
+      }
+
       async function loadWorkspace() {
+        fetchModels();
         try {
           const tPayload = await api("/api/therapists");
           state.therapists = safeArray(tPayload.therapists || tPayload);
@@ -1941,7 +1970,8 @@ def render_workspace_html() -> str:
               conversation_id: conversationId,
               question,
               use_ai: useAi.checked,
-              ai_model: aiModel.value,
+              ai_model: aiModel.value === "auto" ? null : aiModel.value,
+              auto_route: aiModel.value === "auto",
               confirmed_no_patient_data: true
             })
           });

@@ -19,10 +19,6 @@ DEFAULT_MODEL = "deepseek/deepseek-v4-flash"
 DEFAULT_SECRET_PATH = Path(__file__).with_name(".secrets") / "openrouter.env"
 MAX_CONTEXT_CHARS = 32000
 MAX_COMPLETION_TOKENS = 5000
-ALLOWED_MODELS = {
-    "deepseek/deepseek-v4-pro",
-    "deepseek/deepseek-v4-flash",
-}
 DEFAULT_USD_TO_ILS_RATE = 3.058
 DEFAULT_USD_TO_ILS_RATE_DATE = "2026-07-28"
 
@@ -308,7 +304,7 @@ class OpenRouterProvider:
         model: str | None = None,
     ) -> AiGeneration:
         token_limit = min(max(1, int(max_completion_tokens)), MAX_COMPLETION_TOKENS)
-        selected_model = model if model in ALLOWED_MODELS else self.model
+        selected_model = model or self.model
         body = self._post_json(
             url=OPENROUTER_ENDPOINT,
             headers={
@@ -469,8 +465,8 @@ def _generate_with_model_fallback(
     primary_model: str,
 ) -> tuple[AiGeneration, bool]:
     models = [primary_model]
-    if primary_model == "deepseek/deepseek-v4-pro":
-        models.append("deepseek/deepseek-v4-flash")
+    # We used to fallback from pro to flash, now we just rely on OpenRouter's fallback mechanisms
+    # by allowing them in the API request ("allow_fallbacks": True).
     last_error: Exception | None = None
     for index, model in enumerate(models):
         try:
@@ -529,11 +525,7 @@ class AiAssistedAnswerService:
             return "שיחה חדשה"
         
         system_prompt = "אתה עוזר וירטואלי שמייצר כותרת קצרה מאוד (עד 4 מילים) לשאלה של משתמש. ענה אך ורק עם הכותרת המוצעת, ללא גרשיים או הקדמות."
-        selected_model = (
-            requested_model
-            if requested_model in ALLOWED_MODELS
-            else self._provider.model
-        )
+        selected_model = requested_model or self._provider.model
         
         try:
             generation, _ = _generate_with_model_fallback(
@@ -574,11 +566,7 @@ class AiAssistedAnswerService:
             return result
 
         context, stats = build_compact_context(result)
-        selected_model = (
-            requested_model
-            if requested_model in ALLOWED_MODELS
-            else self._provider.model
-        )
+        selected_model = requested_model or self._provider.model
         recent_history = _compact_history(conversation_history)
         requires_provisional_answer = _requires_provisional_answer(
             question,
@@ -634,12 +622,7 @@ class AiAssistedAnswerService:
             return result
         first_stage_model = (
             first_generation.model
-            if first_generation.model in ALLOWED_MODELS
-            else (
-                "deepseek/deepseek-v4-flash"
-                if first_fallback_used
-                else selected_model
-            )
+            or selected_model
         )
         review_prompt = (
             "שאלת המשתמש:\n"

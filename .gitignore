@@ -39,3 +39,7 @@ pip-log.txt
 # קבצי מערכת הפעלה
 .DS_Store
 Thumbs.db
+ 
+*.env
+aura.env
+test.js
