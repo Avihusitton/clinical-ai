@@ -26,6 +26,7 @@ from clinical_workspace_ui import render_workspace_html
 from conversation_store import (
     ConversationNotFound,
     LocalConversationStore,
+    Neo4jConversationStore,
     PatientNotFound,
 )
 
@@ -219,17 +220,49 @@ def build_retriever_from_environment() -> CanonicalLocalRetriever:
     return CanonicalLocalRetriever(executor)
 
 
-def build_workspace_store() -> LocalConversationStore:
-    configured_path = os.getenv("CLINICAL_AI_WORKSPACE_PATH", "").strip()
-    return LocalConversationStore(
-        Path(configured_path) if configured_path else DEFAULT_WORKSPACE_PATH
+def build_workspace_store() -> Neo4jConversationStore:
+    file_settings: dict[str, str] = {}
+    env_path = Path(__file__).with_name(".env")
+    if env_path.exists():
+        file_settings = _parse_neo4j_env_lines(
+            env_path.read_text(encoding="utf-8").splitlines()
+        )
+    username = (
+        os.getenv("NEO4J_USER")
+        or os.getenv("NEO4J_USERNAME")
+        or file_settings.get("NEO4J_USER")
+        or "neo4j"
+    )
+    password = (os.getenv("NEO4J_PASSWORD") or file_settings.get("NEO4J_PASSWORD", "")).strip()
+    bolt_uri = (
+        os.getenv("NEO4J_URI") 
+        or file_settings.get("NEO4J_URI")
+    )
+    database = (
+        os.getenv("NEO4J_DATABASE")
+        or file_settings.get("NEO4J_DATABASE")
+        or None
+    )
+    
+    if not bolt_uri:
+        # Fallback to local if no neo4j is configured, though Neo4j is expected
+        configured_path = os.getenv("CLINICAL_AI_WORKSPACE_PATH", "").strip()
+        return LocalConversationStore(
+            Path(configured_path) if configured_path else DEFAULT_WORKSPACE_PATH
+        )
+        
+    return Neo4jConversationStore(
+        uri=bolt_uri,
+        username=username,
+        password=password,
+        database=database
     )
 
 
 class LocalQaRequestHandler(BaseHTTPRequestHandler):
     retriever: CanonicalLocalRetriever
     ai_service: AiAssistedAnswerService
-    workspace_store: LocalConversationStore
+    workspace_store: LocalConversationStore | Neo4jConversationStore
     server_version = "ClinicalAiLocalQa/1.0"
 
     def _send_json(self, status: int, payload: dict[str, Any]) -> None:

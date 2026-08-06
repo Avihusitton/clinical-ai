@@ -367,3 +367,74 @@ class LocalConversationStore:
                 conversation["updated_at"] = _now()
                 self._write(payload)
             return deepcopy(conversation)
+
+
+from neo4j import GraphDatabase
+import threading
+import json
+import uuid
+
+class Neo4jConversationStore(LocalConversationStore):
+    def __init__(self, uri: str, username: str, password: str, database: str | None = None):
+        self._driver = GraphDatabase.driver(uri, auth=(username, password))
+        self._database = database
+        self._lock = threading.RLock()
+        
+        # Verify connection and initialize if needed
+        try:
+            self._driver.verify_connectivity()
+            # If the node doesn't exist, _read() handles defaults, but we need to _write them
+            payload = self._read()
+            if not payload.get("version"):
+                payload["version"] = 1
+                self._write(payload)
+        except Exception as exc:
+            raise RuntimeError("Failed to connect to Neo4j") from exc
+
+    def _read(self) -> dict:
+        query = """
+        MATCH (state:AppState {id: "clinical_ai_conversations"})
+        RETURN state.payload AS payload
+        """
+        try:
+            with self._driver.session(database=self._database) as session:
+                record = session.run(query).single()
+                if record and record["payload"]:
+                    payload = json.loads(record["payload"])
+                else:
+                    payload = {}
+        except Exception as exc:
+            raise RuntimeError("Neo4j workspace is unavailable") from exc
+            
+        if not isinstance(payload, dict):
+            payload = {}
+            
+        if "users" in payload:
+            payload["therapists"] = payload.pop("users")
+            
+        payload.setdefault("therapists", [])
+        payload.setdefault("patients", [])
+        payload.setdefault("conversations", [])
+        
+        # Ensure all patients have a therapist_id
+        if payload["patients"] and not any(p.get("therapist_id") for p in payload["patients"]):
+            default_therapist_id = f"thr-{uuid.uuid4().hex}"
+            payload["therapists"].append({
+                "id": default_therapist_id,
+                "name": "מטפל כללי",
+                "created_at": _now()
+            })
+            for patient in payload["patients"]:
+                patient["therapist_id"] = default_therapist_id
+
+        return payload
+
+    def _write(self, payload: dict) -> None:
+        payload_str = json.dumps(payload, ensure_ascii=False)
+        query = """
+        MERGE (state:AppState {id: "clinical_ai_conversations"})
+        SET state.payload = $payload
+        """
+        with self._driver.session(database=self._database) as session:
+            session.run(query, payload=payload_str)
+

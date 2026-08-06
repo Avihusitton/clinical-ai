@@ -20,4 +20,5 @@ All notable changes to this project will be documented in this file.
 [2026-08-04 15:25] - Fixed Neo4j Aura Bolt query execution and cleaned up LegacyRetrievalAdapter - Gemini 3.1 Pro
 [2026-08-06 13:53] - Fixed persistent conversation loading bug in clinical_workspace_ui.py to fetch full messages, and added visual feedback (optimistic message & typing indicator) during slow API calls. - Gemini 3.1 Pro
 [2026-08-06 14:04] - Added functionality to delete therapists and conversations, integrated AI for automatic conversation title generation - Gemini 3.1 Pro  
+[2026-08-06 15:01] - Migrated conversation storage from local JSON file to Neo4j to support ephemeral cloud environments like Render - Gemini 3.1 Pro
  
