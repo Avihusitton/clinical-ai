@@ -1958,6 +1958,7 @@ def render_workspace_html() -> str:
 
         setBusy(true);
         appendOptimisticMessage(question);
+        questionInput.value = "";
         showLoadingMessage();
         
         try {
@@ -2028,13 +2029,13 @@ def render_workspace_html() -> str:
           if (payload.status && !["answered", "ok"].includes(payload.status)) {
             throw new Error(payload.answer_text || "לא ניתן להשלים את המענה.");
           }
-          questionInput.value = "";
           removeOptimisticMessage();
           removeLoadingMessage();
           await loadWorkspace();
           await selectConversation(state.activePatientId, conversationId);
         } catch (error) {
           showComposerError(error.message);
+          questionInput.value = question;
           removeOptimisticMessage();
           removeLoadingMessage();
         } finally {
