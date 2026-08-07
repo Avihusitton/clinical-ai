@@ -1238,6 +1238,7 @@ def render_workspace_html() -> str:
         aiAvailable: true,
         busy: false
       };
+      window.state = state;
 
       const byId = (id) => document.getElementById(id);
       const therapistSelect = byId("therapistSelect");
@@ -1835,6 +1836,8 @@ def render_workspace_html() -> str:
         }
 
         const savedPatientId = window.localStorage.getItem("derech.activePatientId") || "";
+        console.log("DEBUG: savedPatientId =", savedPatientId);
+        console.log("DEBUG: state.patients =", JSON.stringify(state.patients));
         state.activePatientId = state.patients.some((p) => String(p.id) === savedPatientId)
           ? savedPatientId
           : String(state.patients[0]?.id || "");
@@ -1943,6 +1946,7 @@ def render_workspace_html() -> str:
         const conversation = pickObject(payload, "conversation");
         const conversationId = String(conversation.id || "");
         state.activeConversationId = conversationId;
+        window.localStorage.setItem(`derech.activeConversationId.${state.activePatientId}`, conversationId);
         await loadWorkspace();
         return conversationId;
       }
@@ -1965,14 +1969,14 @@ def render_workspace_html() -> str:
           privacyCheck.focus();
           return;
         }
-
         setBusy(true);
-        appendOptimisticMessage(question);
-        questionInput.value = "";
-        showLoadingMessage();
         
         try {
           const conversationId = await ensureConversation();
+          
+          appendOptimisticMessage(question);
+          questionInput.value = "";
+          showLoadingMessage();
           
           const res = await fetch("/api/ask", {
             method: "POST",
@@ -2041,6 +2045,7 @@ def render_workspace_html() -> str:
           }
           removeOptimisticMessage();
           removeLoadingMessage();
+          setBusy(false);
           await loadWorkspace();
           await selectConversation(state.activePatientId, conversationId);
         } catch (error) {

@@ -606,9 +606,9 @@ class LocalQaRequestHandler(BaseHTTPRequestHandler):
             patient_id = post_conversations_match.group(2)
             try:
                 conversation = self.workspace_store.create_conversation(
-                    therapist_id,
-                    patient_id,
-                    str(payload.get("title") or "שיחה חדשה"),
+                    therapist_id=therapist_id,
+                    patient_id=patient_id,
+                    title=str(payload.get("title") or "שיחה חדשה"),
                 )
             except (KeyError, PatientNotFound):
                 self._send_json(
@@ -786,66 +786,66 @@ class LocalQaRequestHandler(BaseHTTPRequestHandler):
             )
             
             if status == HTTPStatus.OK and conversation is not None:
-            question = str(payload.get("question") or "").strip()
-            self.workspace_store.append_message(
-                therapist_id=therapist_id,
-                patient_id=patient_id,
-                conversation_id=conversation_id,
-                role="user",
-                content=question,
-            )
-            assistant_metadata = {
-                "generation": response.get("generation") or {},
-                "response_type": response.get("response_type") or "answer",
-                "ai_model": response.get("ai_model"),
-                "mode": response.get("mode"),
-                "release_id": response.get("release_id"),
-                "quality_reviewed": bool(
-                    response.get("quality_reviewed")
-                ),
-                "retrieval_stats": response.get("ai_context") or {},
-                "evidence": {
-                    "matches": list(response.get("matches") or [])[:12],
-                    "canonical_relations": list(
-                        response.get("canonical_relations") or []
-                    )[:24],
-                    "approved_source_evidence": list(
-                        response.get("approved_source_evidence") or []
-                    )[:24],
-                },
-            }
-            self.workspace_store.append_message(
-                therapist_id=therapist_id,
-                patient_id=patient_id,
-                conversation_id=conversation_id,
-                role="assistant",
-                content=str(response.get("answer_text") or ""),
-                metadata=assistant_metadata,
-            )
-            if response.get("conversation_summary") is not None:
-                self.workspace_store.update_summary(
+                question = str(payload.get("question") or "").strip()
+                self.workspace_store.append_message(
                     therapist_id=therapist_id,
                     patient_id=patient_id,
                     conversation_id=conversation_id,
-                    summary=str(response.get("conversation_summary") or ""),
+                    role="user",
+                    content=question,
                 )
-            if conversation.get("title") == "שיחה חדשה":
-                if self.ai_service and self.ai_service.available:
-                    new_title = self.ai_service.generate_title(question, requested_model=payload.get("ai_model"))
-                    if new_title and new_title != "שיחה חדשה":
-                        self.workspace_store.update_title(
-                            therapist_id=therapist_id,
-                            patient_id=patient_id,
-                            conversation_id=conversation_id,
-                            title=new_title
-                        )
-                else:
-                    self.workspace_store.set_title_from_first_question(
+                assistant_metadata = {
+                    "generation": response.get("generation") or {},
+                    "response_type": response.get("response_type") or "answer",
+                    "ai_model": response.get("ai_model"),
+                    "mode": response.get("mode"),
+                    "release_id": response.get("release_id"),
+                    "quality_reviewed": bool(
+                        response.get("quality_reviewed")
+                    ),
+                    "retrieval_stats": response.get("ai_context") or {},
+                    "evidence": {
+                        "matches": list(response.get("matches") or [])[:12],
+                        "canonical_relations": list(
+                            response.get("canonical_relations") or []
+                        )[:24],
+                        "approved_source_evidence": list(
+                            response.get("approved_source_evidence") or []
+                        )[:24],
+                    },
+                }
+                self.workspace_store.append_message(
+                    therapist_id=therapist_id,
+                    patient_id=patient_id,
+                    conversation_id=conversation_id,
+                    role="assistant",
+                    content=str(response.get("answer_text") or ""),
+                    metadata=assistant_metadata,
+                )
+                if response.get("conversation_summary") is not None:
+                    self.workspace_store.update_summary(
                         therapist_id=therapist_id,
                         patient_id=patient_id,
                         conversation_id=conversation_id,
-                        question=question,
+                        summary=str(response.get("conversation_summary") or ""),
                     )
+                if conversation.get("title") == "שיחה חדשה":
+                    if self.ai_service and self.ai_service.available:
+                        new_title = self.ai_service.generate_title(question, requested_model=payload.get("ai_model"))
+                        if new_title and new_title != "שיחה חדשה":
+                            self.workspace_store.update_title(
+                                therapist_id=therapist_id,
+                                patient_id=patient_id,
+                                conversation_id=conversation_id,
+                                title=new_title
+                            )
+                    else:
+                        self.workspace_store.set_title_from_first_question(
+                            therapist_id=therapist_id,
+                            patient_id=patient_id,
+                            conversation_id=conversation_id,
+                            question=question,
+                        )
             response["conversation_id"] = conversation_id
             
             # Send the final payload as the last NDJSON line

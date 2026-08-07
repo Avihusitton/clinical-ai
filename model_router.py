@@ -20,7 +20,9 @@ TRUSTED_PREFIXES = [
     "moonshotai/kimi-",
     "openai/gpt-",
     "openai/o",
-    "x-ai/grok-"
+    "x-ai/grok-",
+    "qwen/",
+    "xiaomi/"
 ]
 
 # Max price per 1K prompt tokens (USD)
@@ -140,7 +142,7 @@ class ModelRouter:
             score = 0
             name_lower = m["id"].lower()
             # Huge boost for models known for top-tier reasoning/capability
-            if "pro" in name_lower or "opus" in name_lower or "large" in name_lower or "3.5-sonnet" in name_lower:
+            if "pro" in name_lower or "opus" in name_lower or "large" in name_lower or "3.5-sonnet" in name_lower or "deepseek-r1" in name_lower or "deepseek-v4-pro" in name_lower or "deepseek-chat" in name_lower:
                 score -= 100 
             
             # Secondarily prioritize lowest price (instead of context length)

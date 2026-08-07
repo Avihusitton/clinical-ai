@@ -3,6 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+- [2026-08-07 11:17] - Refined OpenRouter model selection scoring to properly value top-tier deepseek variants alongside GPT, and fixed UI race condition that caused conversations to reset after first question - Antigravity
 - [2026-08-06 15:26] - Implemented dynamic OpenRouter model routing to optimize for Fast/Pro capabilities, automatically selecting cost-effective models while maintaining quality - Gemini 3.5 Pro
 - [2026-08-06 22:21] - Expanded model whitelist to include kimi and grok, fixed UI model dropdown population bug, and corrected RTL text alignment for chat messages - Antigravity
 - [2026-08-06 22:26] - Refined model routing logic to strictly prioritize price over context length. The absolute cheapest models are now selected for both Fast and Pro tiers (assuming they meet the capability threshold) - Antigravity
